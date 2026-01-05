@@ -5,4 +5,6 @@ export default defineConfig({
   server: {
     host: true,
   },
+  site: 'https://luissarmientom.github.io',
+  base: '/Portfolio',
 });

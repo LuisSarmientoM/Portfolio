@@ -1,0 +1,15 @@
+---
+export interface Props {
+  title: string;
+  kicker?: string;
+  children: any;
+}
+const { title, kicker, children } = Astro.props;
+---
+<section class="space-y-4">
+  <div class="flex items-baseline gap-3">
+    {kicker && <span class="text-xs uppercase tracking-[0.3em] text-slate-400">{kicker}</span>}
+    <h2 class="text-lg font-semibold text-slate-50">{title}</h2>
+  </div>
+  <div class="space-y-4 text-slate-200">{children}</div>
+</section>

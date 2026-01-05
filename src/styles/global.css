@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;600&display=swap");
+@import "tailwindcss";
+
+@source "./src/**/*.{astro,html,js,ts,jsx,tsx}";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --color-surface: #0f172a;
+  --color-surface-strong: #0b1325;
+  --color-border: rgba(148, 163, 184, 0.25);
+  --color-accent: #a855f7;
+  --shadow-soft: 0 20px 70px rgba(15, 23, 42, 0.55);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.88));
+  color: #e2e8f0;
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: #c084fc;
+}
+
+::selection {
+  background: rgba(168, 85, 247, 0.25);
+}
+
+.card {
+  background: radial-gradient(circle at 20% 20%, rgba(148, 163, 184, 0.08), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+    var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+}
+
+.ribbon {
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.25), rgba(14, 165, 233, 0.2));
+}

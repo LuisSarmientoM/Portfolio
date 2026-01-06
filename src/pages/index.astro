@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Tag from '../components/Tag.astro';
 import { education, experience, interests, profile, projects, skills } from '../data/resume';
-
 const blogPosts = (Object.values(
   import.meta.glob<MarkdownInstance<Record<string, any>>>('./blog/*.md', { eager: true })
 ) as MarkdownInstance<Record<string, any>>[])

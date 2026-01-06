@@ -1,9 +1,9 @@
 {
   "profile": {
-    "name": "Bartosz Jarocki",
-    "title": "Senior Frontend Engineer",
-    "location": "Remote / Europe",
-    "summary": "Engineer focused on building thoughtful digital products and resilient design systems. I enjoy translating complex ideas into elegant, accessible interfaces.",
+    "name": "Luis Felipe Sarmiento Muñoz",
+    "title": "Senior JavaScript Developer",
+    "location": "Remote / Colombia",
+    "summary": "JavaScript/Typescript developer with experience building applications using Angular 10+ and NestJS. My passion for technology drives me to stay current with the latest trends in development",
     "links": [
       { "label": "Email", "href": "mailto:hello@jarocki.dev" },
       { "label": "GitHub", "href": "https://github.com/BartoszJarocki" },

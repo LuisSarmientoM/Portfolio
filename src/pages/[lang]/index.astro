@@ -1,0 +1,25 @@
+---
+import HomePage from '../../components/HomePage.astro';
+import resume from '../../data/resume.json';
+
+type TranslationKey = keyof typeof resume.translations;
+
+const languages = resume.languages;
+const translationKeys = Object.keys(resume.translations) as TranslationKey[];
+const defaultLanguage = (languages[0]?.code as TranslationKey) ?? translationKeys[0];
+const requestedLangParam = Astro.params.lang;
+const requestedLang = translationKeys.find((code) => code === requestedLangParam) as TranslationKey | undefined;
+
+if (!requestedLang) {
+  return Astro.redirect('/');
+}
+
+const translation = resume.translations[requestedLang];
+---
+<HomePage
+  data={translation}
+  labels={translation.labels}
+  languages={languages}
+  currentLanguage={requestedLang ?? defaultLanguage}
+  defaultLanguage={defaultLanguage}
+/>

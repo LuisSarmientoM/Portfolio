@@ -1,0 +1,150 @@
+{
+  "languages": [
+    { "code": "es", "label": "Español" },
+    { "code": "en", "label": "English" }
+  ],
+  "translations": {
+    "en": {
+      "labels": {
+        "available": "Available for remote roles",
+        "portfolio": "Portfolio",
+        "coreSkillsKicker": "Core skills",
+        "coreSkillsTitle": "Building robust web apps",
+        "coreSkillsDescription": "JavaScript/TypeScript developer focused on Angular and NestJS. I design maintainable frontends and APIs that balance performance, accessibility, and clean architecture.",
+        "recentFocusLabel": "Recent focus",
+        "recentFocusItems": "Angular 17+ · NestJS microservices · AWS deployments",
+        "experienceTitle": "Experience",
+        "experienceKicker": "Timeline",
+        "projectsTitle": "Projects",
+        "projectsKicker": "Selected",
+        "skillsTitle": "Skills & Tools",
+        "skillsKicker": "Stacks",
+        "expertiseLabel": "Expertise",
+        "toolingLabel": "Tooling",
+        "languagesLabel": "Languages",
+        "educationTitle": "Education",
+        "educationKicker": "Background",
+        "interestsTitle": "Interests",
+        "interestsKicker": "Personal"
+      },
+      "profile": {
+        "name": "Luis Felipe Sarmiento Muñoz",
+        "title": "Senior JavaScript Developer",
+        "location": "Remote / Colombia",
+        "summary": "JavaScript/TypeScript developer with experience building applications using Angular 10+ and NestJS. Passionate about clean architecture, performance, and staying current with modern web practices.",
+        "links": [
+          { "label": "Email", "href": "mailto:hello@lsarmiento.dev" },
+          { "label": "GitHub", "href": "https://github.com/LuisSarmientoM" },
+          { "label": "LinkedIn", "href": "https://www.linkedin.com/in/luissarmientomunoz/" }
+        ]
+      },
+      "experience": [
+        {
+          "company": "Tuatara Boutique Agency",
+          "role": "Fullstack Developer",
+          "period": "2021 — Present",
+          "location": "Remote",
+          "achievements": [
+            "Reduced development times by 30% through the enhancement of project architectures.",
+            "Improved website performance by adhering to the latest web standards.",
+            "Developed Single Page Applications (SPAs) using Angular and customized websites with WordPress.",
+            "Deployed to production on AWS, Azure, BlueHost, and DigitalOcean."
+          ],
+          "stack": ["TypeScript", "Angular", "NestJS", "Wordpress", "AWS", "n8n"]
+        }
+      ],
+      "projects": [
+        {
+          "name": "PaperCV",
+          "description": "A printable résumé builder that exports accessible, typographically refined PDFs directly from the browser.",
+          "link": "https://github.com/BartoszJarocki/cv",
+          "tags": ["Astro", "Tailwind CSS", "Design systems"]
+        }
+      ],
+      "skills": {
+        "expertise": ["TypeScript", "Angular", "Tailwind CSS", "Node.js", "Accessibility"],
+        "tooling": ["Figma", "PostgreSQL"],
+        "languages": ["English (B1)", "Spanish (Native)"]
+      },
+      "education": [
+        {
+          "school": "Universidad Libre, Colombia",
+          "program": "Systems Engineer",
+          "period": "2014 — 2020"
+        }
+      ],
+      "interests": ["AI", "Running", "Videogames", "Coffee brewing"]
+    },
+    "es": {
+      "labels": {
+        "available": "Disponible para roles remotos",
+        "portfolio": "Portafolio",
+        "coreSkillsKicker": "Habilidades clave",
+        "coreSkillsTitle": "Construyendo apps web robustas",
+        "coreSkillsDescription": "Desarrollador JavaScript/TypeScript enfocado en Angular y NestJS. Diseño frontends y APIs mantenibles que equilibran rendimiento, accesibilidad y arquitectura limpia.",
+        "recentFocusLabel": "Enfoque reciente",
+        "recentFocusItems": "Angular 17+ · Microservicios con NestJS · Despliegues en AWS",
+        "experienceTitle": "Experiencia",
+        "experienceKicker": "Cronología",
+        "projectsTitle": "Proyectos",
+        "projectsKicker": "Destacados",
+        "skillsTitle": "Habilidades y herramientas",
+        "skillsKicker": "Stacks",
+        "expertiseLabel": "Especialidad",
+        "toolingLabel": "Herramientas",
+        "languagesLabel": "Idiomas",
+        "educationTitle": "Educación",
+        "educationKicker": "Formación",
+        "interestsTitle": "Intereses",
+        "interestsKicker": "Personal"
+      },
+      "profile": {
+        "name": "Luis Felipe Sarmiento Muñoz",
+        "title": "Senior JavaScript Developer",
+        "location": "Remoto / Colombia",
+        "summary": "Desarrollador JavaScript/TypeScript con experiencia construyendo aplicaciones en Angular 10+ y NestJS. Apasionado por la arquitectura limpia, el rendimiento y las buenas prácticas modernas.",
+        "links": [
+          { "label": "Email", "href": "mailto:hello@lsarmiento.dev" },
+          { "label": "GitHub", "href": "https://github.com/LuisSarmientoM" },
+          { "label": "LinkedIn", "href": "https://www.linkedin.com/in/luissarmientomunoz/" }
+        ]
+      },
+      "experience": [
+        {
+          "company": "Tuatara Boutique Agency",
+          "role": "Fullstack Developer",
+          "period": "2021 — Presente",
+          "location": "Remoto",
+          "achievements": [
+            "Reducí los tiempos de desarrollo en un 30% al mejorar las arquitecturas de los proyectos.",
+            "Mejoré el rendimiento de los sitios web siguiendo los estándares web más recientes.",
+            "Desarrollé SPAs con Angular y sitios a medida usando WordPress.",
+            "Realicé despliegues a producción en AWS, Azure, BlueHost y DigitalOcean."
+          ],
+          "stack": ["TypeScript", "Angular", "NestJS", "Wordpress", "AWS", "n8n"]
+        }
+      ],
+      "projects": [
+        {
+          "name": "PaperCV",
+          "description": "Generador de currículums imprimibles que exporta PDFs accesibles y bien maquetados directamente desde el navegador.",
+          "link": "https://github.com/BartoszJarocki/cv",
+          "tags": ["Astro", "Tailwind CSS", "Design systems"]
+        }
+      ],
+      "skills": {
+        "expertise": ["TypeScript", "Angular", "Tailwind CSS", "Node.js", "Accesibilidad"],
+        "tooling": ["Figma", "PostgreSQL"],
+        "languages": ["Inglés (B1)", "Español (Nativo)"]
+      },
+      "education": [
+        {
+          "school": "Universidad Libre, Colombia",
+          "program": "Ingeniería de Sistemas",
+          "period": "2014 — 2020"
+        }
+      ],
+      "interests": ["IA", "Correr", "Videojuegos", "Preparación de café"]
+    }
+  }
+}

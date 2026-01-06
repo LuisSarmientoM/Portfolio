@@ -1,0 +1,269 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from './Section.astro';
+import Tag from './Tag.astro';
+
+interface LanguageOption {
+  code: string;
+  label: string;
+}
+
+interface ResumeData {
+  labels: {
+    available: string;
+    portfolio: string;
+    coreSkillsKicker: string;
+    coreSkillsTitle: string;
+    coreSkillsDescription: string;
+    recentFocusLabel: string;
+    recentFocusItems: string;
+    experienceTitle: string;
+    experienceKicker: string;
+    projectsTitle: string;
+    projectsKicker: string;
+    skillsTitle: string;
+    skillsKicker: string;
+    expertiseLabel: string;
+    toolingLabel: string;
+    languagesLabel: string;
+    educationTitle: string;
+    educationKicker: string;
+    interestsTitle: string;
+    interestsKicker: string;
+  };
+  profile: {
+    name: string;
+    title: string;
+    location: string;
+    summary: string;
+    links: Array<{ label: string; href: string }>;
+  };
+  experience: Array<{
+    company: string;
+    role: string;
+    period: string;
+    location: string;
+    achievements: string[];
+    stack: string[];
+  }>;
+  projects: Array<{
+    name: string;
+    description: string;
+    link: string;
+    tags: string[];
+  }>;
+  skills: {
+    expertise: string[];
+    tooling: string[];
+    languages: string[];
+  };
+  education: Array<{
+    school: string;
+    program: string;
+    period: string;
+  }>;
+  interests: string[];
+}
+
+interface Props {
+  data: ResumeData;
+  labels: ResumeData['labels'];
+  languages: LanguageOption[];
+  currentLanguage: string;
+  defaultLanguage: string;
+}
+
+const { data, labels, languages, currentLanguage, defaultLanguage }: Props = Astro.props;
+const { education, experience, interests, profile, projects, skills } = data;
+
+const getLanguageHref = (code: string) => (code === defaultLanguage ? '/' : `/${code}/`);
+---
+<BaseLayout lang={currentLanguage} description={`${profile.name} · ${profile.title}`}>
+  <Fragment slot="head">
+    <title>{profile.name} · {profile.title}</title>
+  </Fragment>
+
+  <div class="mb-4 flex justify-end">
+    <div class="inline-flex gap-1 rounded-full bg-slate-900/70 p-1 ring-1 ring-inset ring-slate-800">
+      {languages.map((lang: LanguageOption) => (
+        <a
+          class={`rounded-full px-3 py-1 text-xs font-semibold transition ${
+            lang.code === currentLanguage
+              ? 'bg-indigo-500/20 text-indigo-100 ring-1 ring-inset ring-indigo-500/60'
+              : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+          }`}
+          href={getLanguageHref(lang.code)}
+        >
+          {lang.label}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-6">
+    <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+      <div class="card relative overflow-hidden p-8">
+        <div class="absolute left-0 top-0 h-1 w-32 rounded-full ribbon" />
+        <div class="flex flex-wrap items-center justify-between gap-3 text-slate-400">
+          <span class="text-sm">{profile.location}</span>
+          <span class="text-sm">{labels.available}</span>
+        </div>
+        <div class="mt-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div class="space-y-3">
+            <p class="text-sm uppercase tracking-[0.25em] text-slate-400">{labels.portfolio}</p>
+            <h1 class="text-3xl font-bold leading-tight text-slate-50 sm:text-4xl">
+              {profile.name}
+            </h1>
+            <p class="text-lg font-semibold text-slate-200">{profile.title}</p>
+            <p class="max-w-2xl text-base leading-relaxed text-slate-200/90">{profile.summary}</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            {profile.links.map((link: { label: string; href: string }) => (
+              <a
+                class="inline-flex items-center gap-2 rounded-full bg-slate-800/70 px-4 py-2 text-sm font-semibold text-slate-100 ring-1 ring-inset ring-slate-700 transition hover:-translate-y-0.5 hover:bg-slate-800 hover:text-white"
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="card flex flex-col gap-4 p-8">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-slate-400">{labels.coreSkillsKicker}</p>
+          <h2 class="mt-2 text-xl font-semibold text-slate-50">{labels.coreSkillsTitle}</h2>
+          <p class="mt-3 text-sm leading-relaxed text-slate-200">{labels.coreSkillsDescription}</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {skills.expertise.map((skill: string) => <Tag label={skill} />)}
+        </div>
+        <div class="rounded-2xl bg-slate-900/60 p-4 ring-1 ring-inset ring-slate-800">
+          <p class="text-xs uppercase tracking-[0.3em] text-slate-500">{labels.recentFocusLabel}</p>
+          <p class="mt-2 text-sm text-slate-200">{labels.recentFocusItems}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+      <div class="card p-8">
+        <Section title={labels.experienceTitle} kicker={labels.experienceKicker}>
+          <div class="space-y-10">
+            {experience.map((item: ResumeData['experience'][number]) => (
+              <article class="rounded-2xl bg-slate-900/50 p-5 ring-1 ring-inset ring-slate-800">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p class="text-sm uppercase tracking-[0.2em] text-slate-400">{item.period}</p>
+                    <h3 class="text-xl font-semibold text-slate-50">{item.role}</h3>
+                    <p class="text-sm text-slate-300">{item.company} · {item.location}</p>
+                  </div>
+                  <div class="flex flex-wrap gap-2">
+                    {item.stack.map((tech: string) => <Tag label={tech} />)}
+                  </div>
+                </div>
+                <ul class="mt-4 space-y-2 text-sm leading-relaxed text-slate-200">
+                  {item.achievements.map((note: string) => (
+                    <li class="flex gap-2">
+                      <span class="mt-1 h-2 w-2 rounded-full bg-slate-500" aria-hidden="true" />
+                      <span>{note}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </Section>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <div class="card p-8">
+          <Section title={labels.projectsTitle} kicker={labels.projectsKicker}>
+            <div class="space-y-6">
+              {projects.map((project: ResumeData['projects'][number]) => (
+                <a
+                  class="group block rounded-2xl bg-slate-900/50 p-4 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-1 hover:border-slate-700"
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 class="text-base font-semibold text-slate-50 group-hover:text-white">{project.name}</h3>
+                      <p class="mt-1 text-sm leading-relaxed text-slate-200/90">{project.description}</p>
+                    </div>
+                    <svg
+                      class="mt-1 h-5 w-5 text-slate-500 group-hover:text-slate-200"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M7 17 17 7" />
+                      <path d="M7 7h10v10" />
+                    </svg>
+                  </div>
+                  <div class="mt-3 flex flex-wrap gap-2">
+                    {project.tags.map((tag: string) => <Tag label={tag} />)}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </Section>
+        </div>
+
+        <div class="card p-8">
+          <Section title={labels.skillsTitle} kicker={labels.skillsKicker}>
+            <div class="space-y-4 text-sm text-slate-200">
+              <div>
+                <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{labels.expertiseLabel}</p>
+                <div class="mt-2 flex flex-wrap gap-2">
+                  {skills.expertise.map((item: string) => <Tag label={item} />)}
+                </div>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{labels.toolingLabel}</p>
+                <div class="mt-2 flex flex-wrap gap-2">
+                  {skills.tooling.map((item: string) => <Tag label={item} />)}
+                </div>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{labels.languagesLabel}</p>
+                <div class="mt-2 flex flex-wrap gap-2">
+                  {skills.languages.map((item: string) => <Tag label={item} />)}
+                </div>
+              </div>
+            </div>
+          </Section>
+        </div>
+
+        <div class="card p-8">
+          <Section title={labels.educationTitle} kicker={labels.educationKicker}>
+            <div class="space-y-4">
+              {education.map((item: ResumeData['education'][number]) => (
+                <div class="rounded-xl bg-slate-900/50 p-4 ring-1 ring-inset ring-slate-800">
+                  <p class="text-sm uppercase tracking-[0.2em] text-slate-400">{item.period}</p>
+                  <h3 class="text-base font-semibold text-slate-50">{item.school}</h3>
+                  <p class="text-sm text-slate-200">{item.program}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+        </div>
+
+        <div class="card p-8">
+          <Section title={labels.interestsTitle} kicker={labels.interestsKicker}>
+            <div class="flex flex-wrap gap-2">
+              {interests.map((item: string) => <Tag label={item} />)}
+            </div>
+          </Section>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

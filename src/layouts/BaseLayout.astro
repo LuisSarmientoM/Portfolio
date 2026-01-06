@@ -1,12 +1,19 @@
 ---
 import '../styles/tailwind.css';
+
+interface Props {
+  lang?: string;
+  description?: string;
+}
+
+const { lang = 'en', description = 'Résumé and portfolio for Bartosz Jarocki' }: Props = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth bg-slate-950 text-slate-100">
+<html lang={lang} class="scroll-smooth bg-slate-950 text-slate-100">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Résumé and portfolio for Bartosz Jarocki" />
+    <meta name="description" content={description} />
     <slot name="head" />
   </head>
   <body class="min-h-screen bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.18),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.16),transparent_32%),radial-gradient(circle_at_0%_60%,rgba(14,165,233,0.12),transparent_35%)]">

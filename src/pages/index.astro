@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Tag from '../components/Tag.astro';
-import { education, experience, interests, profile, projects, skills } from '../data/resume';
+import resume from '../data/resume.json';
+
+const { education, experience, interests, profile, projects, skills } = resume;
 ---
 <BaseLayout>
   <Fragment slot="head">

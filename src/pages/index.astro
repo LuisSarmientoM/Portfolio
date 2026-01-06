@@ -1,8 +1,15 @@
 ---
+import type { MarkdownInstance } from 'astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Tag from '../components/Tag.astro';
 import { education, experience, interests, profile, projects, skills } from '../data/resume';
+
+const blogPosts = (Object.values(
+  import.meta.glob<MarkdownInstance<Record<string, any>>>('./blog/*.md', { eager: true })
+) as MarkdownInstance<Record<string, any>>[])
+  .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+  .slice(0, 2);
 ---
 <BaseLayout>
   <Fragment slot="head">
@@ -91,11 +98,42 @@ import { education, experience, interests, profile, projects, skills } from '../
       </div>
 
       <div class="flex flex-col gap-6">
-        <div class="card p-8">
-          <Section title="Projects" kicker="Selected">
-            <div class="space-y-6">
-              {projects.map((project) => (
+      <div class="card p-8">
+        <Section title="Blog" kicker="Writing">
+          <div class="space-y-4">
+            <p class="text-sm leading-relaxed text-slate-200">
+              Notas breves sobre cómo documento componentes, mido el rendimiento y organizo el trabajo en productos digitales.
+            </p>
+            <div class="space-y-3">
+              {blogPosts.map((post) => (
                 <a
+                  class="block rounded-2xl bg-slate-900/50 p-4 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-1 hover:bg-slate-900"
+                  href={post.url}
+                >
+                  <div class="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+                    <span>{post.frontmatter.date}</span>
+                    <span>Entrada</span>
+                  </div>
+                  <p class="mt-2 text-base font-semibold text-slate-50">{post.frontmatter.title}</p>
+                  <p class="mt-1 text-sm text-slate-200/90">{post.frontmatter.description}</p>
+                </a>
+              ))}
+            </div>
+            <a
+              class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:-translate-y-0.5 hover:text-emerald-200"
+              href="/blog"
+            >
+              Ver todas las entradas →
+            </a>
+          </div>
+        </Section>
+      </div>
+
+      <div class="card p-8">
+        <Section title="Projects" kicker="Selected">
+          <div class="space-y-6">
+            {projects.map((project) => (
+              <a
                   class="group block rounded-2xl bg-slate-900/50 p-4 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-1 hover:border-slate-700"
                   href={project.link}
                   target="_blank"

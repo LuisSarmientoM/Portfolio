@@ -1,0 +1,84 @@
+{
+  "profile": {
+    "name": "Bartosz Jarocki",
+    "title": "Senior Frontend Engineer",
+    "location": "Remote / Europe",
+    "summary": "Engineer focused on building thoughtful digital products and resilient design systems. I enjoy translating complex ideas into elegant, accessible interfaces.",
+    "links": [
+      { "label": "Email", "href": "mailto:hello@jarocki.dev" },
+      { "label": "GitHub", "href": "https://github.com/BartoszJarocki" },
+      { "label": "Website", "href": "https://jarocki.dev" }
+    ]
+  },
+  "experience": [
+    {
+      "company": "Fjord Tech",
+      "role": "Senior Frontend Engineer",
+      "period": "2022 — Present",
+      "location": "Remote",
+      "achievements": [
+        "Leading the front-end architecture for a design system used by four product teams.",
+        "Introduced performance budgets that reduced bundle size by 28% while improving Lighthouse scores.",
+        "Mentored engineers through code reviews and pairing sessions focused on accessibility."
+      ],
+      "stack": ["TypeScript", "React", "Astro", "Tailwind CSS"]
+    },
+    {
+      "company": "Northern Labs",
+      "role": "Product Engineer",
+      "period": "2020 — 2022",
+      "location": "Gdańsk",
+      "achievements": [
+        "Built customer onboarding flows that improved activation by 18% month over month.",
+        "Prototyped dashboard experiences with rapid iteration in Storybook and Figma.",
+        "Collaborated with backend teams on GraphQL APIs that powered internal tooling."
+      ],
+      "stack": ["React", "Node.js", "GraphQL", "Storybook"]
+    },
+    {
+      "company": "Studio Vibe",
+      "role": "Frontend Developer",
+      "period": "2018 — 2020",
+      "location": "Warsaw",
+      "achievements": [
+        "Shipped responsive marketing sites for SaaS clients with strong SEO foundations.",
+        "Integrated analytics and experimentation frameworks to support growth teams.",
+        "Partnered with designers to create component libraries with consistent tokens."
+      ],
+      "stack": ["Next.js", "Sass", "Cypress", "Figma"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "PaperCV",
+      "description": "A printable résumé builder that exports accessible, typographically refined PDFs directly from the browser.",
+      "link": "https://github.com/BartoszJarocki/cv",
+      "tags": ["Astro", "Tailwind CSS", "Design systems"]
+    },
+    {
+      "name": "Aurora UI",
+      "description": "Open-source component starter built with headless primitives, animated transitions, and design tokens.",
+      "link": "https://github.com/BartoszJarocki",
+      "tags": ["TypeScript", "Accessibility", "Storybook"]
+    },
+    {
+      "name": "Compass Analytics",
+      "description": "Self-serve analytics panels that surface product health metrics with configurable alerts and exports.",
+      "link": "https://jarocki.dev",
+      "tags": ["React", "GraphQL", "Product design"]
+    }
+  ],
+  "skills": {
+    "expertise": ["TypeScript", "React", "Astro", "Tailwind CSS", "Node.js", "Accessibility"],
+    "tooling": ["Storybook", "Figma", "Vitest", "Playwright", "GraphQL", "PostgreSQL"],
+    "languages": ["English (C1)", "Polish (Native)", "Spanish (B1)"]
+  },
+  "education": [
+    {
+      "school": "Warsaw University of Technology",
+      "program": "BSc, Computer Science",
+      "period": "2014 — 2018"
+    }
+  ],
+  "interests": ["Typography", "Generative art", "Cycling", "Coffee brewing"]
+}

@@ -76,7 +76,8 @@ interface Props {
 const { data, labels, languages, currentLanguage, defaultLanguage }: Props = Astro.props;
 const { education, experience, interests, profile, projects, skills } = data;
 
-const getLanguageHref = (code: string) => (code === defaultLanguage ? '/' : `/${code}/`);
+const baseUrl = import.meta.env.BASE_URL;
+const getLanguageHref = (code: string) => (code === defaultLanguage ? baseUrl : `${baseUrl}${code}/`);
 ---
 <BaseLayout lang={currentLanguage} description={`${profile.name} · ${profile.title}`}>
   <Fragment slot="head">

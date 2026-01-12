@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { title, description, date, tags } = Astro.props as Props;
+const baseUrl = import.meta.env.BASE_URL;
 ---
 <BaseLayout>
   <Fragment slot="head">
@@ -33,7 +34,10 @@ const { title, description, date, tags } = Astro.props as Props;
           </div>
         )}
       </div>
-      <a class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:-translate-y-0.5 hover:text-emerald-200" href="/blog">
+      <a
+        class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:-translate-y-0.5 hover:text-emerald-200"
+        href={`${baseUrl}blog/`}
+      >
         ← Volver al blog
       </a>
     </div>

@@ -7,6 +7,8 @@ type TranslationKey = keyof typeof resume.translations;
 const languages = resume.languages;
 const translationKeys = Object.keys(resume.translations) as TranslationKey[];
 const defaultLanguage = (languages[0]?.code as TranslationKey) ?? translationKeys[0];
+const baseUrl = import.meta.env.BASE_URL;
+const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 export function getStaticPaths() {
   return resume.languages.map(({ code }) => ({
     params: { lang: code },
@@ -17,7 +19,7 @@ const requestedLangParam = Astro.params.lang;
 const requestedLang = translationKeys.find((code) => code === requestedLangParam) as TranslationKey | undefined;
 
 if (!requestedLang) {
-  return Astro.redirect('/');
+  return Astro.redirect(normalizedBaseUrl);
 }
 
 const translation = resume.translations[requestedLang];

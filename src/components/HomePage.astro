@@ -76,14 +76,27 @@ interface Props {
 const { data, labels, languages, currentLanguage, defaultLanguage }: Props = Astro.props;
 const { education, experience, interests, profile, projects, skills } = data;
 
-const getLanguageHref = (code: string) => (code === defaultLanguage ? '/' : `/${code}/`);
+const baseUrl = import.meta.env.BASE_URL;
+const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const getLanguageHref = (code: string) =>
+  code === defaultLanguage ? normalizedBaseUrl : `${normalizedBaseUrl}${code}/`;
+const blogHref =
+  currentLanguage === defaultLanguage
+    ? `${normalizedBaseUrl}blog/`
+    : `${normalizedBaseUrl}${currentLanguage}/blog/`;
 ---
 <BaseLayout lang={currentLanguage} description={`${profile.name} · ${profile.title}`}>
   <Fragment slot="head">
     <title>{profile.name} · {profile.title}</title>
   </Fragment>
 
-  <div class="mb-4 flex justify-end">
+  <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+    <a
+      class="inline-flex items-center gap-2 rounded-full bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-0.5 hover:bg-slate-800 hover:text-emerald-200"
+      href={blogHref}
+    >
+      Blog
+    </a>
     <div class="inline-flex gap-1 rounded-full bg-slate-900/70 p-1 ring-1 ring-inset ring-slate-800">
       {languages.map((lang: LanguageOption) => (
         <a

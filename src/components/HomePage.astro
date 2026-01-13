@@ -80,7 +80,10 @@ const baseUrl = import.meta.env.BASE_URL;
 const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const getLanguageHref = (code: string) =>
   code === defaultLanguage ? normalizedBaseUrl : `${normalizedBaseUrl}${code}/`;
-const blogHref = `${normalizedBaseUrl}blog/`;
+const blogHref =
+  currentLanguage === defaultLanguage
+    ? `${normalizedBaseUrl}blog/`
+    : `${normalizedBaseUrl}${currentLanguage}/blog/`;
 ---
 <BaseLayout lang={currentLanguage} description={`${profile.name} · ${profile.title}`}>
   <Fragment slot="head">

@@ -6,11 +6,13 @@ interface Props {
   description?: string;
   date?: string;
   tags?: string[];
+  lang?: string;
 }
 
-const { title, description, date, tags } = Astro.props as Props;
+const { title, description, date, tags, lang } = Astro.props as Props;
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const blogHref = lang ? `${normalizedBaseUrl}${lang}/blog/` : `${normalizedBaseUrl}blog/`;
 ---
 <BaseLayout>
   <Fragment slot="head">
@@ -37,7 +39,7 @@ const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
       </div>
       <a
         class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:-translate-y-0.5 hover:text-emerald-200"
-        href={`${normalizedBaseUrl}blog/`}
+        href={blogHref}
       >
         ← Volver al blog
       </a>

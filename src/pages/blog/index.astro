@@ -1,13 +1,25 @@
 ---
 import type { MarkdownInstance } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import resume from '../../data/resume.json';
 
 const posts = Object.values(
   import.meta.glob<MarkdownInstance<Record<string, any>>>('./*.md', { eager: true })
 ) as MarkdownInstance<Record<string, any>>[];
 const sorted = posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
+type TranslationKey = keyof typeof resume.translations;
+const languages = resume.languages;
+const translationKeys = Object.keys(resume.translations) as TranslationKey[];
+const defaultLanguage = (languages[0]?.code as TranslationKey) ?? translationKeys[0];
+const translation = resume.translations[defaultLanguage];
 ---
-<BaseLayout>
+<BaseLayout
+  name={translation.profile.name}
+  languages={languages}
+  currentLanguage={defaultLanguage}
+  defaultLanguage={defaultLanguage}
+>
   <Fragment slot="head">
     <title>Blog · Notas y procesos</title>
     <meta

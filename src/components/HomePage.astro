@@ -75,6 +75,7 @@ interface Props {
 
 const { data, labels, languages, currentLanguage, defaultLanguage }: Props = Astro.props;
 const { education, experience, interests, profile, projects, skills } = data;
+const headerName = 'Luis Sarmiento';
 
 ---
 <BaseLayout
@@ -83,7 +84,7 @@ const { education, experience, interests, profile, projects, skills } = data;
   languages={languages}
   currentLanguage={currentLanguage}
   defaultLanguage={defaultLanguage}
-  name={profile.name}
+  name={headerName}
 >
   <Fragment slot="head">
     <title>{profile.name} · {profile.title}</title>

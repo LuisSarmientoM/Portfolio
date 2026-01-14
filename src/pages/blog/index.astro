@@ -12,10 +12,10 @@ type TranslationKey = keyof typeof resume.translations;
 const languages = resume.languages;
 const translationKeys = Object.keys(resume.translations) as TranslationKey[];
 const defaultLanguage = (languages[0]?.code as TranslationKey) ?? translationKeys[0];
-const translation = resume.translations[defaultLanguage];
+const headerName = 'Luis Sarmiento';
 ---
 <BaseLayout
-  name={translation.profile.name}
+  name={headerName}
   languages={languages}
   currentLanguage={defaultLanguage}
   defaultLanguage={defaultLanguage}

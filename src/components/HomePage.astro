@@ -75,40 +75,20 @@ interface Props {
 
 const { data, labels, languages, currentLanguage, defaultLanguage }: Props = Astro.props;
 const { education, experience, interests, profile, projects, skills } = data;
+const headerName = 'Luis Sarmiento';
 
-const baseUrl = import.meta.env.BASE_URL;
-const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
-const getLanguageHref = (code: string) =>
-  code === defaultLanguage ? normalizedBaseUrl : `${normalizedBaseUrl}${code}/`;
-const blogHref = `${normalizedBaseUrl}blog/`;
 ---
-<BaseLayout lang={currentLanguage} description={`${profile.name} · ${profile.title}`}>
+<BaseLayout
+  lang={currentLanguage}
+  description={`${profile.name} · ${profile.title}`}
+  languages={languages}
+  currentLanguage={currentLanguage}
+  defaultLanguage={defaultLanguage}
+  name={headerName}
+>
   <Fragment slot="head">
     <title>{profile.name} · {profile.title}</title>
   </Fragment>
-
-  <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-    <a
-      class="inline-flex items-center gap-2 rounded-full bg-slate-900/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-0.5 hover:bg-slate-800 hover:text-emerald-200"
-      href={blogHref}
-    >
-      Blog
-    </a>
-    <div class="inline-flex gap-1 rounded-full bg-slate-900/70 p-1 ring-1 ring-inset ring-slate-800">
-      {languages.map((lang: LanguageOption) => (
-        <a
-          class={`rounded-full px-3 py-1 text-xs font-semibold transition ${
-            lang.code === currentLanguage
-              ? 'bg-indigo-500/20 text-indigo-100 ring-1 ring-inset ring-indigo-500/60'
-              : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-          }`}
-          href={getLanguageHref(lang.code)}
-        >
-          {lang.label}
-        </a>
-      ))}
-    </div>
-  </div>
 
   <div class="flex flex-col gap-6">
     <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
@@ -118,14 +98,19 @@ const blogHref = `${normalizedBaseUrl}blog/`;
           <span class="text-sm">{profile.location}</span>
           <span class="text-sm">{labels.available}</span>
         </div>
-        <div class="mt-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div class="space-y-3">
-            <p class="text-sm uppercase tracking-[0.25em] text-slate-400">{labels.portfolio}</p>
-            <h1 class="text-3xl font-bold leading-tight text-slate-50 sm:text-4xl">
-              {profile.name}
-            </h1>
-            <p class="text-lg font-semibold text-slate-200">{profile.title}</p>
-            <p class="max-w-2xl text-base leading-relaxed text-slate-200/90">{profile.summary}</p>
+        <div class="mt-6 flex flex-col gap-6">
+          <div class="grid gap-6 lg:grid-cols-[auto_1fr] lg:items-center">
+            <div class="flex items-center justify-center">
+              <div class="h-28 w-28 rounded-2xl bg-slate-900/70 ring-1 ring-inset ring-slate-800" />
+            </div>
+            <div class="space-y-3">
+              <p class="text-sm uppercase tracking-[0.25em] text-slate-400">{labels.portfolio}</p>
+              <h1 class="text-3xl font-bold leading-tight text-slate-50 sm:text-4xl">
+                {profile.name}
+              </h1>
+              <p class="text-lg font-semibold text-slate-200">{profile.title}</p>
+              <p class="max-w-2xl text-base leading-relaxed text-slate-200/90">{profile.summary}</p>
+            </div>
           </div>
           <div class="flex flex-wrap gap-3">
             {profile.links.map((link: { label: string; href: string }) => (

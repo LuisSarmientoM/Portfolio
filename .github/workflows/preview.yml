@@ -21,7 +21,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
+      name: github-pages-prebuild
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy preview to GitHub Pages

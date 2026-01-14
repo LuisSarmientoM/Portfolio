@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   deploy:
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
@@ -31,3 +31,4 @@ jobs:
           publish_dir: ./dist
           keep_files: true
           destination_dir: previews/pr-${{ github.event.pull_request.number }}
+          publish_branch: gh-pages

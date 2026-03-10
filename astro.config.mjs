@@ -1,13 +1,10 @@
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  srcDir: 'src',
-  vite: {
-    plugins: [tailwindcss()],
-  },
-  server: {
-    host: true,
-  },
-  site: 'https://lsarmiento.dev',
+    srcDir: "src",
+    vite: {
+        plugins: [tailwindcss()],
+    },
+    site: "https://lsarmiento.dev",
 });

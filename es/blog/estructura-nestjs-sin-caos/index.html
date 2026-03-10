@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="es" class="scroll-smooth bg-slate-950 text-slate-100"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Portfolio and resume of Luis Felipe Sarmiento Munoz"> <title> · Blog</title> <style>.blog-content{color:#e2e8f0;font-size:1.08rem;line-height:1.8}.blog-content>*+*{margin-top:1.1rem}.blog-content strong{color:#f8fafc;font-weight:700}.blog-content blockquote{border-left:3px solid rgba(52,211,153,.65);background:#0f172a73;border-radius:.75rem;margin:1.25rem 0;padding:.75rem 1rem;color:#e2e8f0e6}.blog-content ul,.blog-content ol{margin:.95rem 0;padding-left:1.2rem}.blog-content li+li{margin-top:.45rem}.blog-content code{background:#0f172ac7;border:1px solid rgba(148,163,184,.2);border-radius:.45rem;color:#d8b4fe;font-size:.92em;padding:.12rem .42rem}.blog-content pre{background:#0f172ac7;border:1px solid rgba(148,163,184,.25);border-radius:.95rem;margin:1.15rem 0;overflow-x:auto;padding:1rem 1.1rem}.blog-content pre code{background:transparent;border:0;color:#cbd5e1;font-size:.95rem;padding:0}
+</style>
+<link rel="stylesheet" href="/_astro/index.Bc7X4aBn.css"></head> <body class="min-h-screen bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.18),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.16),transparent_32%),radial-gradient(circle_at_0%_60%,rgba(14,165,233,0.12),transparent_35%)]"> <header class="fixed left-0 right-0 top-0 z-50"> <div class="mx-auto max-w-6xl px-6"> <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-3"> <div class="flex items-center text-left"> <span class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">Luis Sarmiento</span> </div> <nav class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200 ring-1 ring-inset ring-slate-800 backdrop-blur"> <a class="transition hover:text-white" href="/">Home</a> <span class="text-slate-500">/</span> <a class="transition hover:text-white" href="/blog/">Blog</a> </nav> <div class="flex justify-end text-right"> <div class="inline-flex gap-1 rounded-full bg-slate-950/70 p-1 ring-1 ring-inset ring-slate-800 backdrop-blur"> <a class="rounded-full px-3 py-1 text-xs font-semibold transition bg-indigo-500/20 text-indigo-100 ring-1 ring-inset ring-indigo-500/60" href="/blog/estructura-nestjs-sin-caos/"> es </a><a class="rounded-full px-3 py-1 text-xs font-semibold transition text-slate-300 hover:bg-slate-800 hover:text-white" href="/en/blog/estructura-nestjs-sin-caos/"> en </a> </div> </div> </div> </div> </header>   <main class="mx-auto max-w-7xl px-6 pb-10 pt-24 sm:pb-14 sm:pt-28 lg:pb-16"> <article class="blog-content max-w-prose mx-auto"> <a class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:-translate-y-0.5 hover:text-emerald-200" href="/blog/">
+← Volver al blog
+</a>  <article class="blog-content"> <div class="mb-8 space-y-3 border-b border-slate-800 pb-6"> <h1 class="text-3xl font-bold leading-tight text-slate-50 sm:text-4xl"> Cómo estructurar tu app de NestJS sin perder la cabeza </h1> <p class="text-base leading-relaxed text-slate-200/90"> Una guía práctica de estructuras comunes en NestJS y cuándo usar cada una para escalar sin caos. </p> <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400"> <span>05 de jun de 2025</span> </div> </div> <p>Cuando miras una aplicación moderna en NestJS, normalmente ves una base de código modular y ordenada. Pero hay una verdad importante: <strong>no existe una única forma correcta</strong> de organizar un proyecto NestJS.</p>
+<p>Vas a encontrar artículos, templates y repositorios con estructuras distintas: algunas muy opinionadas, otras flexibles. Ninguna es universal. Algunas funcionan perfecto en proyectos enterprise, pero son demasiado para apps pequeñas. Otras son simples y efectivas… hasta que el proyecto crece.</p>
+<p>Entonces, ¿cuál es la mejor estructura? La que funciona para <strong>tu equipo</strong>, <strong>tu flujo de trabajo</strong> y <strong>tus objetivos</strong>.</p>
+<p>En este post te comparto un recorrido práctico por varias estructuras comunes, de la más básica a enfoques más avanzados, y cuándo conviene usar cada una.</p>
+<blockquote>
+<p>Usa la que mejor se adapte a tu contexto.</p>
+</blockquote>
+<h2 id="1-estructura-por-tipo">1) Estructura por tipo</h2>
+<blockquote>
+<p>“Fue mi primera estructura en NestJS”. Probablemente la de casi todos.</p>
+</blockquote>
+<p>Es la opción más simple para proyectos iniciales o muy pequeños. Organizas por tipo de archivo: controladores en un directorio, servicios en otro, DTOs en otro, etc.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── controllers/    # Controladores de la aplicación</span></span>
+<span class="line"><span>├── services/       # Lógica de negocio principal</span></span>
+<span class="line"><span>├── utils/          # Utilidades compartidas</span></span>
+<span class="line"><span>├── main.ts         # Punto de entrada</span></span>
+<span class="line"><span>└── app.module.ts   # Módulo raíz</span></span></code></pre>
+<p>La ventaja principal es la simplicidad mental: sabes dónde va cada cosa.</p>
+<p>El problema aparece cuando escalas. Si crecen los endpoints y los features, la lógica relacionada queda repartida en muchas carpetas, y navegar el proyecto se vuelve más costoso.</p>
+<p>Úsala solo si tienes claro que la app será pequeña, temporal o con pocos cambios.</p>
+<h2 id="2-estructura-por-feature">2) Estructura por feature</h2>
+<blockquote>
+<p>Un paso natural: organizar por lo que hace cada parte, no por lo que es.</p>
+</blockquote>
+<p>Aquí agrupas por dominio o feature (<code>users</code>, <code>auth</code>, <code>products</code>, <code>orders</code>). Dentro de cada módulo viven sus controladores, servicios y DTOs.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── commons/</span></span>
+<span class="line"><span>│   ├── pipes/</span></span>
+<span class="line"><span>│   ├── guards/</span></span>
+<span class="line"><span>│   └── interceptors/</span></span>
+<span class="line"><span>├── modules/</span></span>
+<span class="line"><span>│   ├── users/</span></span>
+<span class="line"><span>│   │   ├── dto/</span></span>
+<span class="line"><span>│   │   └── services/</span></span>
+<span class="line"><span>│   └── auth/</span></span>
+<span class="line"><span>│       ├── strategies/</span></span>
+<span class="line"><span>│       └── dto/</span></span>
+<span class="line"><span>├── main.ts</span></span>
+<span class="line"><span>└── app.module.ts</span></span></code></pre>
+<p>Ventajas:</p>
+<ul>
+<li>Mejor aislamiento de funcionalidades.</li>
+<li>Onboarding más claro para el equipo.</li>
+<li>Escala bien en proyectos pequeños y medianos.</li>
+</ul>
+<p>Trade-offs:</p>
+<ul>
+<li>Se repiten subcarpetas (<code>dto</code>, <code>services</code>) en muchos módulos.</li>
+<li>Si no hay disciplina de nombres, igual puede degradarse.</li>
+</ul>
+<p>Aun así, suele ser el mejor punto de equilibrio cuando sabes que el producto va a crecer.</p>
+<h2 id="3-screaming-architecture">3) Screaming Architecture</h2>
+<blockquote>
+<p>“No me digas dónde está técnicamente, dime qué hace el negocio”.</p>
+</blockquote>
+<p>Esta idea prioriza el dominio del negocio por encima de la tecnología. La estructura debe “gritar” de qué trata tu producto.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── commons/</span></span>
+<span class="line"><span>├── core/</span></span>
+<span class="line"><span>│   ├── users/</span></span>
+<span class="line"><span>│   ├── auth/</span></span>
+<span class="line"><span>│   └── mail/</span></span>
+<span class="line"><span>├── modules/</span></span>
+<span class="line"><span>│   ├── clients/</span></span>
+<span class="line"><span>│   ├── payments/</span></span>
+<span class="line"><span>│   └── invoices/</span></span>
+<span class="line"><span>├── config/</span></span>
+<span class="line"><span>├── models/</span></span>
+<span class="line"><span>├── main.ts</span></span>
+<span class="line"><span>└── app.module.ts</span></span></code></pre>
+<p>Es ideal para proyectos grandes, de larga vida y con varios equipos. Mejora la separación de responsabilidades a nivel de negocio y facilita trabajo en paralelo.</p>
+<p>El costo: necesitas una buena definición de límites de dominio. Si tu producto aún está tomando forma, puede sentirse sobrediseñada al inicio.</p>
+<h2 id="4-hexagonal-mvc-y-ddd-no-son-solo-carpetas">4) Hexagonal, MVC y DDD no son solo carpetas</h2>
+<p>Estos enfoques no son plantillas de directorios; son formas de pensar arquitectura.</p>
+<ul>
+<li><strong>Hexagonal (Ports and Adapters):</strong> separa el core de negocio de infraestructura (HTTP, base de datos, mensajería). Muy útil en sistemas complejos y orientados a testing.</li>
+<li><strong>MVC:</strong> puede servir en ciertos contextos, pero forzarlo en NestJS no siempre encaja, porque Nest ya separa por módulos/controladores/servicios.</li>
+<li><strong>DDD (Domain-Driven Design):</strong> modela el código alrededor del negocio real (entidades, value objects, bounded contexts). Brilla en dominios complejos.</li>
+</ul>
+<p>No hay una respuesta única. Depende del tamaño del proyecto, del equipo y de las decisiones técnicas de la organización.</p>
+<h2 id="5-mi-estructura-actual-un-mix-pragmático">5) Mi estructura actual: un mix pragmático</h2>
+<p>Hoy trabajo con una estructura mixta: no 100% académica, pero tampoco caótica. Toma ideas de enfoques robustos sin bloquear velocidad.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── common/</span></span>
+<span class="line"><span>│   ├── auth/</span></span>
+<span class="line"><span>│   ├── decorators/</span></span>
+<span class="line"><span>│   ├── email/</span></span>
+<span class="line"><span>│   │   ├── templates/</span></span>
+<span class="line"><span>│   │   └── email.module.ts</span></span>
+<span class="line"><span>│   ├── filters/</span></span>
+<span class="line"><span>│   ├── interceptors/</span></span>
+<span class="line"><span>│   └── types/</span></span>
+<span class="line"><span>├── config/</span></span>
+<span class="line"><span>│   ├── config.module.ts</span></span>
+<span class="line"><span>│   ├── configuration.ts</span></span>
+<span class="line"><span>│   ├── database.module.ts</span></span>
+<span class="line"><span>│   └── logger.module.ts</span></span>
+<span class="line"><span>├── core/</span></span>
+<span class="line"><span>│   ├── users/</span></span>
+<span class="line"><span>│   └── auth/</span></span>
+<span class="line"><span>├── models/</span></span>
+<span class="line"><span>├── modules/</span></span>
+<span class="line"><span>├── main.ts</span></span>
+<span class="line"><span>└── app.module.ts</span></span></code></pre>
+<p>Por ejemplo, <code>email/</code> vive en <code>common/</code> porque es una capacidad transversal, no un módulo de negocio. Además usamos eventos internos para desacoplar flujos.</p>
+<p>No es perfecta, pero funciona. Y eso es lo importante.</p>
+<h2 id="cierre">Cierre</h2>
+<p>No existe una “mejor” estructura universal. Existe la estructura adecuada para <strong>tu contexto</strong>.</p>
+<p>Si estás prototipando, una estructura simple puede ser suficiente. Si estás escalando con equipo, una estructura por feature o por dominio te dará más aire. Si el dominio es complejo, Hexagonal o DDD pueden justificar su costo.</p>
+<p>Prueba, adapta y evoluciona. La arquitectura debe ayudarte a entregar mejor software, no convertirse en un fin en sí misma.</p> </article>  </article> </main>  </body></html>

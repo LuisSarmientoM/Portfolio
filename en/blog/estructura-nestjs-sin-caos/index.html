@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en" class="scroll-smooth bg-slate-950 text-slate-100"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Portfolio and resume of Luis Felipe Sarmiento Munoz"> <title> · Blog</title> <style>.blog-content{color:#e2e8f0;font-size:1.08rem;line-height:1.8}.blog-content>*+*{margin-top:1.1rem}.blog-content strong{color:#f8fafc;font-weight:700}.blog-content blockquote{border-left:3px solid rgba(52,211,153,.65);background:#0f172a73;border-radius:.75rem;margin:1.25rem 0;padding:.75rem 1rem;color:#e2e8f0e6}.blog-content ul,.blog-content ol{margin:.95rem 0;padding-left:1.2rem}.blog-content li+li{margin-top:.45rem}.blog-content code{background:#0f172ac7;border:1px solid rgba(148,163,184,.2);border-radius:.45rem;color:#d8b4fe;font-size:.92em;padding:.12rem .42rem}.blog-content pre{background:#0f172ac7;border:1px solid rgba(148,163,184,.25);border-radius:.95rem;margin:1.15rem 0;overflow-x:auto;padding:1rem 1.1rem}.blog-content pre code{background:transparent;border:0;color:#cbd5e1;font-size:.95rem;padding:0}
+</style>
+<link rel="stylesheet" href="/_astro/index.Bc7X4aBn.css"></head> <body class="min-h-screen bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.18),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.16),transparent_32%),radial-gradient(circle_at_0%_60%,rgba(14,165,233,0.12),transparent_35%)]"> <header class="fixed left-0 right-0 top-0 z-50"> <div class="mx-auto max-w-6xl px-6"> <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-3"> <div class="flex items-center text-left"> <span class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">Luis Sarmiento</span> </div> <nav class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200 ring-1 ring-inset ring-slate-800 backdrop-blur"> <a class="transition hover:text-white" href="/en/">Home</a> <span class="text-slate-500">/</span> <a class="transition hover:text-white" href="/en/blog/">Blog</a> </nav> <div class="flex justify-end text-right"> <div class="inline-flex gap-1 rounded-full bg-slate-950/70 p-1 ring-1 ring-inset ring-slate-800 backdrop-blur"> <a class="rounded-full px-3 py-1 text-xs font-semibold transition text-slate-300 hover:bg-slate-800 hover:text-white" href="/blog/estructura-nestjs-sin-caos/"> es </a><a class="rounded-full px-3 py-1 text-xs font-semibold transition bg-indigo-500/20 text-indigo-100 ring-1 ring-inset ring-indigo-500/60" href="/en/blog/estructura-nestjs-sin-caos/"> en </a> </div> </div> </div> </div> </header>   <main class="mx-auto max-w-7xl px-6 pb-10 pt-24 sm:pb-14 sm:pt-28 lg:pb-16"> <article class="blog-content max-w-prose mx-auto"> <a class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:-translate-y-0.5 hover:text-emerald-200" href="/blog/">
+← Volver al blog
+</a>  <article class="blog-content"> <div class="mb-8 space-y-3 border-b border-slate-800 pb-6"> <h1 class="text-3xl font-bold leading-tight text-slate-50 sm:text-4xl"> How to structure your NestJS app without losing your mind </h1> <p class="text-base leading-relaxed text-slate-200/90"> A practical guide to common NestJS structures and when to use each one. </p> <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400"> <span>Jun 05, 2025</span> </div> </div> <p>When you look at a modern NestJS application, you will usually see a clean, modular codebase. But there is one important truth: <strong>there is no single correct way</strong> to organize a NestJS project.</p>
+<p>You can find many articles and templates with different folder structures. Some are very opinionated, others are flexible. None is universal. Some work great for enterprise projects but feel heavy for small apps. Others are simple and effective… until the app grows.</p>
+<p>So what is the best structure? The one that matches <strong>your team</strong>, <strong>your workflow</strong>, and <strong>your goals</strong>.</p>
+<p>In this post, I walk through common approaches, from basic to more advanced, and when each one is useful.</p>
+<blockquote>
+<p>Use what fits your context.</p>
+</blockquote>
+<h2 id="1-types-based-structure">1) Types-based structure</h2>
+<blockquote>
+<p>“My first NestJS structure”. Probably true for most of us.</p>
+</blockquote>
+<p>This is the simplest option for early-stage or very small projects. You organize by file type: controllers in one folder, services in another, DTOs in another.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── controllers/    # Application controllers</span></span>
+<span class="line"><span>├── services/       # Core business logic</span></span>
+<span class="line"><span>├── utils/          # Shared utilities</span></span>
+<span class="line"><span>├── main.ts         # Entry point</span></span>
+<span class="line"><span>└── app.module.ts   # Root module</span></span></code></pre>
+<p>The advantage is clear mental simplicity.</p>
+<p>The downside appears when the app grows. Related logic gets spread across many folders and navigation becomes slower.</p>
+<p>Use it only if the app will stay small or short-lived.</p>
+<h2 id="2-feature-based-structure">2) Feature-based structure</h2>
+<blockquote>
+<p>A natural step up: organize by what the system does, not by what a file is.</p>
+</blockquote>
+<p>Here, you group by domain/feature (<code>users</code>, <code>auth</code>, <code>products</code>, <code>orders</code>). Each module keeps its own controllers, services, and DTOs.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── commons/</span></span>
+<span class="line"><span>│   ├── pipes/</span></span>
+<span class="line"><span>│   ├── guards/</span></span>
+<span class="line"><span>│   └── interceptors/</span></span>
+<span class="line"><span>├── modules/</span></span>
+<span class="line"><span>│   ├── users/</span></span>
+<span class="line"><span>│   │   ├── dto/</span></span>
+<span class="line"><span>│   │   └── services/</span></span>
+<span class="line"><span>│   └── auth/</span></span>
+<span class="line"><span>│       ├── strategies/</span></span>
+<span class="line"><span>│       └── dto/</span></span>
+<span class="line"><span>├── main.ts</span></span>
+<span class="line"><span>└── app.module.ts</span></span></code></pre>
+<p>Benefits:</p>
+<ul>
+<li>Better feature isolation.</li>
+<li>Easier onboarding.</li>
+<li>Good scalability for small and medium teams.</li>
+</ul>
+<p>Trade-offs:</p>
+<ul>
+<li>Repeated subfolders (<code>dto</code>, <code>services</code>) in many modules.</li>
+<li>Can still degrade without naming discipline.</li>
+</ul>
+<p>Still, this is often the best middle ground.</p>
+<h2 id="3-screaming-architecture">3) Screaming Architecture</h2>
+<blockquote>
+<p>“Do not tell me where technically, tell me what business capability this is.”</p>
+</blockquote>
+<p>This approach prioritizes business domains over technical layers. Folder names should “scream” what the product is about.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── commons/</span></span>
+<span class="line"><span>├── core/</span></span>
+<span class="line"><span>│   ├── users/</span></span>
+<span class="line"><span>│   ├── auth/</span></span>
+<span class="line"><span>│   └── mail/</span></span>
+<span class="line"><span>├── modules/</span></span>
+<span class="line"><span>│   ├── clients/</span></span>
+<span class="line"><span>│   ├── payments/</span></span>
+<span class="line"><span>│   └── invoices/</span></span>
+<span class="line"><span>├── config/</span></span>
+<span class="line"><span>├── models/</span></span>
+<span class="line"><span>├── main.ts</span></span>
+<span class="line"><span>└── app.module.ts</span></span></code></pre>
+<p>Great for larger and long-lived systems with multiple teams.</p>
+<p>Cost: you need clear domain boundaries. If the product is still evolving quickly, this can feel over-engineered early on.</p>
+<h2 id="4-hexagonal-mvc-and-ddd-are-not-just-folder-templates">4) Hexagonal, MVC, and DDD are not just folder templates</h2>
+<p>These are architectural mindsets, not directory presets.</p>
+<ul>
+<li><strong>Hexagonal (Ports and Adapters):</strong> separates business core from infrastructure (HTTP, DB, messaging).</li>
+<li><strong>MVC:</strong> useful in some contexts, but forcing strict MVC inside NestJS is often awkward.</li>
+<li><strong>DDD:</strong> models code around real business concepts (entities, value objects, bounded contexts).</li>
+</ul>
+<p>There is no one-size-fits-all answer. Project size, team maturity, and business complexity matter.</p>
+<h2 id="5-my-current-setup-a-practical-mix">5) My current setup: a practical mix</h2>
+<p>I currently use a mixed structure: not dogmatic, not chaotic. It borrows ideas from stronger architectures while keeping delivery speed.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── common/</span></span>
+<span class="line"><span>│   ├── auth/</span></span>
+<span class="line"><span>│   ├── decorators/</span></span>
+<span class="line"><span>│   ├── email/</span></span>
+<span class="line"><span>│   │   ├── templates/</span></span>
+<span class="line"><span>│   │   └── email.module.ts</span></span>
+<span class="line"><span>│   ├── filters/</span></span>
+<span class="line"><span>│   ├── interceptors/</span></span>
+<span class="line"><span>│   └── types/</span></span>
+<span class="line"><span>├── config/</span></span>
+<span class="line"><span>│   ├── config.module.ts</span></span>
+<span class="line"><span>│   ├── configuration.ts</span></span>
+<span class="line"><span>│   ├── database.module.ts</span></span>
+<span class="line"><span>│   └── logger.module.ts</span></span>
+<span class="line"><span>├── core/</span></span>
+<span class="line"><span>│   ├── users/</span></span>
+<span class="line"><span>│   └── auth/</span></span>
+<span class="line"><span>├── models/</span></span>
+<span class="line"><span>├── modules/</span></span>
+<span class="line"><span>├── main.ts</span></span>
+<span class="line"><span>└── app.module.ts</span></span></code></pre>
+<p>For example, <code>email/</code> lives under <code>common/</code> because it is a shared capability, not a business feature.</p>
+<p>It is not perfect, but it works. That is what matters.</p>
+<h2 id="final-thoughts">Final thoughts</h2>
+<p>There is no universal “best” structure. There is only the structure that is right for <strong>your context</strong>.</p>
+<p>If you are prototyping, keep it simple. If you are scaling with a team, feature/domain structure helps. If your domain is complex, Hexagonal or DDD may be worth the cost.</p>
+<p>Try, adapt, and evolve.</p> </article>  </article> </main>  </body></html>

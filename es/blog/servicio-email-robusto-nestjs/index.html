@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="es" class="scroll-smooth bg-slate-950 text-slate-100"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Portfolio and resume of Luis Felipe Sarmiento Munoz"> <title> · Blog</title> <style>.blog-content{color:#e2e8f0;font-size:1.08rem;line-height:1.8}.blog-content>*+*{margin-top:1.1rem}.blog-content strong{color:#f8fafc;font-weight:700}.blog-content blockquote{border-left:3px solid rgba(52,211,153,.65);background:#0f172a73;border-radius:.75rem;margin:1.25rem 0;padding:.75rem 1rem;color:#e2e8f0e6}.blog-content ul,.blog-content ol{margin:.95rem 0;padding-left:1.2rem}.blog-content li+li{margin-top:.45rem}.blog-content code{background:#0f172ac7;border:1px solid rgba(148,163,184,.2);border-radius:.45rem;color:#d8b4fe;font-size:.92em;padding:.12rem .42rem}.blog-content pre{background:#0f172ac7;border:1px solid rgba(148,163,184,.25);border-radius:.95rem;margin:1.15rem 0;overflow-x:auto;padding:1rem 1.1rem}.blog-content pre code{background:transparent;border:0;color:#cbd5e1;font-size:.95rem;padding:0}
+</style>
+<link rel="stylesheet" href="/_astro/index.Bc7X4aBn.css"></head> <body class="min-h-screen bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.18),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.16),transparent_32%),radial-gradient(circle_at_0%_60%,rgba(14,165,233,0.12),transparent_35%)]"> <header class="fixed left-0 right-0 top-0 z-50"> <div class="mx-auto max-w-6xl px-6"> <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-3"> <div class="flex items-center text-left"> <span class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">Luis Sarmiento</span> </div> <nav class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200 ring-1 ring-inset ring-slate-800 backdrop-blur"> <a class="transition hover:text-white" href="/">Home</a> <span class="text-slate-500">/</span> <a class="transition hover:text-white" href="/blog/">Blog</a> </nav> <div class="flex justify-end text-right"> <div class="inline-flex gap-1 rounded-full bg-slate-950/70 p-1 ring-1 ring-inset ring-slate-800 backdrop-blur"> <a class="rounded-full px-3 py-1 text-xs font-semibold transition bg-indigo-500/20 text-indigo-100 ring-1 ring-inset ring-indigo-500/60" href="/blog/servicio-email-robusto-nestjs/"> es </a><a class="rounded-full px-3 py-1 text-xs font-semibold transition text-slate-300 hover:bg-slate-800 hover:text-white" href="/en/blog/servicio-email-robusto-nestjs/"> en </a> </div> </div> </div> </div> </header>   <main class="mx-auto max-w-7xl px-6 pb-10 pt-24 sm:pb-14 sm:pt-28 lg:pb-16"> <article class="blog-content max-w-prose mx-auto"> <a class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:-translate-y-0.5 hover:text-emerald-200" href="/blog/">
+← Volver al blog
+</a>  <article class="blog-content"> <div class="mb-8 space-y-3 border-b border-slate-800 pb-6"> <h1 class="text-3xl font-bold leading-tight text-slate-50 sm:text-4xl"> Construyendo un servicio de email robusto en NestJS </h1> <p class="text-base leading-relaxed text-slate-200/90"> Guía práctica para construir un módulo de correo escalable con Handlebars, Nodemailer y enfoque event-driven. </p> <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400"> <span>14 de jun de 2025</span> </div> </div> <p>Construir un servicio de correo confiable y escalable es una pieza clave en cualquier aplicación centrada en usuarios. Confirmaciones de registro, recuperación de contraseña, recordatorios y notificaciones personalizadas dependen de esto.</p>
+<p>En esta guía te comparto una forma modular y práctica de implementarlo en NestJS.</p>
+<h2 id="1-estructura-del-módulo-de-mail">1) Estructura del módulo de mail</h2>
+<p>Para mantener responsabilidades claras, crea un módulo dedicado en <code>src/common/email</code>.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">nest</span><span style="color:#9ECBFF"> g</span><span style="color:#9ECBFF"> mo</span><span style="color:#9ECBFF"> common/email</span></span>
+<span class="line"><span style="color:#B392F0">nest</span><span style="color:#9ECBFF"> g</span><span style="color:#9ECBFF"> s</span><span style="color:#9ECBFF"> common/email/sender</span></span>
+<span class="line"><span style="color:#B392F0">nest</span><span style="color:#9ECBFF"> g</span><span style="color:#9ECBFF"> s</span><span style="color:#9ECBFF"> common/email/template</span></span></code></pre>
+<p>Estructura esperada:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── common/</span></span>
+<span class="line"><span>│   └── email/</span></span>
+<span class="line"><span>│       ├── sender.service.ts</span></span>
+<span class="line"><span>│       ├── template.service.ts</span></span>
+<span class="line"><span>│       └── templates/</span></span></code></pre>
+<h2 id="2-templateservice-con-handlebars">2) TemplateService con Handlebars</h2>
+<p><code>TemplateService</code> se encarga de compilar templates dinámicos y cachearlos en memoria.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> handlebars</span></span></code></pre>
+<p>Ejemplo de implementación:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { Injectable } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '@nestjs/common'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> handlebars </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'handlebars'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { readFileSync, existsSync } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'fs'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { join } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'path'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> TemplateService</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#FFAB70"> templates</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">handlebars</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">TemplateDelegate</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> templatesPath</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> join</span><span style="color:#E1E4E8">(__dirname, </span><span style="color:#9ECBFF">'templates'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  compile</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">template</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">context</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Record</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">any</span><span style="color:#E1E4E8">>)</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">html</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">error</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8"> } {</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.templates.</span><span style="color:#B392F0">has</span><span style="color:#E1E4E8">(template)) {</span></span>
+<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> templatePath</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> join</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.templatesPath, </span><span style="color:#9ECBFF">`${</span><span style="color:#E1E4E8">template</span><span style="color:#9ECBFF">}.hbs`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#B392F0">existsSync</span><span style="color:#E1E4E8">(templatePath)) {</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> { html: </span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">, error: </span><span style="color:#9ECBFF">`Template "${</span><span style="color:#E1E4E8">template</span><span style="color:#9ECBFF">}" no encontrado`</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">      const</span><span style="color:#79B8FF"> templateContent</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> readFileSync</span><span style="color:#E1E4E8">(templatePath, </span><span style="color:#9ECBFF">'utf-8'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#79B8FF">      this</span><span style="color:#E1E4E8">.templates.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(template, handlebars.</span><span style="color:#B392F0">compile</span><span style="color:#E1E4E8">(templateContent));</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> compiledTemplate</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.templates.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(template);</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">compiledTemplate) {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> { html: </span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">, error: </span><span style="color:#9ECBFF">`No se pudo recuperar el template compilado "${</span><span style="color:#E1E4E8">template</span><span style="color:#9ECBFF">}"`</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> { html: </span><span style="color:#B392F0">compiledTemplate</span><span style="color:#E1E4E8">(context), error: </span><span style="color:#79B8FF">null</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">error</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> { html: </span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">, error: </span><span style="color:#9ECBFF">`Error renderizando "${</span><span style="color:#E1E4E8">template</span><span style="color:#9ECBFF">}": ${</span><span style="color:#E1E4E8">error</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">message</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="3-plantilla-de-correo">3) Plantilla de correo</h2>
+<p>Crea <code>src/common/email/templates/welcome-email.hbs</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="hbs"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> class=</span><span style="color:#9ECBFF">"container"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">>Hola, </span><span style="color:#79B8FF">{{</span><span style="color:#FFAB70">name</span><span style="color:#79B8FF">}}</span><span style="color:#E1E4E8">!&#x3C;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">>Gracias por registrarte en nuestro servicio. Nos alegra tenerte aquí.&#x3C;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span></code></pre>
+<p><code>{{name}}</code> se reemplaza con el contexto enviado al compilar.</p>
+<h2 id="4-senderservice-con-nodemailer">4) SenderService con Nodemailer</h2>
+<p>Para el envío, usa Nodemailer:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> nodemailer</span><span style="color:#9ECBFF"> @types/nodemailer</span></span></code></pre>
+<p>Ejemplo de servicio:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { Injectable, OnModuleInit } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> '@nestjs/common'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> nodemailer </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'nodemailer'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { Transporter } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'nodemailer'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { TemplateService } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './template.service'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { IMailPayload } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> './interfaces/mail.interface'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> SenderService</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> OnModuleInit</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#FFAB70"> transporter</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Transporter</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  constructor</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">private</span><span style="color:#FFAB70"> templateService</span><span style="color:#F97583">:</span><span style="color:#B392F0"> TemplateService</span><span style="color:#E1E4E8">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> onModuleInit</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.transporter </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> nodemailer.</span><span style="color:#B392F0">createTransport</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">      host,</span></span>
+<span class="line"><span style="color:#E1E4E8">      port,</span></span>
+<span class="line"><span style="color:#E1E4E8">      secure,</span></span>
+<span class="line"><span style="color:#E1E4E8">      auth: { user, pass },</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">      await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.transporter.</span><span style="color:#B392F0">verify</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">error</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Falló la verificación del transporter:'</span><span style="color:#E1E4E8">, error.message);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> sendEmail</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">payload</span><span style="color:#F97583">:</span><span style="color:#B392F0"> IMailPayload</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">boolean</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">to</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">subject</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">template</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">context</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">attachments</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">from</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> payload;</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">html</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">error</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.templateService.</span><span style="color:#B392F0">compile</span><span style="color:#E1E4E8">(template, context </span><span style="color:#F97583">??</span><span style="color:#E1E4E8"> {});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (error) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`Error compilando template '${</span><span style="color:#E1E4E8">template</span><span style="color:#9ECBFF">}': ${</span><span style="color:#E1E4E8">error</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">      await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.transporter.</span><span style="color:#B392F0">sendMail</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">        from,</span></span>
+<span class="line"><span style="color:#E1E4E8">        to: Array.</span><span style="color:#B392F0">isArray</span><span style="color:#E1E4E8">(to) </span><span style="color:#F97583">?</span><span style="color:#E1E4E8"> to.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">', '</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> to,</span></span>
+<span class="line"><span style="color:#E1E4E8">        subject,</span></span>
+<span class="line"><span style="color:#E1E4E8">        html,</span></span>
+<span class="line"><span style="color:#E1E4E8">        attachments,</span></span>
+<span class="line"><span style="color:#E1E4E8">      });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> true</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">error</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      console.</span><span style="color:#B392F0">error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`Error enviando correo con template '${</span><span style="color:#E1E4E8">template</span><span style="color:#9ECBFF">}': ${</span><span style="color:#E1E4E8">error</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">message</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="5-contrato-de-envío-imailpayload">5) Contrato de envío (<code>IMailPayload</code>)</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> interface</span><span style="color:#B392F0"> IMailPayload</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#FFAB70">  to</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">[];</span></span>
+<span class="line"><span style="color:#FFAB70">  from</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#FFAB70">  subject</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#FFAB70">  template</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#FFAB70">  context</span><span style="color:#F97583">?:</span><span style="color:#B392F0"> Record</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">any</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#FFAB70">  attachments</span><span style="color:#F97583">?:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">[];</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="6-uso-desde-controllers-o-servicios">6) Uso desde controllers o servicios</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Post</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'send-welcome'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">HttpCode</span><span style="color:#E1E4E8">(HttpStatus.</span><span style="color:#79B8FF">OK</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">async </span><span style="color:#B392F0">sendWelcomeEmail</span><span style="color:#E1E4E8">(@</span><span style="color:#B392F0">Body</span><span style="color:#E1E4E8">() data: { name: string; email: string; confirmationLink: string }) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> emailSent</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.senderService.</span><span style="color:#B392F0">sendEmail</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    to: data.email,</span></span>
+<span class="line"><span style="color:#E1E4E8">    from: </span><span style="color:#9ECBFF">'no-reply@tuapp.com'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    subject: </span><span style="color:#9ECBFF">'Bienvenido a nuestra plataforma'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    template: </span><span style="color:#9ECBFF">'welcome-email'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    context: {</span></span>
+<span class="line"><span style="color:#E1E4E8">      name: data.name,</span></span>
+<span class="line"><span style="color:#E1E4E8">      confirmationLink: data.confirmationLink,</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> emailSent</span></span>
+<span class="line"><span style="color:#F97583">    ?</span><span style="color:#E1E4E8"> { message: </span><span style="color:#9ECBFF">'Correo enviado correctamente'</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">    :</span><span style="color:#E1E4E8"> { message: </span><span style="color:#9ECBFF">'No se pudo enviar el correo'</span><span style="color:#E1E4E8">, status: HttpStatus.</span><span style="color:#79B8FF">INTERNAL_SERVER_ERROR</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>También puedes enviar adjuntos (por ejemplo, facturas) agregando <code>attachments</code> al payload.</p>
+<h2 id="cierre">Cierre</h2>
+<p>Con esta estructura separas responsabilidades de forma clara:</p>
+<ul>
+<li>templates y renderizado por un lado,</li>
+<li>envío por otro,</li>
+<li>y uso desde negocio sin acoplamiento fuerte.</li>
+</ul>
+<p>Es una base simple y mantenible, lista para evolucionar con colas, reintentos y flujos event-driven más robustos.</p> </article>  </article> </main>  </body></html>

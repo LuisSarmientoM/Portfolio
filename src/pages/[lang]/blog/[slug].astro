@@ -11,24 +11,30 @@ const defaultLanguage =
     (languages[0]?.code as TranslationKey) ?? translationKeys[0];
 
 export async function getStaticPaths() {
-    const paths: any[] = [];
-    
-    for (const lang of resume.languages) {
-        const entries = await getCollection("blog", ({ id }: { id: string }) =>
-            id.startsWith(`${lang.code}/`),
-        );
-        
-        for (const entry of entries) {
-            const fileName = entry.id.split("/").pop() ?? "";
-            paths.push({
-                params: {
-                    lang: lang.code,
-                    slug: fileName.replace(/\.md$/, ""),
-                },
-            });
+    const paths: Array<{ params: { lang: string; slug: string } }> = [];
+    const translationKeys = Object.keys(resume.translations) as TranslationKey[];
+    const getEntryLang = (id: string): TranslationKey | undefined => {
+        const cleanId = id.replace(/\.md$/, "");
+        const parts = cleanId.split("/");
+        return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
+    };
+    const entries = await getCollection("blog");
+
+    for (const entry of entries) {
+        const entryLang = getEntryLang(entry.id);
+        if (!entryLang) {
+            continue;
         }
+
+        const fileName = entry.id.split("/").pop() ?? "";
+        paths.push({
+            params: {
+                lang: entryLang,
+                slug: fileName.replace(/\.md$/, ""),
+            },
+        });
     }
-    
+
     return paths;
 }
 
@@ -42,8 +48,14 @@ if (!lang || !translationKeys.includes(lang as TranslationKey)) {
     );
 }
 
-const entries = await getCollection("blog", ({ id }: { id: string }) =>
-    id.startsWith(`${lang}/`),
+const getEntryLang = (id: string): TranslationKey | undefined => {
+    const cleanId = id.replace(/\.md$/, "");
+    const parts = cleanId.split("/");
+    return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
+};
+
+const entries = (await getCollection("blog")).filter(
+    ({ id }: { id: string }) => getEntryLang(id) === lang,
 );
 const getSlug = (id: string) => id.split("/").pop()?.replace(/\.md$/, "") ?? id;
 const post = entries.find(

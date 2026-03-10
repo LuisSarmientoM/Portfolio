@@ -24,7 +24,13 @@ if (!requestedLang || requestedLang === defaultLanguage) {
   );
 }
 
-const posts = await getCollection('blog', ({ id }: { id: string }) => id.startsWith(`${requestedLang}/`));
+const getEntryLang = (id: string): TranslationKey | undefined => {
+  const cleanId = id.replace(/\.md$/, '');
+  const parts = cleanId.split('/');
+  return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
+};
+
+const posts = (await getCollection('blog')).filter(({ id }: { id: string }) => getEntryLang(id) === requestedLang);
 const getSlug = (id: string) => id.split('/').pop()?.replace(/\.md$/, '') ?? id;
 const sorted = posts.sort(
   (a: (typeof posts)[number], b: (typeof posts)[number]) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()

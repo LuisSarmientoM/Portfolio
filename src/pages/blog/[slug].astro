@@ -14,8 +14,14 @@ export async function getStaticPaths() {
     const staticDefaultLanguage =
         (resume.languages[0]?.code as TranslationKey) ??
         (Object.keys(resume.translations)[0] as TranslationKey);
-    const entries = await getCollection("blog", ({ id }: { id: string }) =>
-        id.startsWith(`${staticDefaultLanguage}/`),
+    const translationKeys = Object.keys(resume.translations) as TranslationKey[];
+    const getEntryLang = (id: string): TranslationKey | undefined => {
+        const cleanId = id.replace(/\.md$/, "");
+        const parts = cleanId.split("/");
+        return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
+    };
+    const entries = (await getCollection("blog")).filter(
+        ({ id }: { id: string }) => getEntryLang(id) === staticDefaultLanguage,
     );
     return entries.map((entry: (typeof entries)[number]) => {
         const fileName = entry.id.split("/").pop() ?? "";

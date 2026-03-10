@@ -12,7 +12,7 @@ interface Props {
 
 const {
   lang = 'en',
-  description = 'Résumé and portfolio for Bartosz Jarocki',
+  description = 'Portfolio and resume of Luis Felipe Sarmiento Munoz',
   languages = [],
   currentLanguage,
   defaultLanguage,
@@ -28,14 +28,24 @@ const pathWithoutBase = currentPath.startsWith(basePath)
   : currentPath;
 const currentLanguagePrefix =
   currentLanguage && defaultLanguage && currentLanguage !== defaultLanguage ? `/${currentLanguage}` : '';
-const pathWithoutLanguage = currentLanguagePrefix && pathWithoutBase.startsWith(currentLanguagePrefix)
-  ? pathWithoutBase.slice(currentLanguagePrefix.length)
-  : pathWithoutBase;
+const defaultLanguagePrefix = defaultLanguage ? `/${defaultLanguage}` : '';
+let pathWithoutLanguage = pathWithoutBase;
+if (currentLanguagePrefix && pathWithoutLanguage.startsWith(currentLanguagePrefix)) {
+  pathWithoutLanguage = pathWithoutLanguage.slice(currentLanguagePrefix.length);
+}
+if (defaultLanguagePrefix && pathWithoutLanguage.startsWith(`${defaultLanguagePrefix}/`)) {
+  pathWithoutLanguage = pathWithoutLanguage.slice(defaultLanguagePrefix.length);
+}
+if (defaultLanguagePrefix && pathWithoutLanguage === defaultLanguagePrefix) {
+  pathWithoutLanguage = '';
+}
 const pathSuffix = pathWithoutLanguage === '' ? '/' : pathWithoutLanguage;
 const isBlogRoute = pathSuffix.startsWith('/blog');
 const homeHref = `${basePath}${currentLanguagePrefix}/`;
 const blogHref = `${basePath}/blog/`;
 const showLanguageSelector = languages.length > 0 && currentLanguage && defaultLanguage;
+const siteOrigin = Astro.site?.toString() ?? Astro.url.origin;
+const canonicalHref = new URL(currentPath, siteOrigin).toString();
 const getLanguageHref = (code: string) => {
   if (isBlogRoute) {
     return `${basePath}${pathSuffix}`;
@@ -43,6 +53,13 @@ const getLanguageHref = (code: string) => {
   const languagePrefix = defaultLanguage && code === defaultLanguage ? '' : `/${code}`;
   return `${basePath}${languagePrefix}${pathSuffix}`;
 };
+const alternateLinks = !isBlogRoute && showLanguageSelector
+  ? languages.map((language) => ({
+      hreflang: language.code,
+      href: new URL(getLanguageHref(language.code), siteOrigin).toString(),
+    }))
+  : [];
+const xDefaultHref = !isBlogRoute && showLanguageSelector ? new URL(`${basePath}/`, siteOrigin).toString() : undefined;
 ---
 <!DOCTYPE html>
 <html lang={lang} class="scroll-smooth bg-slate-950 text-slate-100">
@@ -50,6 +67,9 @@ const getLanguageHref = (code: string) => {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalHref} />
+    {alternateLinks.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
+    {xDefaultHref && <link rel="alternate" hreflang="x-default" href={xDefaultHref} />}
     <slot name="head" />
   </head>
   <body class="min-h-screen bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.18),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.16),transparent_32%),radial-gradient(circle_at_0%_60%,rgba(14,165,233,0.12),transparent_35%)]">

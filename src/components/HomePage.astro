@@ -76,6 +76,9 @@ interface Props {
 const { data, labels, languages, currentLanguage, defaultLanguage }: Props = Astro.props;
 const { education, experience, interests, profile, projects, skills } = data;
 const headerName = 'Luis Sarmiento';
+const primaryExperience = experience[0];
+const experienceStackLabel = 'Stack';
+const experienceHighlightsLabel = currentLanguage === 'es' ? 'Logros clave' : 'Key highlights';
 
 ---
 <BaseLayout
@@ -145,29 +148,38 @@ const headerName = 'Luis Sarmiento';
 
     <div class="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
       <div class="card p-8">
-        <Section title={labels.experienceTitle} kicker={labels.experienceKicker}>
-          <div class="space-y-10">
-            {experience.map((item: ResumeData['experience'][number]) => (
-              <article class="rounded-2xl bg-slate-900/50 p-5 ring-1 ring-inset ring-slate-800">
-                <div class="flex flex-wrap items-center justify-between gap-3">
+        <Section title={labels.projectsTitle} kicker={labels.projectsKicker}>
+          <div class="space-y-6">
+            {projects.map((project: ResumeData['projects'][number]) => (
+              <a
+                class="group block rounded-2xl bg-slate-900/50 p-4 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-1 hover:border-slate-700"
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div class="flex items-start justify-between gap-3">
                   <div>
-                    <p class="text-sm uppercase tracking-[0.2em] text-slate-400">{item.period}</p>
-                    <h3 class="text-xl font-semibold text-slate-50">{item.role}</h3>
-                    <p class="text-sm text-slate-300">{item.company} · {item.location}</p>
+                    <h3 class="text-base font-semibold text-slate-50 group-hover:text-white">{project.name}</h3>
+                    <p class="mt-1 text-sm leading-relaxed text-slate-200/90">{project.description}</p>
                   </div>
-                  <div class="flex flex-wrap gap-2">
-                    {item.stack.map((tech: string) => <Tag label={tech} />)}
-                  </div>
+                  <svg
+                    class="mt-1 h-5 w-5 text-slate-500 group-hover:text-slate-200"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17 17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
                 </div>
-                <ul class="mt-4 space-y-2 text-sm leading-relaxed text-slate-200">
-                  {item.achievements.map((note: string) => (
-                    <li class="flex gap-2">
-                      <span class="mt-1 h-2 w-2 rounded-full bg-slate-500" aria-hidden="true" />
-                      <span>{note}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  {project.tags.map((tag: string) => <Tag label={tag} />)}
+                </div>
+              </a>
             ))}
           </div>
         </Section>
@@ -175,40 +187,35 @@ const headerName = 'Luis Sarmiento';
 
       <div class="flex flex-col gap-6">
         <div class="card p-8">
-          <Section title={labels.projectsTitle} kicker={labels.projectsKicker}>
-            <div class="space-y-6">
-              {projects.map((project: ResumeData['projects'][number]) => (
-                <a
-                  class="group block rounded-2xl bg-slate-900/50 p-4 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-1 hover:border-slate-700"
-                  href={project.link}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div class="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 class="text-base font-semibold text-slate-50 group-hover:text-white">{project.name}</h3>
-                      <p class="mt-1 text-sm leading-relaxed text-slate-200/90">{project.description}</p>
-                    </div>
-                    <svg
-                      class="mt-1 h-5 w-5 text-slate-500 group-hover:text-slate-200"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M7 17 17 7" />
-                      <path d="M7 7h10v10" />
-                    </svg>
+          <Section title={labels.experienceTitle} kicker={labels.experienceKicker}>
+            {primaryExperience ? (
+              <div class="space-y-4 text-sm text-slate-200">
+                <div>
+                  <p class="text-xs uppercase tracking-[0.24em] text-slate-400">{primaryExperience.period}</p>
+                  <h3 class="text-lg font-semibold text-slate-50">{primaryExperience.role}</h3>
+                  <p class="text-sm text-slate-300">{primaryExperience.company} · {primaryExperience.location}</p>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{experienceStackLabel}</p>
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    {primaryExperience.stack.map((tech: string) => <Tag label={tech} />)}
                   </div>
-                  <div class="mt-3 flex flex-wrap gap-2">
-                    {project.tags.map((tag: string) => <Tag label={tag} />)}
-                  </div>
-                </a>
-              ))}
-            </div>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{experienceHighlightsLabel}</p>
+                  <ul class="mt-2 space-y-2 text-sm leading-relaxed text-slate-200">
+                    {primaryExperience.achievements.map((note: string) => (
+                      <li class="flex gap-2">
+                        <span class="mt-1 h-2 w-2 rounded-full bg-slate-500" aria-hidden="true" />
+                        <span>{note}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <div class="text-sm text-slate-400">No experience entries available.</div>
+            )}
           </Section>
         </div>
 

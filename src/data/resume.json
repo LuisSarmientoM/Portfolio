@@ -55,10 +55,10 @@
       ],
       "projects": [
         {
-          "name": "PaperCV",
-          "description": "A printable résumé builder that exports accessible, typographically refined PDFs directly from the browser.",
-          "link": "https://github.com/BartoszJarocki/cv",
-          "tags": ["Astro", "Tailwind CSS", "Design systems"]
+          "name": "Portfolio",
+          "description": "Personal portfolio built with Astro and Tailwind CSS, featuring multilingual content and a lightweight blog powered by Markdown.",
+          "link": "https://github.com/LuisSarmientoM/Portfolio",
+          "tags": ["Astro", "Tailwind CSS", "i18n"]
         }
       ],
       "skills": {
@@ -126,10 +126,10 @@
       ],
       "projects": [
         {
-          "name": "PaperCV",
-          "description": "Generador de currículums imprimibles que exporta PDFs accesibles y bien maquetados directamente desde el navegador.",
-          "link": "https://github.com/BartoszJarocki/cv",
-          "tags": ["Astro", "Tailwind CSS", "Design systems"]
+          "name": "Portfolio",
+          "description": "Portafolio personal construido con Astro y Tailwind CSS, con contenido multilenguaje y un blog ligero basado en Markdown.",
+          "link": "https://github.com/LuisSarmientoM/Portfolio",
+          "tags": ["Astro", "Tailwind CSS", "i18n"]
         }
       ],
       "skills": {

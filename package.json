@@ -4,9 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tailwindcss -i src/styles/global.css -o src/styles/tailwind.css --watch --poll=500 --minify --source-map & astro dev",
-    "build:css": "tailwindcss -i src/styles/global.css -o src/styles/tailwind.css --minify",
-    "build": "npm run build:css && astro build",
+    "dev": "astro dev",
+    "build": "astro build",
     "preview": "astro preview",
     "check": "astro check"
   },
@@ -16,7 +15,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
-    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/vite": "^4.1.18",
     "typescript": "^5.9.3"
   }
 }

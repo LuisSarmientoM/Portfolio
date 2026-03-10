@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;600&display=swap");
 @import "tailwindcss";
 
-@source "./src/**/*.{astro,html,js,ts,jsx,tsx}";
+@source "../**/*.{astro,html,js,ts,jsx,tsx,md,mdx}";
 
 @theme {
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;

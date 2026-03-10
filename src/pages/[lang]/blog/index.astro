@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import resume from '../../data/resume.json';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import resume from '../../../data/resume.json';
 
 type TranslationKey = Extract<keyof typeof resume.translations, string>;
 
@@ -9,14 +9,29 @@ const languages = resume.languages;
 const translationKeys = Object.keys(resume.translations) as TranslationKey[];
 const defaultLanguage = (languages[0]?.code as TranslationKey) ?? translationKeys[0];
 
-const posts = await getCollection('blog', ({ id }: { id: string }) => id.startsWith(`${defaultLanguage}/`));
+export function getStaticPaths() {
+  return resume.languages.map(({ code }) => ({
+    params: { lang: code },
+  }));
+}
+
+const requestedLangParam = Astro.params.lang;
+const requestedLang = translationKeys.find((code) => code === requestedLangParam) as TranslationKey | undefined;
+
+if (!requestedLang || requestedLang === defaultLanguage) {
+  return Astro.redirect(
+    import.meta.env.BASE_URL.endsWith('/') ? `${import.meta.env.BASE_URL}blog/` : `${import.meta.env.BASE_URL}/blog/`
+  );
+}
+
+const posts = await getCollection('blog', ({ id }: { id: string }) => id.startsWith(`${requestedLang}/`));
 const getSlug = (id: string) => id.split('/').pop()?.replace(/\.md$/, '') ?? id;
 const sorted = posts.sort(
   (a: (typeof posts)[number], b: (typeof posts)[number]) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 const headerName = 'Luis Sarmiento';
 const formatDate = (value: Date) =>
-  new Intl.DateTimeFormat(defaultLanguage === 'en' ? 'en-US' : 'es-CO', {
+  new Intl.DateTimeFormat(requestedLang === 'en' ? 'en-US' : 'es-CO', {
     year: 'numeric',
     month: 'short',
     day: '2-digit',
@@ -24,26 +39,26 @@ const formatDate = (value: Date) =>
 ---
 <BaseLayout
   name={headerName}
-  lang={defaultLanguage}
+  lang={requestedLang}
   languages={languages}
-  currentLanguage={defaultLanguage}
+  currentLanguage={requestedLang}
   defaultLanguage={defaultLanguage}
 >
   <Fragment slot="head">
-    <title>Blog · Notas y procesos</title>
+    <title>Blog · Notes and processes</title>
     <meta
       name="description"
-      content="Notas breves sobre diseño de producto, documentación de componentes y rendimiento en experiencias digitales."
+      content="Brief notes on product design, component documentation and performance in digital experiences."
     />
   </Fragment>
 
   <section class="card relative overflow-hidden p-8">
     <div class="absolute left-0 top-0 h-1 w-28 rounded-full ribbon" />
     <p class="text-xs uppercase tracking-[0.28em] text-slate-500">Blog</p>
-    <h1 class="mt-2 text-3xl font-bold leading-tight text-slate-50 sm:text-4xl">Procesos detrás del portfolio</h1>
+    <h1 class="mt-2 text-3xl font-bold leading-tight text-slate-50 sm:text-4xl">Processes behind the portfolio</h1>
     <p class="mt-3 max-w-2xl text-base leading-relaxed text-slate-200/90">
-      Apuntes breves sobre cómo diseño, documento y optimizo interfaces. Cada entrada es un snapshot de mi forma de trabajar y
-      de las preguntas que aparecen en el día a día.
+      Brief notes on how I design, document and optimize interfaces. Each entry is a snapshot of my way of working and
+      the questions that appear in my day to day.
     </p>
   </section>
 
@@ -52,7 +67,7 @@ const formatDate = (value: Date) =>
       {sorted.map((post: (typeof sorted)[number]) => (
         <a
           class="block rounded-2xl bg-slate-900/60 p-6 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-1 hover:bg-slate-900 hover:ring-slate-700"
-          href={`/${defaultLanguage}/blog/${getSlug(post.id)}/`}
+          href={`/${requestedLang}/blog/${getSlug(post.id)}/`}
         >
           <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400">
             <span>{formatDate(post.data.date)}</span>
@@ -74,20 +89,19 @@ const formatDate = (value: Date) =>
 
     <aside class="card flex flex-col gap-6 p-6">
       <div>
-        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Archivo rápido</p>
+        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Quick archive</p>
         <p class="mt-2 text-sm text-slate-200">
-          Todas las entradas viven en Markdown para mantener el flujo de trabajo ligero y versionado. Puedes leerlas en el sitio
-          o desde el repositorio.
+          All entries live in Markdown to keep the workflow light and versioned. You can read them on the site or from the repository.
         </p>
       </div>
       <div class="rounded-2xl bg-slate-900/50 p-5 ring-1 ring-inset ring-slate-800">
-        <p class="text-sm font-semibold text-slate-100">Contacto</p>
-        <p class="mt-2 text-sm text-slate-200/90">¿Quieres proponer un tema o colaborar en una publicación?</p>
+        <p class="text-sm font-semibold text-slate-100">Contact</p>
+        <p class="mt-2 text-sm text-slate-200/90">Want to propose a topic or collaborate on a post?</p>
         <a
           class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:-translate-y-0.5 hover:text-emerald-200"
           href="mailto:hello@lsarmiento.dev"
         >
-          Escríbeme a hello@lsarmiento.dev
+          Write to me at hello@lsarmiento.dev
         </a>
       </div>
     </aside>

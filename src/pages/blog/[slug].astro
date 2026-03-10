@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+import resume from "../../data/resume.json";
+
+type TranslationKey = Extract<keyof typeof resume.translations, string>;
+
+const languages = resume.languages;
+const translationKeys = Object.keys(resume.translations) as TranslationKey[];
+const defaultLanguage =
+    (languages[0]?.code as TranslationKey) ?? translationKeys[0];
+
+export async function getStaticPaths() {
+    const staticDefaultLanguage =
+        (resume.languages[0]?.code as TranslationKey) ??
+        (Object.keys(resume.translations)[0] as TranslationKey);
+    const entries = await getCollection("blog", ({ id }: { id: string }) =>
+        id.startsWith(`${staticDefaultLanguage}/`),
+    );
+    return entries.map((entry: (typeof entries)[number]) => {
+        const fileName = entry.id.split("/").pop() ?? "";
+        return {
+            params: {
+                slug: fileName.replace(/\.md$/, ""),
+            },
+        };
+    });
+}
+
+const routeParams = Astro.params as Record<string, string | undefined>;
+const slug = routeParams.slug;
+
+const baseUrl = import.meta.env.BASE_URL;
+const redirectUrl = baseUrl.endsWith('/') 
+    ? `${baseUrl}${defaultLanguage}/blog/${slug}/` 
+    : `${baseUrl}/${defaultLanguage}/blog/${slug}/`;
+---
+<!DOCTYPE html>
+<html lang={defaultLanguage}>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
+    <title>Redirecting...</title>
+</head>
+<body>
+    <p>Redirecting to <a href={redirectUrl}>blog post</a>...</p>
+</body>
+</html>

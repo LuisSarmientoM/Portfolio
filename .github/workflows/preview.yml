@@ -1,24 +1,20 @@
-name: Deploy to GitHub Pages
+name: Deploy Preview to GitHub Pages
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
-  push:
-    branches: [ main ]
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
-  workflow_dispatch:
+  pull_request_target:
 
-# Allow this job to clone the repo and create a page deployment
 permissions:
   contents: write
 
 jobs:
   deploy:
-    if: ${{ github.actor != 'github-actions[bot]' }}
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -28,10 +24,11 @@ jobs:
         run: npm ci
       - name: Build site
         run: npm run build
-      - name: Deploy to GitHub Pages branch
+      - name: Publish preview to GitHub Pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           keep_files: true
+          destination_dir: previews/pr-${{ github.event.pull_request.number }}
           publish_branch: gh-pages

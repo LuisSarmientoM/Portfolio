@@ -1,0 +1,72 @@
+---
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+
+type LanguageOption = { code: string; label?: string };
+interface AlternateLink {
+    hreflang: string;
+    href: string;
+}
+interface Props {
+    lang?: string;
+    description?: string;
+    canonicalHref?: string;
+    alternateLinks?: AlternateLink[];
+    xDefaultHref?: string;
+    name?: string;
+    languages?: LanguageOption[];
+    currentLanguage?: string;
+    defaultLanguage?: string;
+}
+const {
+    lang = "en",
+    description = "Portfolio and resume of Luis Felipe Sarmiento Munoz",
+    canonicalHref,
+    alternateLinks = [],
+    xDefaultHref,
+    name,
+    languages = [],
+    currentLanguage,
+    defaultLanguage,
+}: Props = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth bg-slate-950 text-slate-100">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={description} />
+        {canonicalHref && <link rel="canonical" href={canonicalHref} />}
+        {
+            alternateLinks.map((alternate) => (
+                <link
+                    rel="alternate"
+                    hreflang={alternate.hreflang}
+                    href={alternate.href}
+                />
+            ))
+        }
+        {
+            xDefaultHref && (
+                <link
+                    rel="alternate"
+                    hreflang="x-default"
+                    href={xDefaultHref}
+                />
+            )
+        }
+        <slot name="head" />
+    </head>
+    <body
+        class="min-h-screen bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.18),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.16),transparent_32%),radial-gradient(circle_at_0%_60%,rgba(14,165,233,0.12),transparent_35%)]"
+    >
+        <Header
+            name={name}
+            languages={languages}
+            currentLanguage={currentLanguage}
+            defaultLanguage={defaultLanguage}
+        />
+        <slot />
+    </body>
+</html>

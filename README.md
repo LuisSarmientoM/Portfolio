@@ -1,46 +1,70 @@
-# Portfolio
+# Personal Sites Monorepo
 
-Portfolio personal de Luis Sarmiento construido con Astro 5 y Tailwind CSS 4.
+Monorepo con dos sitios Astro:
+
+- `apps/portfolio`: sitio principal de portafolio.
+- `apps/blog`: sitio de blog separado.
 
 ## Requisitos
 
 - Node.js 20+
-- npm 10+
+- pnpm 9+
 
 ## Instalacion
 
 ```bash
-npm install
+pnpm install
 ```
 
-## Scripts
+## Scripts (raiz)
 
-- `npm run dev`: inicia el servidor de desarrollo.
-- `npm run check`: ejecuta chequeos de Astro/TypeScript.
-- `npm run build`: genera el sitio estatico en `dist/`.
-- `npm run preview`: levanta una vista previa de produccion.
+- `pnpm dev:portfolio`: desarrollo del portafolio.
+- `pnpm dev:blog`: desarrollo del blog.
+- `pnpm build`: build de ambos sitios.
+- `pnpm check`: chequeos de Astro/TypeScript en ambos sitios.
+- `pnpm preview:portfolio`: preview de portfolio.
+- `pnpm preview:blog`: preview de blog.
 
-## Estructura principal
+## Variables de entorno
 
-- `src/pages`: rutas del sitio (home, idiomas y blog).
-- `src/components`: componentes reutilizables de UI.
-- `src/layouts`: layouts base y de posts.
-- `src/data/resume.json`: contenido principal del portfolio.
-- `src/styles/global.css`: estilos globales y Tailwind.
+### Portfolio (`apps/portfolio`)
 
-## Deploy
+- `PUBLIC_CONTACT_API_URL`: endpoint publico del formulario de contacto.
+- `PUBLIC_BLOG_URL`: URL publica del blog (por defecto `https://blog.lsarmiento.dev`).
 
-El proyecto esta configurado para GitHub Pages con:
+### Blog (`apps/blog`)
 
-- `site`: `https://luissarmientom.github.io`
-- `base`: `/Portfolio`
+- `PUBLIC_PORTFOLIO_URL`: URL publica del portafolio (por defecto `https://lsarmiento.dev`).
 
-Los workflows en `.github/workflows/` construyen y publican `dist/` en la rama `gh-pages`.
+## Notas
 
-## Formulario de contacto
+- El Worker del formulario de contacto vive en `apps/portfolio/workers/contact/`.
+- Cada app tiene su propio `astro.config.mjs` y `tsconfig.json`.
 
-El frontend del formulario vive en `src/components/HomePage.astro` y espera una URL publica en:
+## Deploy en Cloudflare (separado por app)
 
+Los deploys estan divididos en workflows independientes:
+
+- `.github/workflows/deploy-portfolio.yml`
+- `.github/workflows/deploy-blog.yml`
+- `.github/workflows/deploy-contact-worker.yml`
+
+Cada workflow usa filtros por `paths`, asi que:
+
+- si haces push solo a `apps/portfolio/**`, se despliega solo portfolio;
+- si haces push solo a `apps/blog/**`, se despliega solo blog;
+- si haces push solo a `apps/portfolio/workers/contact/**`, se despliega solo el worker.
+
+### Secrets de GitHub requeridos
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_PAGES_PROJECT_PORTFOLIO`
+- `CLOUDFLARE_PAGES_PROJECT_BLOG`
+- `RESEND_API_KEY` (solo para el workflow del worker)
+
+### Variables de GitHub recomendadas
+
+- `PUBLIC_BLOG_URL`
 - `PUBLIC_CONTACT_API_URL`
-
-Para el backend se incluye un Worker en `workers/contact/` que envia emails con Resend, valida campos y aplica honeypot + rate limit basico por IP.
+- `PUBLIC_PORTFOLIO_URL`

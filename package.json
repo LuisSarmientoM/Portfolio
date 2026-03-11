@@ -1,21 +1,13 @@
 {
-  "name": "portfolio",
+  "name": "personal-sites-monorepo",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "check": "astro check"
-  },
-  "dependencies": {
-    "astro": "^6.0.2",
-    "tailwindcss": "^4.2.1"
-  },
-  "devDependencies": {
-    "@astrojs/check": "^0.9.7",
-    "@tailwindcss/vite": "^4.2.1",
-    "typescript": "^5.9.3"
+    "dev:portfolio": "pnpm --filter @sites/portfolio dev",
+    "dev:blog": "pnpm --filter @sites/blog dev",
+    "build": "pnpm -r --filter @sites/* build",
+    "check": "pnpm -r --filter @sites/* check",
+    "preview:portfolio": "pnpm --filter @sites/portfolio preview",
+    "preview:blog": "pnpm --filter @sites/blog preview"
   }
 }

@@ -1,0 +1,5 @@
+---
+return Astro.redirect(
+  import.meta.env.BASE_URL.endsWith('/') ? `${import.meta.env.BASE_URL}blog/` : `${import.meta.env.BASE_URL}/blog/`
+);
+---

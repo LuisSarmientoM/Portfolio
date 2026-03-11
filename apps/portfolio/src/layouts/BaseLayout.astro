@@ -1,0 +1,35 @@
+---
+import ShellLayout from "./ShellLayout.astro";
+
+interface Props {
+    lang?: string;
+    description?: string;
+    languages?: Array<{ code: string; label: string }>;
+    currentLanguage?: string;
+    defaultLanguage?: string;
+    name?: string;
+}
+
+const {
+    lang = "en",
+    description = "Portfolio and resume of Luis Felipe Sarmiento Munoz",
+    languages = [],
+    currentLanguage,
+    defaultLanguage,
+    name,
+}: Props = Astro.props;
+---
+
+<ShellLayout
+    lang={lang}
+    description={description}
+    languages={languages}
+    currentLanguage={currentLanguage}
+    defaultLanguage={defaultLanguage}
+    name={name}
+>
+    <Fragment slot="head"></Fragment>
+    <main class="mx-auto max-w-7xl px-6 pb-10 pt-24 sm:pb-14 sm:pt-28 lg:pb-16">
+        <slot />
+    </main>
+</ShellLayout>

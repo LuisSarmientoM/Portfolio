@@ -26,7 +26,7 @@ if (defaultLanguagePrefix && pathWithoutLanguage === defaultLanguagePrefix) {
 }
 const pathSuffix = pathWithoutLanguage === '' ? '/' : pathWithoutLanguage;
 const homeHref = `${basePath}${currentLanguagePrefix}/`;
-const blogHref = `${basePath}${currentLanguagePrefix}/blog/`;
+const blogHref = import.meta.env.PUBLIC_BLOG_URL ?? 'https://blog.lsarmiento.dev';
 const showLanguageSelector = languages.length > 0 && currentLanguage && defaultLanguage;
 ---
 
@@ -39,7 +39,7 @@ const showLanguageSelector = languages.length > 0 && currentLanguage && defaultL
       <nav class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200 ring-1 ring-inset ring-slate-800 backdrop-blur">
         <a class="transition hover:text-white" href={homeHref}>Home</a>
         <span class="text-slate-500">/</span>
-        <a class="transition hover:text-white" href={blogHref}>Blog</a>
+        <a class="transition hover:text-white" href={blogHref} target="_blank" rel="noreferrer">Blog</a>
       </nav>
       <div class="flex justify-end text-right">
         {showLanguageSelector && (

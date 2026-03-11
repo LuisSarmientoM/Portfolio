@@ -69,7 +69,7 @@
       "projects": [
         {
           "name": "Portfolio",
-          "description": "Personal portfolio built with Astro and Tailwind CSS, featuring multilingual content and a lightweight blog powered by Markdown.",
+          "description": "Personal portfolio built with Astro and Tailwind CSS, featuring multilingual content and a focused professional profile.",
           "link": "https://github.com/LuisSarmientoM/Portfolio",
           "tags": ["Astro", "Tailwind CSS", "i18n"]
         }
@@ -153,7 +153,7 @@
       "projects": [
         {
           "name": "Portfolio",
-          "description": "Portafolio personal construido con Astro y Tailwind CSS, con contenido multilenguaje y un blog ligero basado en Markdown.",
+          "description": "Portafolio personal construido con Astro y Tailwind CSS, con contenido multilenguaje y un perfil profesional enfocado.",
           "link": "https://github.com/LuisSarmientoM/Portfolio",
           "tags": ["Astro", "Tailwind CSS", "i18n"]
         }

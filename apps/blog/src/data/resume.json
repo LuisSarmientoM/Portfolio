@@ -1,0 +1,10 @@
+{
+  "languages": [
+    { "code": "es", "label": "Español" },
+    { "code": "en", "label": "English" }
+  ],
+  "translations": {
+    "es": {},
+    "en": {}
+  }
+}

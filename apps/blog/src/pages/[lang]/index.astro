@@ -1,0 +1,30 @@
+---
+import resume from '../../data/resume.json';
+
+type TranslationKey = keyof typeof resume.translations;
+
+const languages = resume.languages;
+const translationKeys = Object.keys(resume.translations) as TranslationKey[];
+const defaultLanguage = (languages[0]?.code as TranslationKey) ?? translationKeys[0];
+
+export function getStaticPaths() {
+  return resume.languages.map(({ code }) => ({
+    params: { lang: code },
+  }));
+}
+
+const requestedLangParam = Astro.params.lang;
+const requestedLang = translationKeys.find((code) => code === requestedLangParam) as TranslationKey | undefined;
+
+if (!requestedLang || requestedLang === defaultLanguage) {
+  return Astro.redirect(
+    import.meta.env.BASE_URL.endsWith('/') ? `${import.meta.env.BASE_URL}blog/` : `${import.meta.env.BASE_URL}/blog/`
+  );
+}
+
+return Astro.redirect(
+  import.meta.env.BASE_URL.endsWith('/')
+    ? `${import.meta.env.BASE_URL}${requestedLang}/blog/`
+    : `${import.meta.env.BASE_URL}/${requestedLang}/blog/`
+);
+---

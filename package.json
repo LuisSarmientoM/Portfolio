@@ -2,6 +2,7 @@
   "name": "personal-sites-monorepo",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@10.15.0",
   "scripts": {
     "dev:portfolio": "pnpm --filter @sites/portfolio dev",
     "dev:blog": "pnpm --filter @sites/blog dev",

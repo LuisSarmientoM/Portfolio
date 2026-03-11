@@ -1,5 +1,7 @@
 ---
 import resume from '../../data/resume.json';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 type TranslationKey = keyof typeof resume.translations;
 
@@ -17,14 +19,96 @@ const requestedLangParam = Astro.params.lang;
 const requestedLang = translationKeys.find((code) => code === requestedLangParam) as TranslationKey | undefined;
 
 if (!requestedLang || requestedLang === defaultLanguage) {
-  return Astro.redirect(
-    import.meta.env.BASE_URL.endsWith('/') ? `${import.meta.env.BASE_URL}blog/` : `${import.meta.env.BASE_URL}/blog/`
-  );
+  return Astro.redirect(import.meta.env.BASE_URL);
 }
 
-return Astro.redirect(
-  import.meta.env.BASE_URL.endsWith('/')
-    ? `${import.meta.env.BASE_URL}${requestedLang}/blog/`
-    : `${import.meta.env.BASE_URL}/${requestedLang}/blog/`
+const getEntryLang = (id: string): TranslationKey | undefined => {
+  const cleanId = id.replace(/\.md$/, '');
+  const parts = cleanId.split('/');
+  return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
+};
+
+const posts = (await getCollection('blog')).filter(({ id }: { id: string }) => getEntryLang(id) === requestedLang);
+const getSlug = (id: string) => id.split('/').pop()?.replace(/\.md$/, '') ?? id;
+const sorted = posts.sort(
+  (a: (typeof posts)[number], b: (typeof posts)[number]) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
+const headerName = 'Luis Sarmiento';
+const formatDate = (value: Date) =>
+  new Intl.DateTimeFormat(requestedLang === 'en' ? 'en-US' : 'es-CO', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  }).format(value);
 ---
+
+<BaseLayout
+  name={headerName}
+  lang={requestedLang}
+  languages={languages}
+  currentLanguage={requestedLang}
+  defaultLanguage={defaultLanguage}
+>
+  <Fragment slot="head">
+    <title>Blog · Notes and processes</title>
+    <meta
+      name="description"
+      content="Brief notes on product design, component documentation and performance in digital experiences."
+    />
+  </Fragment>
+
+  <section class="card relative overflow-hidden p-8">
+    <div class="absolute left-0 top-0 h-1 w-28 rounded-full ribbon" />
+    <p class="text-xs uppercase tracking-[0.28em] text-slate-500">Blog</p>
+    <h1 class="mt-2 text-3xl font-bold leading-tight text-slate-50 sm:text-4xl">Processes behind the portfolio</h1>
+    <p class="mt-3 max-w-2xl text-base leading-relaxed text-slate-200/90">
+      Brief notes on how I design, document and optimize interfaces. Each entry is a snapshot of my way of working and
+      the questions that appear in my day to day.
+    </p>
+  </section>
+
+  <div class="mt-8 grid gap-6 lg:grid-cols-[1.6fr_1fr]">
+    <div class="space-y-4">
+      {sorted.map((post: (typeof sorted)[number]) => (
+        <a
+          class="block rounded-2xl bg-slate-900/60 p-6 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-1 hover:bg-slate-900 hover:ring-slate-700"
+          href={`/${requestedLang}/${getSlug(post.id)}/`}
+        >
+          <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400">
+            <span>{formatDate(post.data.date)}</span>
+            {post.data.tags && (
+              <div class="flex flex-wrap gap-2">
+                {post.data.tags.map((tag: string) => (
+                  <span class="rounded-full bg-slate-950/70 px-3 py-1 text-xs font-semibold text-slate-200 ring-1 ring-inset ring-slate-800">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+          <h2 class="mt-3 text-2xl font-semibold text-slate-50">{post.data.title}</h2>
+          <p class="mt-2 text-base leading-relaxed text-slate-200/90">{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+
+    <aside class="card flex flex-col gap-6 p-6">
+      <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Quick archive</p>
+        <p class="mt-2 text-sm text-slate-200">
+          All entries live in Markdown to keep the workflow light and versioned. You can read them on the site or from the repository.
+        </p>
+      </div>
+      <div class="rounded-2xl bg-slate-900/50 p-5 ring-1 ring-inset ring-slate-800">
+        <p class="text-sm font-semibold text-slate-100">Contact</p>
+        <p class="mt-2 text-sm text-slate-200/90">Want to propose a topic or collaborate on a post?</p>
+        <a
+          class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 transition hover:-translate-y-0.5 hover:text-emerald-200"
+          href="mailto:hello@lsarmiento.dev"
+        >
+          Write to me at hello@lsarmiento.dev
+        </a>
+      </div>
+    </aside>
+  </div>
+</BaseLayout>

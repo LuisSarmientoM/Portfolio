@@ -1,114 +1,56 @@
 ---
-import { getCollection, render } from "astro:content";
-import PostLayout from "../../../layouts/PostLayout.astro";
-import resume from "../../../data/resume.json";
+import { getCollection } from 'astro:content';
+import resume from '../../../data/resume.json';
 
 type TranslationKey = Extract<keyof typeof resume.translations, string>;
 
 const languages = resume.languages;
 const translationKeys = Object.keys(resume.translations) as TranslationKey[];
-const defaultLanguage =
-    (languages[0]?.code as TranslationKey) ?? translationKeys[0];
+const defaultLanguage = (languages[0]?.code as TranslationKey) ?? translationKeys[0];
 
 export async function getStaticPaths() {
-    const paths: Array<{ params: { lang: string; slug: string } }> = [];
-    const translationKeys = Object.keys(resume.translations) as TranslationKey[];
-    const getEntryLang = (id: string): TranslationKey | undefined => {
-        const cleanId = id.replace(/\.md$/, "");
-        const parts = cleanId.split("/");
-        return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
-    };
-    const entries = await getCollection("blog");
+  const paths: Array<{ params: { lang: string; slug: string } }> = [];
+  const translationKeys = Object.keys(resume.translations) as TranslationKey[];
+  const getEntryLang = (id: string): TranslationKey | undefined => {
+    const cleanId = id.replace(/\.md$/, '');
+    const parts = cleanId.split('/');
+    return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
+  };
+  const entries = await getCollection('blog');
 
-    for (const entry of entries) {
-        const entryLang = getEntryLang(entry.id);
-        if (!entryLang) {
-            continue;
-        }
-
-        const fileName = entry.id.split("/").pop() ?? "";
-        paths.push({
-            params: {
-                lang: entryLang,
-                slug: fileName.replace(/\.md$/, ""),
-            },
-        });
+  for (const entry of entries) {
+    const entryLang = getEntryLang(entry.id);
+    if (!entryLang) {
+      continue;
     }
 
-    return paths;
+    const fileName = entry.id.split('/').pop() ?? '';
+    paths.push({
+      params: {
+        lang: entryLang,
+        slug: fileName.replace(/\.md$/, ''),
+      },
+    });
+  }
+
+  return paths;
 }
 
 const routeParams = Astro.params as Record<string, string | undefined>;
 const lang = routeParams.lang;
 const slug = routeParams.slug;
 
-if (!lang || !translationKeys.includes(lang as TranslationKey)) {
-    return Astro.redirect(
-        import.meta.env.BASE_URL.endsWith('/') ? `${import.meta.env.BASE_URL}blog/` : `${import.meta.env.BASE_URL}/blog/`
-    );
+if (!lang || !translationKeys.includes(lang as TranslationKey) || !slug) {
+  return Astro.redirect(import.meta.env.BASE_URL);
 }
 
-const getEntryLang = (id: string): TranslationKey | undefined => {
-    const cleanId = id.replace(/\.md$/, "");
-    const parts = cleanId.split("/");
-    return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
-};
+const baseUrl = import.meta.env.BASE_URL;
 
-const entries = (await getCollection("blog")).filter(
-    ({ id }: { id: string }) => getEntryLang(id) === lang,
-);
-const getSlug = (id: string) => id.split("/").pop()?.replace(/\.md$/, "") ?? id;
-const post = entries.find(
-    (entry: (typeof entries)[number]) => getSlug(entry.id) === slug,
-);
-
-if (!post) {
-    throw new Error(`Blog post not found for slug: ${slug} in language: ${lang}`);
+if (lang === defaultLanguage) {
+  const redirectUrl = baseUrl.endsWith('/') ? `${baseUrl}${slug}/` : `${baseUrl}/${slug}/`;
+  return Astro.redirect(redirectUrl);
 }
 
-const { Content } = await render(post);
-const frontmatter = post.data;
-const headerName = "Luis Sarmiento";
-const formatDate = (value: Date) =>
-    new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'es-CO', {
-        year: 'numeric',
-        month: 'short',
-        day: '2-digit',
-    }).format(value);
+const redirectUrl = baseUrl.endsWith('/') ? `${baseUrl}${lang}/${slug}/` : `${baseUrl}/${lang}/${slug}/`;
+return Astro.redirect(redirectUrl);
 ---
-
-<PostLayout
-    lang={lang}
-    languages={languages}
-    currentLanguage={lang}
-    defaultLanguage={defaultLanguage}
-    name={headerName}
->
-    <article class="blog-content">
-        <div class="mb-8 space-y-3 border-b border-slate-800 pb-6">
-            <h1
-                class="text-3xl font-bold leading-tight text-slate-50 sm:text-4xl"
-            >
-                {frontmatter.title}
-            </h1>
-            {
-                frontmatter.description && (
-                    <p class="text-base leading-relaxed text-slate-200/90">
-                        {frontmatter.description}
-                    </p>
-                )
-            }
-            <div
-                class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400"
-            >
-                {
-                    frontmatter.date && (
-                        <span>{formatDate(frontmatter.date)}</span>
-                    )
-                }
-            </div>
-        </div>
-
-        <Content />
-    </article>
-</PostLayout>

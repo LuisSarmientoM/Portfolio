@@ -26,7 +26,7 @@ if (defaultLanguagePrefix && pathWithoutLanguage === defaultLanguagePrefix) {
 }
 const pathSuffix = pathWithoutLanguage === '' ? '/' : pathWithoutLanguage;
 const homeHref = import.meta.env.PUBLIC_PORTFOLIO_URL ?? 'https://lsarmiento.dev';
-const blogHref = `${basePath}${currentLanguagePrefix}/blog/`;
+const blogHref = `${basePath}${currentLanguagePrefix}/`;
 const showLanguageSelector = languages.length > 0 && currentLanguage && defaultLanguage;
 ---
 

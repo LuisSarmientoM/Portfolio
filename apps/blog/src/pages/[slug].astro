@@ -1,0 +1,93 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../layouts/PostLayout.astro';
+import resume from '../data/resume.json';
+
+type TranslationKey = Extract<keyof typeof resume.translations, string>;
+
+const languages = resume.languages;
+const translationKeys = Object.keys(resume.translations) as TranslationKey[];
+const defaultLanguage = (languages[0]?.code as TranslationKey) ?? translationKeys[0];
+
+export async function getStaticPaths() {
+  const staticDefaultLanguage =
+    (resume.languages[0]?.code as TranslationKey) ?? (Object.keys(resume.translations)[0] as TranslationKey);
+  const translationKeys = Object.keys(resume.translations) as TranslationKey[];
+  const getEntryLang = (id: string): TranslationKey | undefined => {
+    const cleanId = id.replace(/\.md$/, '');
+    const parts = cleanId.split('/');
+    return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
+  };
+  const entries = (await getCollection('blog')).filter(
+    ({ id }: { id: string }) => getEntryLang(id) === staticDefaultLanguage
+  );
+
+  return entries.map((entry: (typeof entries)[number]) => {
+    const fileName = entry.id.split('/').pop() ?? '';
+    return {
+      params: {
+        slug: fileName.replace(/\.md$/, ''),
+      },
+    };
+  });
+}
+
+const routeParams = Astro.params as Record<string, string | undefined>;
+const slug = routeParams.slug;
+
+const getEntryLang = (id: string): TranslationKey | undefined => {
+  const cleanId = id.replace(/\.md$/, '');
+  const parts = cleanId.split('/');
+  return parts.find((part) => translationKeys.includes(part as TranslationKey)) as TranslationKey | undefined;
+};
+
+const entries = (await getCollection('blog')).filter(({ id }: { id: string }) => getEntryLang(id) === defaultLanguage);
+const getSlug = (id: string) => id.split('/').pop()?.replace(/\.md$/, '') ?? id;
+const post = entries.find((entry: (typeof entries)[number]) => getSlug(entry.id) === slug);
+
+if (!post) {
+  throw new Error(`Blog post not found for slug: ${slug} in language: ${defaultLanguage}`);
+}
+
+const { Content } = await render(post);
+const frontmatter = post.data;
+const headerName = 'Luis Sarmiento';
+const formatDate = (value: Date) =>
+  new Intl.DateTimeFormat(defaultLanguage === 'en' ? 'en-US' : 'es-CO', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+  }).format(value);
+---
+
+<PostLayout
+  lang={defaultLanguage}
+  languages={languages}
+  currentLanguage={defaultLanguage}
+  defaultLanguage={defaultLanguage}
+  name={headerName}
+>
+  <article class="blog-content">
+    <div class="mb-8 space-y-3 border-b border-slate-800 pb-6">
+      <h1 class="text-3xl font-bold leading-tight text-slate-50 sm:text-4xl">
+        {frontmatter.title}
+      </h1>
+      {
+        frontmatter.description && (
+          <p class="text-base leading-relaxed text-slate-200/90">
+            {frontmatter.description}
+          </p>
+        )
+      }
+      <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-400">
+        {
+          frontmatter.date && (
+            <span>{formatDate(frontmatter.date)}</span>
+          )
+        }
+      </div>
+    </div>
+
+    <Content />
+  </article>
+</PostLayout>

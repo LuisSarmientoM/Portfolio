@@ -4,8 +4,7 @@ node_modules
 .env
 .astro
 npm-debug.log*
-pnpm-lock.yaml
 yarn.lock
 dist
 .wrangler
-workers/contact/.dev.vars
+apps/portfolio/workers/contact/.dev.vars

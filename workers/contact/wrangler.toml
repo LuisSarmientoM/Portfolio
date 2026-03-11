@@ -1,0 +1,8 @@
+name = "portfolio-contact"
+main = "src/index.ts"
+compatibility_date = "2026-03-10"
+
+[vars]
+ALLOWED_ORIGIN = "https://lsarmiento.dev"
+CONTACT_TO_EMAIL = "hello@resend.lsarmiento.dev"
+RESEND_FROM_EMAIL = "Portfolio Contact <hello@resend.lsarmiento.dev>"

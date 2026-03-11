@@ -30,6 +30,19 @@ interface ResumeData {
     educationKicker: string;
     interestsTitle: string;
     interestsKicker: string;
+    contactTitle: string;
+    contactKicker: string;
+    contactDescription: string;
+    contactNameLabel: string;
+    contactEmailLabel: string;
+    contactMessageLabel: string;
+    contactSubmitLabel: string;
+    contactSubmittingLabel: string;
+    contactSuccessMessage: string;
+    contactErrorMessage: string;
+    contactDisabledMessage: string;
+    contactValidationRequired: string;
+    contactValidationEmail: string;
   };
   profile: {
     name: string;
@@ -79,6 +92,7 @@ const headerName = 'Luis Sarmiento';
 const primaryExperience = experience[0];
 const experienceStackLabel = 'Stack';
 const experienceHighlightsLabel = currentLanguage === 'es' ? 'Logros clave' : 'Key highlights';
+const contactEndpoint = import.meta.env.PUBLIC_CONTACT_API_URL ?? '';
 
 ---
 <BaseLayout
@@ -265,7 +279,162 @@ const experienceHighlightsLabel = currentLanguage === 'es' ? 'Logros clave' : 'K
             </div>
           </Section>
         </div>
+
+        <div class="card p-8">
+          <Section title={labels.contactTitle} kicker={labels.contactKicker}>
+            <div class="space-y-4 text-sm text-slate-200">
+              <p class="text-sm leading-relaxed text-slate-300">{labels.contactDescription}</p>
+              <form
+                class="space-y-3"
+                data-contact-form
+                data-endpoint={contactEndpoint}
+                data-required-message={labels.contactValidationRequired}
+                data-email-message={labels.contactValidationEmail}
+                data-success-message={labels.contactSuccessMessage}
+                data-error-message={labels.contactErrorMessage}
+                data-disabled-message={labels.contactDisabledMessage}
+                data-submit-label={labels.contactSubmitLabel}
+                data-submitting-label={labels.contactSubmittingLabel}
+              >
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <label class="flex flex-col gap-2">
+                    <span class="text-xs uppercase tracking-[0.2em] text-slate-500">{labels.contactNameLabel}</span>
+                    <input
+                      class="rounded-xl border border-slate-700/80 bg-slate-900/60 px-3 py-2 text-sm text-slate-100 outline-none ring-0 transition focus:border-slate-500"
+                      type="text"
+                      name="name"
+                      autocomplete="name"
+                      required
+                    />
+                  </label>
+                  <label class="flex flex-col gap-2">
+                    <span class="text-xs uppercase tracking-[0.2em] text-slate-500">{labels.contactEmailLabel}</span>
+                    <input
+                      class="rounded-xl border border-slate-700/80 bg-slate-900/60 px-3 py-2 text-sm text-slate-100 outline-none ring-0 transition focus:border-slate-500"
+                      type="email"
+                      name="email"
+                      autocomplete="email"
+                      required
+                    />
+                  </label>
+                </div>
+                <label class="flex flex-col gap-2">
+                  <span class="text-xs uppercase tracking-[0.2em] text-slate-500">{labels.contactMessageLabel}</span>
+                  <textarea
+                    class="min-h-28 rounded-xl border border-slate-700/80 bg-slate-900/60 px-3 py-2 text-sm text-slate-100 outline-none ring-0 transition focus:border-slate-500"
+                    name="message"
+                    required
+                  ></textarea>
+                </label>
+                <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+                  <label for={`company-${currentLanguage}`}>Company</label>
+                  <input id={`company-${currentLanguage}`} name="company" type="text" tabindex="-1" autocomplete="off" />
+                </div>
+                <div class="flex items-center gap-3">
+                  <button
+                    class="inline-flex items-center justify-center rounded-full bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+                    type="submit"
+                    data-submit-button
+                    disabled={!contactEndpoint}
+                  >
+                    {labels.contactSubmitLabel}
+                  </button>
+                  <p class="text-sm text-slate-300" data-contact-status aria-live="polite">
+                    {!contactEndpoint ? labels.contactDisabledMessage : ''}
+                  </p>
+                </div>
+              </form>
+            </div>
+          </Section>
+        </div>
       </div>
     </div>
   </div>
+
+  <script is:inline>
+    const form = document.querySelector('[data-contact-form]');
+
+    if (form instanceof HTMLFormElement) {
+      const endpoint = form.dataset.endpoint ?? '';
+      const requiredMessage = form.dataset.requiredMessage ?? 'Please complete all required fields.';
+      const emailMessage = form.dataset.emailMessage ?? 'Please enter a valid email address.';
+      const successMessage = form.dataset.successMessage ?? 'Message sent successfully.';
+      const errorMessage = form.dataset.errorMessage ?? 'Could not send message.';
+      const disabledMessage = form.dataset.disabledMessage ?? 'Contact form unavailable.';
+      const submitLabel = form.dataset.submitLabel ?? 'Send message';
+      const submittingLabel = form.dataset.submittingLabel ?? 'Sending...';
+
+      const status = form.querySelector('[data-contact-status]');
+      const submitButton = form.querySelector('[data-submit-button]');
+
+      const setStatus = (message) => {
+        if (status instanceof HTMLElement) {
+          status.textContent = message;
+        }
+      };
+
+      if (!endpoint) {
+        setStatus(disabledMessage);
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (!(submitButton instanceof HTMLButtonElement)) return;
+
+        if (!endpoint) {
+          setStatus(disabledMessage);
+          return;
+        }
+
+        const formData = new FormData(form);
+        const name = String(formData.get('name') ?? '').trim();
+        const email = String(formData.get('email') ?? '').trim();
+        const message = String(formData.get('message') ?? '').trim();
+        const company = String(formData.get('company') ?? '').trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!name || !email || !message) {
+          setStatus(requiredMessage);
+          return;
+        }
+
+        if (!emailRegex.test(email)) {
+          setStatus(emailMessage);
+          return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = submittingLabel;
+        setStatus('');
+
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              message,
+              company,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error('Request failed');
+          }
+
+          form.reset();
+          setStatus(successMessage);
+        } catch {
+          setStatus(errorMessage);
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = submitLabel;
+        }
+      });
+    }
+  </script>
 </BaseLayout>

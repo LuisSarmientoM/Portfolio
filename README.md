@@ -36,3 +36,11 @@ El proyecto esta configurado para GitHub Pages con:
 - `base`: `/Portfolio`
 
 Los workflows en `.github/workflows/` construyen y publican `dist/` en la rama `gh-pages`.
+
+## Formulario de contacto
+
+El frontend del formulario vive en `src/components/HomePage.astro` y espera una URL publica en:
+
+- `PUBLIC_CONTACT_API_URL`
+
+Para el backend se incluye un Worker en `workers/contact/` que envia emails con Resend, valida campos y aplica honeypot + rate limit basico por IP.

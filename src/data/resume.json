@@ -25,7 +25,20 @@
         "educationTitle": "Education",
         "educationKicker": "Background",
         "interestsTitle": "Interests",
-        "interestsKicker": "Personal"
+        "interestsKicker": "Personal",
+        "contactTitle": "Contact",
+        "contactKicker": "Let us talk",
+        "contactDescription": "Share a quick message and I will get back to you soon.",
+        "contactNameLabel": "Name",
+        "contactEmailLabel": "Email",
+        "contactMessageLabel": "Message",
+        "contactSubmitLabel": "Send message",
+        "contactSubmittingLabel": "Sending...",
+        "contactSuccessMessage": "Thanks! Your message was sent successfully.",
+        "contactErrorMessage": "I could not send your message right now. Please try again.",
+        "contactDisabledMessage": "Contact form is temporarily unavailable.",
+        "contactValidationRequired": "Please complete all required fields.",
+        "contactValidationEmail": "Please enter a valid email address."
       },
       "profile": {
         "name": "Luis Felipe Sarmiento Muñoz",
@@ -96,7 +109,20 @@
         "educationTitle": "Educación",
         "educationKicker": "Formación",
         "interestsTitle": "Intereses",
-        "interestsKicker": "Personal"
+        "interestsKicker": "Personal",
+        "contactTitle": "Contacto",
+        "contactKicker": "Hablemos",
+        "contactDescription": "Comparte un mensaje rapido y te respondere pronto.",
+        "contactNameLabel": "Nombre",
+        "contactEmailLabel": "Correo",
+        "contactMessageLabel": "Mensaje",
+        "contactSubmitLabel": "Enviar mensaje",
+        "contactSubmittingLabel": "Enviando...",
+        "contactSuccessMessage": "Gracias. Tu mensaje fue enviado correctamente.",
+        "contactErrorMessage": "No pude enviar tu mensaje en este momento. Intenta de nuevo.",
+        "contactDisabledMessage": "El formulario de contacto no esta disponible temporalmente.",
+        "contactValidationRequired": "Completa todos los campos obligatorios.",
+        "contactValidationEmail": "Ingresa un correo valido."
       },
       "profile": {
         "name": "Luis Felipe Sarmiento Muñoz",

@@ -34,6 +34,33 @@ const sorted = posts.sort(
   (a: (typeof posts)[number], b: (typeof posts)[number]) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 const headerName = 'Luis Sarmiento';
+const pageTitle = requestedLang === 'en' ? 'Luis Sarmiento Blog | Web architecture and development' : 'Blog de Luis Sarmiento | Arquitectura y desarrollo web';
+const pageDescription =
+  requestedLang === 'en'
+    ? 'Notes about frontend and backend architecture, web performance, NestJS, Angular and real-world development workflows.'
+    : 'Notas sobre arquitectura frontend y backend, rendimiento web, NestJS, Angular y procesos reales de desarrollo.';
+const canonicalHref = new URL(`/${requestedLang}/`, Astro.site).toString();
+const xDefaultHref = new URL('/', Astro.site).toString();
+const alternateLinks = languages.map(({ code }) => ({
+  hreflang: code,
+  href: new URL(code === defaultLanguage ? '/' : `/${code}/`, Astro.site).toString(),
+}));
+const ogImage = new URL('/og/blog-home.svg', Astro.site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Luis Sarmiento Blog',
+  description: pageDescription,
+  url: canonicalHref,
+  inLanguage: requestedLang,
+  blogPost: sorted.map((post) => ({
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.date.toISOString(),
+    url: new URL(`/${requestedLang}/${getSlug(post.id)}/`, Astro.site).toString(),
+  })),
+};
 const formatDate = (value: Date) =>
   new Intl.DateTimeFormat(requestedLang === 'en' ? 'en-US' : 'es-CO', {
     year: 'numeric',
@@ -45,18 +72,17 @@ const formatDate = (value: Date) =>
 <BaseLayout
   name={headerName}
   lang={requestedLang}
+  title={pageTitle}
+  description={pageDescription}
+  canonicalHref={canonicalHref}
+  alternateLinks={alternateLinks}
+  xDefaultHref={xDefaultHref}
+  ogImage={ogImage}
+  jsonLd={jsonLd}
   languages={languages}
   currentLanguage={requestedLang}
   defaultLanguage={defaultLanguage}
 >
-  <Fragment slot="head">
-    <title>Blog · Notes and processes</title>
-    <meta
-      name="description"
-      content="Brief notes on product design, component documentation and performance in digital experiences."
-    />
-  </Fragment>
-
   <section class="card relative overflow-hidden p-8">
     <div class="absolute left-0 top-0 h-1 w-28 rounded-full ribbon" />
     <p class="text-xs uppercase tracking-[0.28em] text-slate-500">Blog</p>

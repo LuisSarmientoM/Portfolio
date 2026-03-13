@@ -7,6 +7,11 @@ interface Props {
     description?: string;
     date?: string;
     tags?: string[];
+    canonicalHref?: string;
+    alternateLinks?: Array<{ hreflang: string; href: string }>;
+    xDefaultHref?: string;
+    ogImage?: string;
+    jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
     lang?: string;
     languages?: Array<{ code: string; label?: string }>;
     currentLanguage?: string;
@@ -19,14 +24,18 @@ const {
     description,
     date,
     tags,
+    canonicalHref,
+    alternateLinks,
+    xDefaultHref,
+    ogImage,
+    jsonLd,
     lang,
     languages,
     currentLanguage,
     defaultLanguage,
     name,
 } = Astro.props as Props;
-const baseUrl = import.meta.env.BASE_URL;
-const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+const normalizedBaseUrl = "/";
 const blogIndexHref =
     currentLanguage && defaultLanguage && currentLanguage !== defaultLanguage
         ? `${normalizedBaseUrl}${currentLanguage}/`
@@ -35,15 +44,19 @@ const blogIndexHref =
 
 <ShellLayout
     lang={lang}
+    title={title ? `${title} | Blog` : "Luis Sarmiento Blog"}
+    description={description}
+    canonicalHref={canonicalHref}
+    alternateLinks={alternateLinks}
+    xDefaultHref={xDefaultHref}
+    ogType="article"
+    ogImage={ogImage}
+    jsonLd={jsonLd}
     languages={languages}
     currentLanguage={currentLanguage}
     defaultLanguage={defaultLanguage}
     name={name}
 >
-    <Fragment slot="head">
-        <title>{title} · Blog</title>
-        {description && <meta name="description" content={description} />}
-    </Fragment>
     <main class="mx-auto max-w-7xl px-6 pb-10 pt-24 sm:pb-14 sm:pt-28 lg:pb-16">
 
         <article class="blog-content max-w-prose mx-auto">

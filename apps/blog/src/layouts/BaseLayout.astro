@@ -3,7 +3,14 @@ import ShellLayout from "./ShellLayout.astro";
 
 interface Props {
     lang?: string;
+    title?: string;
     description?: string;
+    canonicalHref?: string;
+    alternateLinks?: Array<{ hreflang: string; href: string }>;
+    xDefaultHref?: string;
+    ogType?: string;
+    ogImage?: string;
+    jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
     languages?: Array<{ code: string; label: string }>;
     currentLanguage?: string;
     defaultLanguage?: string;
@@ -12,7 +19,14 @@ interface Props {
 
 const {
     lang = "en",
+    title = "Luis Sarmiento Blog",
     description = "Portfolio and resume of Luis Felipe Sarmiento Munoz",
+    canonicalHref,
+    alternateLinks = [],
+    xDefaultHref,
+    ogType,
+    ogImage,
+    jsonLd,
     languages = [],
     currentLanguage,
     defaultLanguage,
@@ -20,16 +34,22 @@ const {
 }: Props = Astro.props;
 ---
 
-<ShellLayout
-    lang={lang}
-    description={description}
-    languages={languages}
-    currentLanguage={currentLanguage}
-    defaultLanguage={defaultLanguage}
-    name={name}
->
-    <Fragment slot="head"></Fragment>
-    <main class="mx-auto max-w-7xl px-6 pb-10 pt-24 sm:pb-14 sm:pt-28 lg:pb-16">
-        <slot />
-    </main>
-</ShellLayout>
+    <ShellLayout
+        lang={lang}
+        title={title}
+        description={description}
+        canonicalHref={canonicalHref}
+        alternateLinks={alternateLinks}
+        xDefaultHref={xDefaultHref}
+        ogType={ogType}
+        ogImage={ogImage}
+        jsonLd={jsonLd}
+        languages={languages}
+        currentLanguage={currentLanguage}
+        defaultLanguage={defaultLanguage}
+        name={name}
+    >
+        <main class="mx-auto max-w-7xl px-6 pb-10 pt-24 sm:pb-14 sm:pt-28 lg:pb-16">
+            <slot />
+        </main>
+    </ShellLayout>

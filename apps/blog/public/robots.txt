@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blog.lsarmiento.dev/sitemap-index.xml

@@ -9,10 +9,14 @@ interface AlternateLink {
 }
 interface Props {
     lang?: string;
+    title?: string;
     description?: string;
     canonicalHref?: string;
     alternateLinks?: AlternateLink[];
     xDefaultHref?: string;
+    ogType?: string;
+    ogImage?: string;
+    jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
     name?: string;
     languages?: LanguageOption[];
     currentLanguage?: string;
@@ -20,15 +24,22 @@ interface Props {
 }
 const {
     lang = "en",
+    title = "Luis Sarmiento | Senior JavaScript Developer",
     description = "Portfolio and resume of Luis Felipe Sarmiento Munoz",
     canonicalHref,
     alternateLinks = [],
     xDefaultHref,
+    ogType = "website",
+    ogImage,
+    jsonLd,
     name,
     languages = [],
     currentLanguage,
     defaultLanguage,
 }: Props = Astro.props;
+
+const gtmId = "GTM-WHH6SFHK";
+const siteName = "Luis Sarmiento";
 ---
 
 <!doctype html>
@@ -36,7 +47,19 @@ const {
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{title}</title>
         <meta name="description" content={description} />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content={ogType} />
+        <meta property="og:site_name" content={siteName} />
+        {canonicalHref && <meta property="og:url" content={canonicalHref} />}
+        {ogImage && <meta property="og:image" content={ogImage} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        {ogImage && <meta name="twitter:image" content={ogImage} />}
         {canonicalHref && <link rel="canonical" href={canonicalHref} />}
         {
             alternateLinks.map((alternate) => (
@@ -56,11 +79,32 @@ const {
                 />
             )
         }
+        {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+        <script is:inline>
+            ((w, d, s, l, i) => {
+                w[l] = w[l] || [];
+                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                const f = d.getElementsByTagName(s)[0];
+                const j = d.createElement(s);
+                const dl = l !== 'dataLayer' ? `&l=${l}` : '';
+                j.async = true;
+                j.src = `https://www.googletagmanager.com/gtm.js?id=${i}${dl}`;
+                f.parentNode?.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', gtmId);
+        </script>
         <slot name="head" />
     </head>
     <body
         class="min-h-screen bg-[radial-gradient(circle_at_20%_20%,rgba(79,70,229,0.18),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.16),transparent_32%),radial-gradient(circle_at_0%_60%,rgba(14,165,233,0.12),transparent_35%)]"
     >
+        <noscript>
+            <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+                height="0"
+                width="0"
+                style="display:none;visibility:hidden"
+            ></iframe>
+        </noscript>
         <Header
             name={name}
             languages={languages}

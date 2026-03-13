@@ -64,6 +64,34 @@ if (!post) {
 const { Content } = await render(post);
 const frontmatter = post.data;
 const headerName = 'Luis Sarmiento';
+const canonicalHref = new URL(`/${lang}/${slug}/`, Astro.site).toString();
+const xDefaultHref = new URL('/', Astro.site).toString();
+const alternateLinks = languages.map(({ code }) => ({
+  hreflang: code,
+  href: new URL(code === defaultLanguage ? `/${slug}/` : `/${code}/${slug}/`, Astro.site).toString(),
+}));
+const ogImage = new URL('/og/blog-post.svg', Astro.site).toString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: frontmatter.title,
+  description: frontmatter.description,
+  datePublished: frontmatter.date.toISOString(),
+  dateModified: frontmatter.date.toISOString(),
+  inLanguage: lang,
+  url: canonicalHref,
+  image: ogImage,
+  author: {
+    '@type': 'Person',
+    name: 'Luis Sarmiento',
+    url: 'https://lsarmiento.dev/',
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Luis Sarmiento',
+  },
+  keywords: frontmatter.tags?.join(', '),
+};
 const formatDate = (value: Date) =>
   new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'es-CO', {
     year: 'numeric',
@@ -73,6 +101,13 @@ const formatDate = (value: Date) =>
 ---
 
 <PostLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  canonicalHref={canonicalHref}
+  alternateLinks={alternateLinks}
+  xDefaultHref={xDefaultHref}
+  ogImage={ogImage}
+  jsonLd={jsonLd}
   lang={lang}
   languages={languages}
   currentLanguage={lang}

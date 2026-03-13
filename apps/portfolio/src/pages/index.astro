@@ -7,11 +7,12 @@ type TranslationKey = keyof typeof resume.translations;
 const languages = resume.languages;
 const translationKeys = Object.keys(resume.translations) as TranslationKey[];
 const defaultLanguage = (languages[0]?.code as TranslationKey) ?? translationKeys[0];
-const translation = resume.translations[defaultLanguage];
+const translation = resume.translations[defaultLanguage] as any;
 ---
+
 <HomePage
-  data={translation}
-  labels={translation.labels}
+  data={translation as any}
+  labels={translation.labels as any}
   languages={languages}
   currentLanguage={defaultLanguage}
   defaultLanguage={defaultLanguage}

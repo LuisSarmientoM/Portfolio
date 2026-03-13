@@ -9,6 +9,11 @@ interface LanguageOption {
 }
 
 interface ResumeData {
+  seo: {
+    pageTitle: string;
+    pageDescription: string;
+    ogImage: string;
+  };
   labels: {
     available: string;
     portfolio: string;
@@ -64,6 +69,10 @@ interface ResumeData {
     description: string;
     link: string;
     tags: string[];
+    seo: {
+      headline: string;
+      description: string;
+    };
   }>;
   skills: {
     expertise: string[];
@@ -92,21 +101,67 @@ const headerName = 'Luis Sarmiento';
 const primaryExperience = experience[0];
 const experienceStackLabel = 'Stack';
 const experienceHighlightsLabel = currentLanguage === 'es' ? 'Logros clave' : 'Key highlights';
-const contactEndpoint = import.meta.env.PUBLIC_CONTACT_API_URL ?? '';
+const contactEndpoint =
+  (import.meta as ImportMeta & { env?: { PUBLIC_CONTACT_API_URL?: string } }).env?.PUBLIC_CONTACT_API_URL ?? '';
+const isDefaultLanguage = currentLanguage === defaultLanguage;
+const basePath = '/';
+const currentPath = isDefaultLanguage ? basePath : `${basePath}${currentLanguage}/`;
+const canonicalHref = new URL(currentPath, Astro.site).toString();
+const xDefaultHref = new URL(basePath, Astro.site).toString();
+const alternateLinks = languages.map(({ code, label }) => ({
+  hreflang: code,
+  href: new URL(code === defaultLanguage ? basePath : `${basePath}${code}/`, Astro.site).toString(),
+  label,
+}));
+const sameAs = profile.links.map((link) => link.href);
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: profile.name,
+    jobTitle: profile.title,
+    description: profile.summary,
+    url: canonicalHref,
+    image: data.seo.ogImage,
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'CO',
+    },
+    sameAs,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: labels.projectsTitle,
+    itemListElement: projects.map((project, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: project.seo.headline,
+        description: project.seo.description,
+        url: project.link,
+        keywords: project.tags.join(', '),
+      },
+    })),
+  },
+];
 
 ---
 <BaseLayout
   lang={currentLanguage}
-  description={`${profile.name} · ${profile.title}`}
+  title={data.seo.pageTitle}
+  description={data.seo.pageDescription}
+  canonicalHref={canonicalHref}
+  alternateLinks={alternateLinks}
+  xDefaultHref={xDefaultHref}
+  ogImage={data.seo.ogImage}
+  jsonLd={jsonLd}
   languages={languages}
   currentLanguage={currentLanguage}
   defaultLanguage={defaultLanguage}
   name={headerName}
 >
-  <Fragment slot="head">
-    <title>{profile.name} · {profile.title}</title>
-  </Fragment>
-
   <div class="flex flex-col gap-6">
     <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
       <div class="card relative overflow-hidden p-8">

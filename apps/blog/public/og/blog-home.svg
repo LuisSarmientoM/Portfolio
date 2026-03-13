@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Luis Sarmiento Blog</title>
+  <desc id="desc">Blog about web architecture, performance and engineering processes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="60%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="950" cy="140" r="130" fill="#38bdf8" fill-opacity="0.14"/>
+  <circle cx="220" cy="540" r="170" fill="#10b981" fill-opacity="0.14"/>
+  <text x="92" y="220" fill="#93c5fd" font-size="28" font-family="Arial, sans-serif" letter-spacing="6">LUIS SARMIENTO</text>
+  <text x="92" y="320" fill="#f8fafc" font-size="66" font-family="Arial, sans-serif" font-weight="700">Blog about architecture,</text>
+  <text x="92" y="390" fill="#f8fafc" font-size="66" font-family="Arial, sans-serif" font-weight="700">performance and code</text>
+  <text x="92" y="470" fill="#cbd5e1" font-size="30" font-family="Arial, sans-serif">Notes on Angular, NestJS and real-world delivery workflows.</text>
+</svg>

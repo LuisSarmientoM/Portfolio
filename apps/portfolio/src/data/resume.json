@@ -5,6 +5,11 @@
   ],
   "translations": {
     "en": {
+      "seo": {
+        "pageTitle": "Luis Sarmiento | Senior JavaScript Developer Portfolio",
+        "pageDescription": "Portfolio, resume and selected projects by Luis Sarmiento, a senior JavaScript developer focused on Angular, NestJS and performant web experiences.",
+        "ogImage": "https://lsarmiento.dev/og/portfolio-home.svg"
+      },
       "labels": {
         "available": "Available for remote roles",
         "portfolio": "Portfolio",
@@ -71,7 +76,11 @@
           "name": "Portfolio",
           "description": "Personal portfolio built with Astro and Tailwind CSS, featuring multilingual content and a focused professional profile.",
           "link": "https://github.com/LuisSarmientoM/Portfolio",
-          "tags": ["Astro", "Tailwind CSS", "i18n"]
+          "tags": ["Astro", "Tailwind CSS", "i18n"],
+          "seo": {
+            "headline": "Multilingual Astro portfolio project",
+            "description": "Personal portfolio and resume experience built with Astro, Tailwind CSS and bilingual content architecture."
+          }
         }
       ],
       "skills": {
@@ -89,6 +98,11 @@
       "interests": ["AI", "Running", "Videogames", "Coffee brewing"]
     },
     "es": {
+      "seo": {
+        "pageTitle": "Luis Sarmiento | Portafolio Senior JavaScript Developer",
+        "pageDescription": "Portafolio, hoja de vida y proyectos destacados de Luis Sarmiento, desarrollador senior JavaScript enfocado en Angular, NestJS y experiencias web de alto rendimiento.",
+        "ogImage": "https://lsarmiento.dev/og/portfolio-home.svg"
+      },
       "labels": {
         "available": "Disponible para roles remotos",
         "portfolio": "Portafolio",
@@ -155,7 +169,11 @@
           "name": "Portfolio",
           "description": "Portafolio personal construido con Astro y Tailwind CSS, con contenido multilenguaje y un perfil profesional enfocado.",
           "link": "https://github.com/LuisSarmientoM/Portfolio",
-          "tags": ["Astro", "Tailwind CSS", "i18n"]
+          "tags": ["Astro", "Tailwind CSS", "i18n"],
+          "seo": {
+            "headline": "Proyecto de portafolio multilenguaje en Astro",
+            "description": "Portafolio personal y hoja de vida construidos con Astro, Tailwind CSS y una arquitectura de contenido bilingue."
+          }
         }
       ],
       "skills": {

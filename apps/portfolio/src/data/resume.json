@@ -1,194 +1,430 @@
 {
-  "languages": [
-    { "code": "es", "label": "Español" },
-    { "code": "en", "label": "English" }
-  ],
-  "translations": {
-    "en": {
-      "seo": {
-        "pageTitle": "Luis Sarmiento | Senior JavaScript Developer Portfolio",
-        "pageDescription": "Portfolio, resume and selected projects by Luis Sarmiento, a senior JavaScript developer focused on Angular, NestJS and performant web experiences.",
-        "ogImage": "https://lsarmiento.dev/og/portfolio-home.svg"
-      },
-      "labels": {
-        "available": "Available for remote roles",
-        "portfolio": "Portfolio",
-        "coreSkillsKicker": "Core skills",
-        "coreSkillsTitle": "Building robust web apps",
-        "coreSkillsDescription": "JavaScript/TypeScript developer focused on Angular and NestJS. I design maintainable frontends and APIs that balance performance, accessibility, and clean architecture.",
-        "recentFocusLabel": "Recent focus",
-        "recentFocusItems": "Angular 17+ · NestJS · AWS deployments",
-        "experienceTitle": "Experience",
-        "experienceKicker": "Timeline",
-        "projectsTitle": "Projects",
-        "projectsKicker": "Selected",
-        "skillsTitle": "Skills & Tools",
-        "skillsKicker": "Stacks",
-        "expertiseLabel": "Expertise",
-        "toolingLabel": "Tooling",
-        "languagesLabel": "Languages",
-        "educationTitle": "Education",
-        "educationKicker": "Background",
-        "interestsTitle": "Interests",
-        "interestsKicker": "Personal",
-        "contactTitle": "Contact",
-        "contactKicker": "Let us talk",
-        "contactDescription": "Share a quick message and I will get back to you soon.",
-        "contactNameLabel": "Name",
-        "contactEmailLabel": "Email",
-        "contactMessageLabel": "Message",
-        "contactSubmitLabel": "Send message",
-        "contactSubmittingLabel": "Sending...",
-        "contactSuccessMessage": "Thanks! Your message was sent successfully.",
-        "contactErrorMessage": "I could not send your message right now. Please try again.",
-        "contactDisabledMessage": "Contact form is temporarily unavailable.",
-        "contactValidationRequired": "Please complete all required fields.",
-        "contactValidationEmail": "Please enter a valid email address."
-      },
-      "profile": {
-        "name": "Luis Felipe Sarmiento Muñoz",
-        "title": "Senior JavaScript Developer",
-        "location": "Remote / Colombia",
-        "summary": "JavaScript/TypeScript developer with experience building applications using Angular 10+ and NestJS. Passionate about clean architecture, performance, and staying current with modern web practices.",
-        "links": [
-          { "label": "Email", "href": "mailto:hello@lsarmiento.dev" },
-          { "label": "GitHub", "href": "https://github.com/LuisSarmientoM" },
-          { "label": "LinkedIn", "href": "https://www.linkedin.com/in/luissarmientomunoz/" }
-        ]
-      },
-      "experience": [
-        {
-          "company": "Tuatara Boutique Agency",
-          "role": "Fullstack Developer",
-          "period": "2021 — Present",
-          "location": "Remote",
-          "achievements": [
-            "Reduced development times by 30% through the enhancement of project architectures.",
-            "Improved website performance by adhering to the latest web standards.",
-            "Developed Single Page Applications (SPAs) using Angular and customized websites with WordPress.",
-            "Deployed to production on AWS, Azure, BlueHost, and DigitalOcean."
-          ],
-          "stack": ["TypeScript", "Angular", "NestJS", "Wordpress", "AWS", "n8n"]
+    "languages": [
+        { "code": "es", "label": "Español" },
+        { "code": "en", "label": "English" }
+    ],
+    "translations": {
+        "en": {
+            "seo": {
+                "pageTitle": "Luis Sarmiento | Senior JavaScript Developer Portfolio",
+                "pageDescription": "Portfolio, resume and selected projects by Luis Sarmiento, a senior JavaScript developer focused on Angular, NestJS and performant web experiences.",
+                "ogImage": "https://lsarmiento.dev/og/portfolio-home.svg"
+            },
+            "labels": {
+                "available": "Available for remote roles",
+                "portfolio": "Portfolio",
+                "coreSkillsKicker": "Core skills",
+                "coreSkillsTitle": "Building robust web apps",
+                "coreSkillsDescription": "JavaScript/TypeScript developer focused on Angular and NestJS. I design maintainable frontends and APIs that balance performance, accessibility, and clean architecture.",
+                "recentFocusLabel": "Recent focus",
+                "recentFocusItems": "Angular 17+ · NestJS · AWS deployments",
+                "experienceTitle": "Experience",
+                "experienceKicker": "Timeline",
+                "projectsTitle": "Projects",
+                "projectsKicker": "Selected",
+                "projectWipLabel": "In progress",
+                "skillsTitle": "Skills & Tools",
+                "skillsKicker": "Stacks",
+                "expertiseLabel": "Expertise",
+                "toolingLabel": "Tooling",
+                "languagesLabel": "Languages",
+                "educationTitle": "Education",
+                "educationKicker": "Background",
+                "interestsTitle": "Interests",
+                "interestsKicker": "Personal",
+                "contactTitle": "Contact",
+                "contactKicker": "Let us talk",
+                "contactDescription": "Share a quick message and I will get back to you soon.",
+                "contactNameLabel": "Name",
+                "contactEmailLabel": "Email",
+                "contactMessageLabel": "Message",
+                "contactSubmitLabel": "Send message",
+                "contactSubmittingLabel": "Sending...",
+                "contactSuccessMessage": "Thanks! Your message was sent successfully.",
+                "contactErrorMessage": "I could not send your message right now. Please try again.",
+                "contactDisabledMessage": "Contact form is temporarily unavailable.",
+                "contactValidationRequired": "Please complete all required fields.",
+                "contactValidationEmail": "Please enter a valid email address."
+            },
+            "profile": {
+                "name": "Luis Felipe Sarmiento Muñoz",
+                "title": "Senior JavaScript Developer",
+                "location": "Remote / Colombia",
+                "summary": "JavaScript/TypeScript developer with experience building applications using Angular 10+ and NestJS. Passionate about clean architecture, performance, and staying current with modern web practices.",
+                "links": [
+                    { "label": "Email", "href": "mailto:hello@lsarmiento.dev" },
+                    {
+                        "label": "GitHub",
+                        "href": "https://github.com/LuisSarmientoM"
+                    },
+                    {
+                        "label": "LinkedIn",
+                        "href": "https://www.linkedin.com/in/luissarmientomunoz/"
+                    }
+                ]
+            },
+            "experience": [
+                {
+                    "company": "Tuatara Boutique Agency",
+                    "role": "Fullstack Developer",
+                    "period": "2021 — Present",
+                    "location": "Remote",
+                    "achievements": [
+                        "Reduced development times by 30% through the enhancement of project architectures.",
+                        "Improved website performance by adhering to the latest web standards.",
+                        "Developed Single Page Applications (SPAs) using Angular and customized websites with WordPress.",
+                        "Deployed to production on AWS, Azure, BlueHost, and DigitalOcean."
+                    ],
+                    "stack": [
+                        "TypeScript",
+                        "Angular",
+                        "NestJS",
+                        "Wordpress",
+                        "AWS",
+                        "n8n"
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "name": "Portfolio",
+                    "description": "Personal portfolio built with Astro and Tailwind CSS, featuring multilingual content and a focused professional profile.",
+                    "link": "https://github.com/LuisSarmientoM/Portfolio",
+                    "tags": ["Astro", "Tailwind CSS", "i18n"],
+                    "seo": {
+                        "headline": "Multilingual Astro portfolio project",
+                        "description": "Personal portfolio and resume experience built with Astro, Tailwind CSS and bilingual content architecture."
+                    }
+                },
+
+                {
+                    "name": "FLIMM",
+                    "description": "Web platform for the official program of Feria del Libro Montes de María 2026, featuring day-based schedules, filters by type and venue, and search for activities and participants.",
+                    "link": "https://flimm.lsarmiento.dev/",
+                    "tags": [
+                        "Astro",
+                        "Tailwind CSS",
+                        "Interactive agenda",
+                        "Filters",
+                        "Search"
+                    ],
+                    "seo": {
+                        "headline": "Web platform for a cultural fair event agenda",
+                        "description": "Official program website for FLIMM 2026, featuring date navigation, dynamic filters, and an optimized experience for browsing cultural activities."
+                    }
+                },
+                {
+                    "name": "Ranking Transforma",
+                    "description": "Survey and organizational analytics platform designed to collect strategic data, generate in-depth company-level insights, and build comparative rankings from the collected responses.",
+                    "link": null,
+                    "tags": [
+                        "Surveys",
+                        "Analytics",
+                        "Rankings",
+                        "Dashboards",
+                        "Business assessment"
+                    ],
+                    "seo": {
+                        "headline": "Survey and business ranking platform",
+                        "description": "Platform for managing business surveys, processing in-depth results, and generating comparative rankings with an analytics-driven decision-making approach."
+                    }
+                },
+                {
+                    "name": "Japonesa de Repuestos",
+                    "description": "Platform in development for Japonesa de Repuestos, designed with full SAP connectivity and unified B2C and B2B operational flows.",
+                    "link": null,
+                    "tags": [
+                        "SAP",
+                        "B2B",
+                        "B2C",
+                        "Enterprise integration",
+                        "E-commerce"
+                    ],
+                    "wip": true,
+                    "seo": {
+                        "headline": "SAP-connected platform for B2B and B2C operations",
+                        "description": "In-progress solution for spare parts management with full SAP integration, built to centralize business and operational processes across B2C and B2B channels."
+                    }
+                },
+                {
+                    "name": "Tuatara Commercial Email Automation",
+                    "description": "Intelligent automation built to process incoming messages from Tuatara’s contact form, filter non-commercial inquiries, score opportunities, route them between Tuatara and Petrel based on profile and budget, and generate personalized conversion-oriented responses.",
+                    "link": null,
+                    "tags": [
+                        "n8n",
+                        "Automation",
+                        "Lead scoring",
+                        "AI",
+                        "Email workflows"
+                    ],
+                    "seo": {
+                        "headline": "Intelligent email automation and lead scoring workflow",
+                        "description": "Automated workflow for qualifying and prioritizing commercial leads, segmenting opportunities, and generating personalized AI-assisted responses."
+                    }
+                },
+                {
+                    "name": "Tuatara",
+                    "description": "Corporate WordPress website for a boutique digital transformation agency, focused on marketing, design, software development, and AI-driven services for companies.",
+                    "link": "https://tuatara.co/",
+                    "tags": [
+                        "WordPress",
+                        "Corporate website",
+                        "Digital marketing",
+                        "Development",
+                        "AI"
+                    ],
+                    "seo": {
+                        "headline": "WordPress website for a digital transformation agency",
+                        "description": "Corporate website built on WordPress for Tuatara, focused on marketing, design, software, and digital transformation services for businesses."
+                    }
+                },
+                {
+                    "name": "Rooftec",
+                    "description": "Corporate WordPress website for a construction-sector company, built around product catalog browsing, residential and industrial roofing lines, waterproofing, facades, and insulation solutions.",
+                    "link": "https://rooftec.do/",
+                    "tags": [
+                        "WordPress",
+                        "Product catalog",
+                        "Construction",
+                        "Commercial UX",
+                        "SEO"
+                    ],
+                    "seo": {
+                        "headline": "WordPress website for a construction product catalog",
+                        "description": "WordPress-based web platform for Rooftec, focused on roofing systems, waterproofing, facades, insulation solutions, and commercial lead capture."
+                    }
+                }
+            ],
+            "skills": {
+                "expertise": [
+                    "TypeScript",
+                    "Angular",
+                    "Tailwind CSS",
+                    "Node.js",
+                    "Accessibility"
+                ],
+                "tooling": ["Figma", "PostgreSQL"],
+                "languages": ["English (B1)", "Spanish (Native)"]
+            },
+            "education": [
+                {
+                    "school": "Universidad Libre, Colombia",
+                    "program": "Systems Engineer",
+                    "period": "2014 — 2020"
+                }
+            ],
+            "interests": ["AI", "Running", "Videogames", "Coffee brewing"]
+        },
+        "es": {
+            "seo": {
+                "pageTitle": "Luis Sarmiento | Portafolio Senior JavaScript Developer",
+                "pageDescription": "Portafolio, hoja de vida y proyectos destacados de Luis Sarmiento, desarrollador senior JavaScript enfocado en Angular, NestJS y experiencias web de alto rendimiento.",
+                "ogImage": "https://lsarmiento.dev/og/portfolio-home.svg"
+            },
+            "labels": {
+                "available": "Disponible para roles remotos",
+                "portfolio": "Portafolio",
+                "coreSkillsKicker": "Habilidades clave",
+                "coreSkillsTitle": "Construyendo apps web robustas",
+                "coreSkillsDescription": "Desarrollador JavaScript/TypeScript enfocado en Angular y NestJS. Diseño frontends y APIs mantenibles que equilibran rendimiento, accesibilidad y arquitectura limpia.",
+                "recentFocusLabel": "Enfoque reciente",
+                "recentFocusItems": "Angular 17+ · Microservicios con NestJS · Despliegues en AWS",
+                "experienceTitle": "Experiencia",
+                "experienceKicker": "Cronología",
+                "projectsTitle": "Proyectos",
+                "projectsKicker": "Destacados",
+                "projectWipLabel": "En progreso",
+                "skillsTitle": "Habilidades y herramientas",
+                "skillsKicker": "Stacks",
+                "expertiseLabel": "Especialidad",
+                "toolingLabel": "Herramientas",
+                "languagesLabel": "Idiomas",
+                "educationTitle": "Educación",
+                "educationKicker": "Formación",
+                "interestsTitle": "Intereses",
+                "interestsKicker": "Personal",
+                "contactTitle": "Contacto",
+                "contactKicker": "Hablemos",
+                "contactDescription": "Comparte un mensaje rapido y te respondere pronto.",
+                "contactNameLabel": "Nombre",
+                "contactEmailLabel": "Correo",
+                "contactMessageLabel": "Mensaje",
+                "contactSubmitLabel": "Enviar mensaje",
+                "contactSubmittingLabel": "Enviando...",
+                "contactSuccessMessage": "Gracias. Tu mensaje fue enviado correctamente.",
+                "contactErrorMessage": "No pude enviar tu mensaje en este momento. Intenta de nuevo.",
+                "contactDisabledMessage": "El formulario de contacto no esta disponible temporalmente.",
+                "contactValidationRequired": "Completa todos los campos obligatorios.",
+                "contactValidationEmail": "Ingresa un correo valido."
+            },
+            "profile": {
+                "name": "Luis Felipe Sarmiento Muñoz",
+                "title": "Senior JavaScript Developer",
+                "location": "Remoto / Colombia",
+                "summary": "Desarrollador JavaScript/TypeScript con experiencia construyendo aplicaciones en Angular 10+ y NestJS. Apasionado por la arquitectura limpia, el rendimiento y las buenas prácticas modernas.",
+                "links": [
+                    { "label": "Email", "href": "mailto:hello@lsarmiento.dev" },
+                    {
+                        "label": "GitHub",
+                        "href": "https://github.com/LuisSarmientoM"
+                    },
+                    {
+                        "label": "LinkedIn",
+                        "href": "https://www.linkedin.com/in/luissarmientomunoz/"
+                    }
+                ]
+            },
+            "experience": [
+                {
+                    "company": "Tuatara Boutique Agency",
+                    "role": "Fullstack Developer",
+                    "period": "2021 — Presente",
+                    "location": "Remoto",
+                    "achievements": [
+                        "Reducí los tiempos de desarrollo en un 30% al mejorar las arquitecturas de los proyectos.",
+                        "Mejoré el rendimiento de los sitios web siguiendo los estándares web más recientes.",
+                        "Desarrollé SPAs con Angular y sitios a medida usando WordPress.",
+                        "Realicé despliegues a producción en AWS, Azure, BlueHost y DigitalOcean."
+                    ],
+                    "stack": [
+                        "TypeScript",
+                        "Angular",
+                        "NestJS",
+                        "Wordpress",
+                        "AWS",
+                        "n8n"
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "name": "Portfolio",
+                    "description": "Portafolio personal construido con Astro y Tailwind CSS, con contenido multilenguaje y un perfil profesional enfocado.",
+                    "link": "https://github.com/LuisSarmientoM/Portfolio",
+                    "tags": ["Astro", "Tailwind CSS", "i18n"],
+                    "seo": {
+                        "headline": "Proyecto de portafolio multilenguaje en Astro",
+                        "description": "Portafolio personal y hoja de vida construidos con Astro, Tailwind CSS y una arquitectura de contenido bilingue."
+                    }
+                },
+
+                {
+                    "name": "FLIMM",
+                    "description": "Plataforma web para la programación oficial de la Feria del Libro Montes de María 2026, con agenda por días, filtros por tipo y lugar, y búsqueda de actividades y participantes.",
+                    "link": "https://flimm.lsarmiento.dev/",
+                    "tags": [
+                        "Astro",
+                        "Tailwind CSS",
+                        "Agenda interactiva",
+                        "Filtros",
+                        "Búsqueda"
+                    ],
+                    "seo": {
+                        "headline": "Plataforma web para feria cultural y agenda de eventos",
+                        "description": "Sitio oficial de programación para FLIMM 2026, con navegación por fechas, filtros dinámicos y experiencia optimizada para consultar actividades culturales."
+                    }
+                },
+                {
+                    "name": "Ranking Transforma",
+                    "description": "Plataforma de encuestas y analítica organizacional orientada a recopilar información estratégica, generar resultados profundos por empresa y construir rankings comparativos a partir de los datos recolectados.",
+                    "link": null,
+                    "tags": [
+                        "Encuestas",
+                        "Analítica",
+                        "Rankings",
+                        "Dashboards",
+                        "Evaluación empresarial"
+                    ],
+                    "seo": {
+                        "headline": "Plataforma de encuestas y rankings empresariales",
+                        "description": "Sistema para gestionar encuestas empresariales, procesar resultados profundos y construir rankings comparativos con enfoque analítico y de toma de decisiones."
+                    }
+                },
+                {
+                    "name": "Japonesa de Repuestos",
+                    "description": "Plataforma en desarrollo para Japonesa de Repuestos, diseñada con integración total a SAP y flujos unificados para operación B2C y B2B.",
+                    "link": null,
+                    "tags": [
+                        "SAP",
+                        "B2B",
+                        "B2C",
+                        "Integración empresarial",
+                        "E-commerce"
+                    ],
+                    "wip": true,
+                    "seo": {
+                        "headline": "Plataforma conectada a SAP para operación B2B y B2C",
+                        "description": "Solución en desarrollo para gestión de repuestos con integración completa a SAP, pensada para centralizar procesos comerciales y operativos en canales B2C y B2B."
+                    }
+                },
+                {
+                    "name": "Automatización Correos Comerciales Tuatara",
+                    "description": "Automatización inteligente para procesar los correos entrantes del formulario de contacto de Tuatara, filtrar mensajes no comerciales, calificar oportunidades, segmentarlas entre Tuatara y Petrel según perfil y presupuesto, y generar respuestas personalizadas orientadas a conversión.",
+                    "link": null,
+                    "tags": [
+                        "n8n",
+                        "Automatización",
+                        "Lead scoring",
+                        "IA",
+                        "Email workflows"
+                    ],
+                    "seo": {
+                        "headline": "Automatización inteligente de correos y lead scoring",
+                        "description": "Flujo automatizado para clasificar y priorizar leads comerciales, segmentar oportunidades y responder de forma personalizada con apoyo de IA."
+                    }
+                },
+                {
+                    "name": "Tuatara",
+                    "description": "Sitio corporativo en WordPress para una agencia boutique de transformación digital, con enfoque en marketing, diseño, desarrollo de software e iniciativas de IA para empresas.",
+                    "link": "https://tuatara.co/",
+                    "tags": [
+                        "WordPress",
+                        "Sitio corporativo",
+                        "Marketing digital",
+                        "Desarrollo",
+                        "IA"
+                    ],
+                    "seo": {
+                        "headline": "Sitio WordPress para agencia de transformación digital",
+                        "description": "Web corporativa desarrollada en WordPress para Tuatara, enfocada en servicios de marketing, diseño, software y transformación digital para empresas."
+                    }
+                },
+                {
+                    "name": "Rooftec",
+                    "description": "Sitio corporativo en WordPress para una empresa del sector construcción, orientado a catálogo de productos, líneas de techos residenciales e industriales, impermeabilización, fachadas y soluciones de aislamiento.",
+                    "link": "https://rooftec.do/",
+                    "tags": [
+                        "WordPress",
+                        "Catálogo de productos",
+                        "Construcción",
+                        "UX comercial",
+                        "SEO"
+                    ],
+                    "seo": {
+                        "headline": "Sitio WordPress para catálogo comercial de construcción",
+                        "description": "Plataforma web desarrollada en WordPress para Rooftec, con foco en soluciones para techos, impermeabilización, fachadas, aislamientos y captación comercial."
+                    }
+                }
+            ],
+            "skills": {
+                "expertise": [
+                    "TypeScript",
+                    "Angular",
+                    "Tailwind CSS",
+                    "Node.js",
+                    "Accesibilidad"
+                ],
+                "tooling": ["Figma", "PostgreSQL"],
+                "languages": ["Inglés (B1)", "Español (Nativo)"]
+            },
+            "education": [
+                {
+                    "school": "Universidad Libre, Colombia",
+                    "program": "Ingeniería de Sistemas",
+                    "period": "2014 — 2020"
+                }
+            ],
+            "interests": ["IA", "Correr", "Videojuegos", "Preparación de café"]
         }
-      ],
-      "projects": [
-        {
-          "name": "Portfolio",
-          "description": "Personal portfolio built with Astro and Tailwind CSS, featuring multilingual content and a focused professional profile.",
-          "link": "https://github.com/LuisSarmientoM/Portfolio",
-          "tags": ["Astro", "Tailwind CSS", "i18n"],
-          "seo": {
-            "headline": "Multilingual Astro portfolio project",
-            "description": "Personal portfolio and resume experience built with Astro, Tailwind CSS and bilingual content architecture."
-          }
-        }
-      ],
-      "skills": {
-        "expertise": ["TypeScript", "Angular", "Tailwind CSS", "Node.js", "Accessibility"],
-        "tooling": ["Figma", "PostgreSQL"],
-        "languages": ["English (B1)", "Spanish (Native)"]
-      },
-      "education": [
-        {
-          "school": "Universidad Libre, Colombia",
-          "program": "Systems Engineer",
-          "period": "2014 — 2020"
-        }
-      ],
-      "interests": ["AI", "Running", "Videogames", "Coffee brewing"]
-    },
-    "es": {
-      "seo": {
-        "pageTitle": "Luis Sarmiento | Portafolio Senior JavaScript Developer",
-        "pageDescription": "Portafolio, hoja de vida y proyectos destacados de Luis Sarmiento, desarrollador senior JavaScript enfocado en Angular, NestJS y experiencias web de alto rendimiento.",
-        "ogImage": "https://lsarmiento.dev/og/portfolio-home.svg"
-      },
-      "labels": {
-        "available": "Disponible para roles remotos",
-        "portfolio": "Portafolio",
-        "coreSkillsKicker": "Habilidades clave",
-        "coreSkillsTitle": "Construyendo apps web robustas",
-        "coreSkillsDescription": "Desarrollador JavaScript/TypeScript enfocado en Angular y NestJS. Diseño frontends y APIs mantenibles que equilibran rendimiento, accesibilidad y arquitectura limpia.",
-        "recentFocusLabel": "Enfoque reciente",
-        "recentFocusItems": "Angular 17+ · Microservicios con NestJS · Despliegues en AWS",
-        "experienceTitle": "Experiencia",
-        "experienceKicker": "Cronología",
-        "projectsTitle": "Proyectos",
-        "projectsKicker": "Destacados",
-        "skillsTitle": "Habilidades y herramientas",
-        "skillsKicker": "Stacks",
-        "expertiseLabel": "Especialidad",
-        "toolingLabel": "Herramientas",
-        "languagesLabel": "Idiomas",
-        "educationTitle": "Educación",
-        "educationKicker": "Formación",
-        "interestsTitle": "Intereses",
-        "interestsKicker": "Personal",
-        "contactTitle": "Contacto",
-        "contactKicker": "Hablemos",
-        "contactDescription": "Comparte un mensaje rapido y te respondere pronto.",
-        "contactNameLabel": "Nombre",
-        "contactEmailLabel": "Correo",
-        "contactMessageLabel": "Mensaje",
-        "contactSubmitLabel": "Enviar mensaje",
-        "contactSubmittingLabel": "Enviando...",
-        "contactSuccessMessage": "Gracias. Tu mensaje fue enviado correctamente.",
-        "contactErrorMessage": "No pude enviar tu mensaje en este momento. Intenta de nuevo.",
-        "contactDisabledMessage": "El formulario de contacto no esta disponible temporalmente.",
-        "contactValidationRequired": "Completa todos los campos obligatorios.",
-        "contactValidationEmail": "Ingresa un correo valido."
-      },
-      "profile": {
-        "name": "Luis Felipe Sarmiento Muñoz",
-        "title": "Senior JavaScript Developer",
-        "location": "Remoto / Colombia",
-        "summary": "Desarrollador JavaScript/TypeScript con experiencia construyendo aplicaciones en Angular 10+ y NestJS. Apasionado por la arquitectura limpia, el rendimiento y las buenas prácticas modernas.",
-        "links": [
-          { "label": "Email", "href": "mailto:hello@lsarmiento.dev" },
-          { "label": "GitHub", "href": "https://github.com/LuisSarmientoM" },
-          { "label": "LinkedIn", "href": "https://www.linkedin.com/in/luissarmientomunoz/" }
-        ]
-      },
-      "experience": [
-        {
-          "company": "Tuatara Boutique Agency",
-          "role": "Fullstack Developer",
-          "period": "2021 — Presente",
-          "location": "Remoto",
-          "achievements": [
-            "Reducí los tiempos de desarrollo en un 30% al mejorar las arquitecturas de los proyectos.",
-            "Mejoré el rendimiento de los sitios web siguiendo los estándares web más recientes.",
-            "Desarrollé SPAs con Angular y sitios a medida usando WordPress.",
-            "Realicé despliegues a producción en AWS, Azure, BlueHost y DigitalOcean."
-          ],
-          "stack": ["TypeScript", "Angular", "NestJS", "Wordpress", "AWS", "n8n"]
-        }
-      ],
-      "projects": [
-        {
-          "name": "Portfolio",
-          "description": "Portafolio personal construido con Astro y Tailwind CSS, con contenido multilenguaje y un perfil profesional enfocado.",
-          "link": "https://github.com/LuisSarmientoM/Portfolio",
-          "tags": ["Astro", "Tailwind CSS", "i18n"],
-          "seo": {
-            "headline": "Proyecto de portafolio multilenguaje en Astro",
-            "description": "Portafolio personal y hoja de vida construidos con Astro, Tailwind CSS y una arquitectura de contenido bilingue."
-          }
-        }
-      ],
-      "skills": {
-        "expertise": ["TypeScript", "Angular", "Tailwind CSS", "Node.js", "Accesibilidad"],
-        "tooling": ["Figma", "PostgreSQL"],
-        "languages": ["Inglés (B1)", "Español (Nativo)"]
-      },
-      "education": [
-        {
-          "school": "Universidad Libre, Colombia",
-          "program": "Ingeniería de Sistemas",
-          "period": "2014 — 2020"
-        }
-      ],
-      "interests": ["IA", "Correr", "Videojuegos", "Preparación de café"]
     }
-  }
 }

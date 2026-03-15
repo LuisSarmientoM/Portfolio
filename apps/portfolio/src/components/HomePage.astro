@@ -26,6 +26,7 @@ interface ResumeData {
     experienceKicker: string;
     projectsTitle: string;
     projectsKicker: string;
+    projectWipLabel: string;
     skillsTitle: string;
     skillsKicker: string;
     expertiseLabel: string;
@@ -69,6 +70,7 @@ interface ResumeData {
     description: string;
     link: string;
     tags: string[];
+    wip?: boolean;
     seo: {
       headline: string;
       description: string;
@@ -227,8 +229,15 @@ const jsonLd = [
                 rel="noreferrer"
               >
                 <div class="flex items-start justify-between gap-3">
-                  <div>
-                    <h3 class="text-base font-semibold text-slate-50 group-hover:text-white">{project.name}</h3>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <h3 class="text-base font-semibold text-slate-50 group-hover:text-white">{project.name}</h3>
+                      {project.wip ? (
+                        <span class="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200">
+                          {labels.projectWipLabel}
+                        </span>
+                      ) : null}
+                    </div>
                     <p class="mt-1 text-sm leading-relaxed text-slate-200/90">{project.description}</p>
                   </div>
                   <svg

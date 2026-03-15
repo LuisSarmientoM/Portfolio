@@ -168,28 +168,28 @@ const jsonLd = [
     <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
       <div class="card relative overflow-hidden p-8">
         <div class="absolute left-0 top-0 h-1 w-32 rounded-full ribbon" />
-        <div class="flex flex-wrap items-center justify-between gap-3 text-slate-400">
+        <div class="flex flex-wrap items-center justify-between gap-3 text-muted">
           <span class="text-sm">{profile.location}</span>
           <span class="text-sm">{labels.available}</span>
         </div>
         <div class="mt-6 flex flex-col gap-6">
           <div class="grid gap-6 lg:grid-cols-[auto_1fr] lg:items-center">
             <div class="flex items-center justify-center">
-              <div class="h-28 w-28 rounded-2xl bg-slate-900/70 ring-1 ring-inset ring-slate-800" />
+              <div class="h-28 w-28 rounded-2xl bg-surface/70 ring-1 ring-inset ring-stroke/20" />
             </div>
             <div class="space-y-3">
-              <p class="text-sm uppercase tracking-[0.25em] text-slate-400">{labels.portfolio}</p>
-              <h1 class="text-3xl font-bold leading-tight text-slate-50 sm:text-4xl">
+              <p class="text-sm uppercase tracking-[0.25em] text-muted">{labels.portfolio}</p>
+              <h1 class="text-3xl font-bold leading-tight text-primary sm:text-4xl">
                 {profile.name}
               </h1>
-              <p class="text-lg font-semibold text-slate-200">{profile.title}</p>
-              <p class="max-w-2xl text-base leading-relaxed text-slate-200/90">{profile.summary}</p>
+              <p class="text-lg font-semibold text-secondary">{profile.title}</p>
+              <p class="max-w-2xl text-base leading-relaxed text-secondary/90">{profile.summary}</p>
             </div>
           </div>
           <div class="flex flex-wrap gap-3">
             {profile.links.map((link: { label: string; href: string }) => (
               <a
-                class="inline-flex items-center gap-2 rounded-full bg-slate-800/70 px-4 py-2 text-sm font-semibold text-slate-100 ring-1 ring-inset ring-slate-700 transition hover:-translate-y-0.5 hover:bg-slate-800 hover:text-white"
+                class="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-semibold text-primary ring-1 ring-inset ring-stroke/20 transition hover:-translate-y-0.5 hover:bg-surface-strong hover:text-primary"
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
@@ -203,16 +203,16 @@ const jsonLd = [
 
       <div class="card flex flex-col gap-4 p-8">
         <div>
-          <p class="text-xs uppercase tracking-[0.25em] text-slate-400">{labels.coreSkillsKicker}</p>
-          <h2 class="mt-2 text-xl font-semibold text-slate-50">{labels.coreSkillsTitle}</h2>
-          <p class="mt-3 text-sm leading-relaxed text-slate-200">{labels.coreSkillsDescription}</p>
+          <p class="text-xs uppercase tracking-[0.25em] text-muted">{labels.coreSkillsKicker}</p>
+          <h2 class="mt-2 text-xl font-semibold text-primary">{labels.coreSkillsTitle}</h2>
+          <p class="mt-3 text-sm leading-relaxed text-secondary">{labels.coreSkillsDescription}</p>
         </div>
         <div class="flex flex-wrap gap-2">
           {skills.expertise.map((skill: string) => <Tag label={skill} />)}
         </div>
-        <div class="rounded-2xl bg-slate-900/60 p-4 ring-1 ring-inset ring-slate-800">
-          <p class="text-xs uppercase tracking-[0.3em] text-slate-500">{labels.recentFocusLabel}</p>
-          <p class="mt-2 text-sm text-slate-200">{labels.recentFocusItems}</p>
+        <div class="rounded-2xl bg-surface/60 p-4 ring-1 ring-inset ring-stroke/20">
+          <p class="text-xs uppercase tracking-[0.3em] text-accent">{labels.recentFocusLabel}</p>
+          <p class="mt-2 text-sm text-secondary">{labels.recentFocusItems}</p>
         </div>
       </div>
     </div>
@@ -223,7 +223,7 @@ const jsonLd = [
           <div class="space-y-6">
             {projects.map((project: ResumeData['projects'][number]) => (
               <a
-                class="group block rounded-2xl bg-slate-900/50 p-4 ring-1 ring-inset ring-slate-800 transition hover:-translate-y-1 hover:border-slate-700"
+                class="group block rounded-2xl bg-surface/60 p-4 ring-1 ring-inset ring-stroke/20 transition hover:-translate-y-1 hover:bg-surface-strong/80 hover:ring-accent/30"
                 href={project.link}
                 target="_blank"
                 rel="noreferrer"
@@ -231,17 +231,17 @@ const jsonLd = [
                 <div class="flex items-start justify-between gap-3">
                   <div class="min-w-0 flex-1">
                     <div class="flex flex-wrap items-center gap-2">
-                      <h3 class="text-base font-semibold text-slate-50 group-hover:text-white">{project.name}</h3>
+                      <h3 class="text-base font-semibold text-primary group-hover:text-primary">{project.name}</h3>
                       {project.wip ? (
-                        <span class="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-200">
+                        <span class="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">
                           {labels.projectWipLabel}
                         </span>
                       ) : null}
                     </div>
-                    <p class="mt-1 text-sm leading-relaxed text-slate-200/90">{project.description}</p>
+                    <p class="mt-1 text-sm leading-relaxed text-secondary/90">{project.description}</p>
                   </div>
                   <svg
-                    class="mt-1 h-5 w-5 text-slate-500 group-hover:text-slate-200"
+                    class="mt-1 h-5 w-5 text-accent group-hover:text-secondary"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -267,24 +267,24 @@ const jsonLd = [
         <div class="card p-8">
           <Section title={labels.experienceTitle} kicker={labels.experienceKicker}>
             {primaryExperience ? (
-              <div class="space-y-4 text-sm text-slate-200">
+              <div class="space-y-4 text-sm text-secondary">
                 <div>
-                  <p class="text-xs uppercase tracking-[0.24em] text-slate-400">{primaryExperience.period}</p>
-                  <h3 class="text-lg font-semibold text-slate-50">{primaryExperience.role}</h3>
-                  <p class="text-sm text-slate-300">{primaryExperience.company} · {primaryExperience.location}</p>
+                  <p class="text-xs uppercase tracking-[0.24em] text-muted">{primaryExperience.period}</p>
+                  <h3 class="text-lg font-semibold text-primary">{primaryExperience.role}</h3>
+                  <p class="text-sm text-secondary/80">{primaryExperience.company} · {primaryExperience.location}</p>
                 </div>
                 <div>
-                  <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{experienceStackLabel}</p>
+                  <p class="text-xs uppercase tracking-[0.25em] text-accent">{experienceStackLabel}</p>
                   <div class="mt-2 flex flex-wrap gap-2">
                     {primaryExperience.stack.map((tech: string) => <Tag label={tech} />)}
                   </div>
                 </div>
                 <div>
-                  <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{experienceHighlightsLabel}</p>
-                  <ul class="mt-2 space-y-2 text-sm leading-relaxed text-slate-200">
+                  <p class="text-xs uppercase tracking-[0.25em] text-accent">{experienceHighlightsLabel}</p>
+                  <ul class="mt-2 space-y-2 text-sm leading-relaxed text-secondary">
                     {primaryExperience.achievements.map((note: string) => (
                       <li class="flex gap-2">
-                        <span class="mt-1 h-2 w-2 rounded-full bg-slate-500" aria-hidden="true" />
+                        <span class="mt-1 h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
                         <span>{note}</span>
                       </li>
                     ))}
@@ -292,28 +292,28 @@ const jsonLd = [
                 </div>
               </div>
             ) : (
-              <div class="text-sm text-slate-400">No experience entries available.</div>
+              <div class="text-sm text-muted">No experience entries available.</div>
             )}
           </Section>
         </div>
 
         <div class="card p-8">
           <Section title={labels.skillsTitle} kicker={labels.skillsKicker}>
-            <div class="space-y-4 text-sm text-slate-200">
+            <div class="space-y-4 text-sm text-secondary">
               <div>
-                <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{labels.expertiseLabel}</p>
+                <p class="text-xs uppercase tracking-[0.25em] text-accent">{labels.expertiseLabel}</p>
                 <div class="mt-2 flex flex-wrap gap-2">
                   {skills.expertise.map((item: string) => <Tag label={item} />)}
                 </div>
               </div>
               <div>
-                <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{labels.toolingLabel}</p>
+                <p class="text-xs uppercase tracking-[0.25em] text-accent">{labels.toolingLabel}</p>
                 <div class="mt-2 flex flex-wrap gap-2">
                   {skills.tooling.map((item: string) => <Tag label={item} />)}
                 </div>
               </div>
               <div>
-                <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{labels.languagesLabel}</p>
+                <p class="text-xs uppercase tracking-[0.25em] text-accent">{labels.languagesLabel}</p>
                 <div class="mt-2 flex flex-wrap gap-2">
                   {skills.languages.map((item: string) => <Tag label={item} />)}
                 </div>
@@ -326,10 +326,10 @@ const jsonLd = [
           <Section title={labels.educationTitle} kicker={labels.educationKicker}>
             <div class="space-y-4">
               {education.map((item: ResumeData['education'][number]) => (
-                <div class="rounded-xl bg-slate-900/50 p-4 ring-1 ring-inset ring-slate-800">
-                  <p class="text-sm uppercase tracking-[0.2em] text-slate-400">{item.period}</p>
-                  <h3 class="text-base font-semibold text-slate-50">{item.school}</h3>
-                  <p class="text-sm text-slate-200">{item.program}</p>
+                <div class="rounded-xl bg-surface/60 p-4 ring-1 ring-inset ring-stroke/20">
+                  <p class="text-sm uppercase tracking-[0.2em] text-muted">{item.period}</p>
+                  <h3 class="text-base font-semibold text-primary">{item.school}</h3>
+                  <p class="text-sm text-secondary">{item.program}</p>
                 </div>
               ))}
             </div>
@@ -346,8 +346,8 @@ const jsonLd = [
 
         <div class="card p-8">
           <Section title={labels.contactTitle} kicker={labels.contactKicker}>
-            <div class="space-y-4 text-sm text-slate-200">
-              <p class="text-sm leading-relaxed text-slate-300">{labels.contactDescription}</p>
+            <div class="space-y-4 text-sm text-secondary">
+              <p class="text-sm leading-relaxed text-secondary/90">{labels.contactDescription}</p>
               <form
                 class="space-y-3"
                 data-contact-form
@@ -362,9 +362,9 @@ const jsonLd = [
               >
                 <div class="grid gap-3 sm:grid-cols-2">
                   <label class="flex flex-col gap-2">
-                    <span class="text-xs uppercase tracking-[0.2em] text-slate-500">{labels.contactNameLabel}</span>
+                    <span class="text-xs uppercase tracking-[0.2em] text-accent">{labels.contactNameLabel}</span>
                     <input
-                      class="rounded-xl border border-slate-700/80 bg-slate-900/60 px-3 py-2 text-sm text-slate-100 outline-none ring-0 transition focus:border-slate-500"
+                      class="rounded-xl border border-stroke/20 bg-surface/60 px-3 py-2 text-sm text-primary outline-none ring-0 transition focus:border-accent"
                       type="text"
                       name="name"
                       autocomplete="name"
@@ -372,9 +372,9 @@ const jsonLd = [
                     />
                   </label>
                   <label class="flex flex-col gap-2">
-                    <span class="text-xs uppercase tracking-[0.2em] text-slate-500">{labels.contactEmailLabel}</span>
+                    <span class="text-xs uppercase tracking-[0.2em] text-accent">{labels.contactEmailLabel}</span>
                     <input
-                      class="rounded-xl border border-slate-700/80 bg-slate-900/60 px-3 py-2 text-sm text-slate-100 outline-none ring-0 transition focus:border-slate-500"
+                      class="rounded-xl border border-stroke/20 bg-surface/60 px-3 py-2 text-sm text-primary outline-none ring-0 transition focus:border-accent"
                       type="email"
                       name="email"
                       autocomplete="email"
@@ -383,9 +383,9 @@ const jsonLd = [
                   </label>
                 </div>
                 <label class="flex flex-col gap-2">
-                  <span class="text-xs uppercase tracking-[0.2em] text-slate-500">{labels.contactMessageLabel}</span>
+                  <span class="text-xs uppercase tracking-[0.2em] text-accent">{labels.contactMessageLabel}</span>
                   <textarea
-                    class="min-h-28 rounded-xl border border-slate-700/80 bg-slate-900/60 px-3 py-2 text-sm text-slate-100 outline-none ring-0 transition focus:border-slate-500"
+                    class="min-h-28 rounded-xl border border-stroke/20 bg-surface/60 px-3 py-2 text-sm text-primary outline-none ring-0 transition focus:border-accent"
                     name="message"
                     required
                   ></textarea>
@@ -396,14 +396,14 @@ const jsonLd = [
                 </div>
                 <div class="flex items-center gap-3">
                   <button
-                    class="inline-flex items-center justify-center rounded-full bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+                    class="inline-flex items-center justify-center rounded-full bg-accent px-5 py-2 text-sm font-semibold text-accent-contrast transition hover:-translate-y-0.5 hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60"
                     type="submit"
                     data-submit-button
                     disabled={!contactEndpoint}
                   >
                     {labels.contactSubmitLabel}
                   </button>
-                  <p class="text-sm text-slate-300" data-contact-status aria-live="polite">
+                  <p class="text-sm text-secondary/90" data-contact-status aria-live="polite">
                     {!contactEndpoint ? labels.contactDisabledMessage : ''}
                   </p>
                 </div>

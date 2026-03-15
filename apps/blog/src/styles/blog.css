@@ -1,5 +1,5 @@
 .blog-content {
-  color: #e2e8f0;
+  color: var(--color-secondary);
   font-size: 1.08rem;
   line-height: 1.8;
 }
@@ -9,17 +9,17 @@
 }
 
 .blog-content strong {
-  color: #f8fafc;
+  color: var(--color-primary);
   font-weight: 700;
 }
 
 .blog-content blockquote {
-  border-left: 3px solid rgba(52, 211, 153, 0.65);
-  background: rgba(15, 23, 42, 0.45);
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-surface-strong);
   border-radius: 0.75rem;
   margin: 1.25rem 0;
   padding: 0.75rem 1rem;
-  color: rgba(226, 232, 240, 0.9);
+  color: var(--color-secondary);
 }
 
 .blog-content ul,
@@ -33,17 +33,17 @@
 }
 
 .blog-content code {
-  background: rgba(15, 23, 42, 0.78);
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-stroke);
   border-radius: 0.45rem;
-  color: #d8b4fe;
+  color: var(--color-accent);
   font-size: 0.92em;
   padding: 0.12rem 0.42rem;
 }
 
 .blog-content pre {
-  background: rgba(15, 23, 42, 0.78);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-stroke);
   border-radius: 0.95rem;
   margin: 1.15rem 0;
   overflow-x: auto;
@@ -53,7 +53,28 @@
 .blog-content pre code {
   background: transparent;
   border: 0;
-  color: #cbd5e1;
+  color: var(--color-secondary);
   font-size: 0.95rem;
   padding: 0;
+}
+
+.blog-content h2,
+.blog-content h3 {
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  letter-spacing: 0;
+  line-height: 1.25;
+  margin-top: 2rem;
+}
+
+.blog-content h2 {
+  font-size: 1.6rem;
+}
+
+.blog-content h3 {
+  font-size: 1.3rem;
+}
+
+.blog-content p {
+  color: var(--color-secondary);
 }

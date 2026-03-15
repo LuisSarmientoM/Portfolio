@@ -34,21 +34,21 @@ const showLanguageSelector = languages.length > 0 && currentLanguage && defaultL
   <div class="mx-auto max-w-6xl px-6">
     <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-3">
       <div class="flex items-center text-left">
-        {name && <span class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">{name}</span>}
+        {name && <span class="text-sm font-semibold uppercase tracking-[0.2em] text-secondary">{name}</span>}
       </div>
-      <nav class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-200 ring-1 ring-inset ring-slate-800 backdrop-blur">
-        <a class="transition hover:text-white" href={homeHref}>Home</a>
-        <span class="text-slate-500">/</span>
-        <a class="transition hover:text-white" href={blogHref} target="_blank" rel="noreferrer">Blog</a>
+      <nav class="inline-flex items-center justify-center gap-2 rounded-full bg-surface-strong/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-secondary ring-1 ring-inset ring-stroke/20 backdrop-blur">
+        <a class="transition hover:text-primary" href={homeHref}>Home</a>
+        <span class="text-accent">/</span>
+        <a class="transition hover:text-primary" href={blogHref} target="_blank" rel="noreferrer">Blog</a>
       </nav>
       <div class="flex justify-end text-right">
         {showLanguageSelector && (
-          <div class="inline-flex gap-1 rounded-full bg-slate-950/70 p-1 ring-1 ring-inset ring-slate-800 backdrop-blur">
+          <div class="inline-flex gap-1 rounded-full bg-surface-strong/70 p-1 ring-1 ring-inset ring-stroke/20 backdrop-blur">
             {languages.map((language) => (
               <a
                 class={`rounded-full px-3 py-1 text-xs font-semibold transition ${language.code === currentLanguage
-                  ? 'bg-indigo-500/20 text-indigo-100 ring-1 ring-inset ring-indigo-500/60'
-                  : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
+                  ? 'bg-accent/15 text-primary ring-1 ring-inset ring-accent/35'
+                  : 'text-secondary hover:bg-surface hover:text-primary'}`}
                 href={`${basePath}${defaultLanguage && language.code === defaultLanguage ? '' : `/${language.code}`}${pathSuffix}`}
               >
                 {language.code}

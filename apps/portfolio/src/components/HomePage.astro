@@ -1,4 +1,4 @@
----
+ge---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from './Section.astro';
 import Tag from './Tag.astro';
@@ -175,7 +175,15 @@ const jsonLd = [
         <div class="mt-6 flex flex-col gap-6">
           <div class="grid gap-6 lg:grid-cols-[auto_1fr] lg:items-center">
             <div class="flex items-center justify-center">
-              <div class="h-28 w-28 rounded-2xl bg-surface/70 ring-1 ring-inset ring-stroke/20" />
+              <div class="h-58 w-58 rounded-2xl bg-surface/70 ring-1 ring-inset ring-stroke/20" >
+                <img
+                  class="h-full w-full rounded-2xl object-cover"
+                  src="profile.jpeg"
+                  alt={profile.name}
+                  width="112"
+                  height="112"
+                />
+              </div>
             </div>
             <div class="space-y-3">
               <p class="text-sm uppercase tracking-[0.25em] text-muted">{labels.portfolio}</p>

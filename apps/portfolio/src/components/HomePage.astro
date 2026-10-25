@@ -1,512 +1,578 @@
-ge---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Section from './Section.astro';
-import Tag from './Tag.astro';
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "./Section.astro";
+import Tag from "./Tag.astro";
+import ProjectCard from "./ProjectCard.astro";
+import ProfileIcon from "./ProfileIcon.astro";
 
 interface LanguageOption {
-  code: string;
-  label: string;
+    code: string;
+    label: string;
 }
 
 interface ResumeData {
-  seo: {
-    pageTitle: string;
-    pageDescription: string;
-    ogImage: string;
-  };
-  labels: {
-    available: string;
-    portfolio: string;
-    coreSkillsKicker: string;
-    coreSkillsTitle: string;
-    coreSkillsDescription: string;
-    recentFocusLabel: string;
-    recentFocusItems: string;
-    experienceTitle: string;
-    experienceKicker: string;
-    projectsTitle: string;
-    projectsKicker: string;
-    projectWipLabel: string;
-    skillsTitle: string;
-    skillsKicker: string;
-    expertiseLabel: string;
-    toolingLabel: string;
-    languagesLabel: string;
-    educationTitle: string;
-    educationKicker: string;
-    interestsTitle: string;
-    interestsKicker: string;
-    contactTitle: string;
-    contactKicker: string;
-    contactDescription: string;
-    contactNameLabel: string;
-    contactEmailLabel: string;
-    contactMessageLabel: string;
-    contactSubmitLabel: string;
-    contactSubmittingLabel: string;
-    contactSuccessMessage: string;
-    contactErrorMessage: string;
-    contactDisabledMessage: string;
-    contactValidationRequired: string;
-    contactValidationEmail: string;
-  };
-  profile: {
-    name: string;
-    title: string;
-    location: string;
-    summary: string;
-    links: Array<{ label: string; href: string }>;
-  };
-  experience: Array<{
-    company: string;
-    role: string;
-    period: string;
-    location: string;
-    achievements: string[];
-    stack: string[];
-  }>;
-  projects: Array<{
-    name: string;
-    description: string;
-    link: string;
-    tags: string[];
-    wip?: boolean;
     seo: {
-      headline: string;
-      description: string;
+        pageTitle: string;
+        pageDescription: string;
+        ogImage: string;
     };
-  }>;
-  skills: {
-    expertise: string[];
-    tooling: string[];
-    languages: string[];
-  };
-  education: Array<{
-    school: string;
-    program: string;
-    period: string;
-  }>;
-  interests: string[];
+    labels: {
+        coreSkillsKicker: string;
+        coreSkillsTitle: string;
+        coreSkillsDescription: string;
+        recentFocusLabel: string;
+        recentFocusItems: string;
+        experienceTitle: string;
+        experienceKicker: string;
+        projectsTitle: string;
+        commercialProjectsTitle: string;
+        systemsProjectsTitle: string;
+        otherProjectsTitle: string;
+        projectWipLabel: string;
+        skillsTitle: string;
+        skillsKicker: string;
+        expertiseLabel: string;
+        toolingLabel: string;
+        languagesLabel: string;
+        educationTitle: string;
+        educationKicker: string;
+        interestsTitle: string;
+        interestsKicker: string;
+        contactTitle: string;
+        contactKicker: string;
+        contactDescription: string;
+        contactNameLabel: string;
+        contactEmailLabel: string;
+        contactMessageLabel: string;
+        contactSubmitLabel: string;
+        contactSubmittingLabel: string;
+        contactSuccessMessage: string;
+        contactErrorMessage: string;
+        contactDisabledMessage: string;
+        contactValidationRequired: string;
+        contactValidationEmail: string;
+    };
+    profile: {
+        name: string;
+        title: string;
+        location: string;
+        summary: string;
+        links: Array<{ label: string; href: string; icon?: string }>;
+    };
+    experience: Array<{
+        company: string;
+        role: string;
+        period: string;
+        location: string;
+        achievements: string[];
+        stack: string[];
+    }>;
+    projects: Array<{
+        name: string;
+        description: string;
+        link: string | null;
+        group: string;
+        tags: string[];
+        wip?: boolean;
+        seo: {
+            headline: string;
+            description: string;
+        };
+    }>;
+    skills: {
+        expertise: string[];
+        tooling: string[];
+        languages: string[];
+    };
+    education: Array<{
+        school: string;
+        program: string;
+        period: string;
+    }>;
+    interests: string[];
 }
 
 interface Props {
-  data: ResumeData;
-  labels: ResumeData['labels'];
-  languages: LanguageOption[];
-  currentLanguage: string;
-  defaultLanguage: string;
+    data: ResumeData;
+    labels: ResumeData["labels"];
+    languages: LanguageOption[];
+    currentLanguage: string;
+    defaultLanguage: string;
 }
 
-const { data, labels, languages, currentLanguage, defaultLanguage }: Props = Astro.props;
+const { data, labels, languages, currentLanguage, defaultLanguage }: Props =
+    Astro.props;
 const { education, experience, interests, profile, projects, skills } = data;
-const headerName = 'Luis Sarmiento';
+const projectGroups = [
+    { group: "commercial", title: labels.commercialProjectsTitle },
+    { group: "systems", title: labels.systemsProjectsTitle },
+    { group: "other", title: labels.otherProjectsTitle },
+];
+const headerName = "Luis Sarmiento";
 const primaryExperience = experience[0];
-const experienceStackLabel = 'Stack';
-const experienceHighlightsLabel = currentLanguage === 'es' ? 'Logros clave' : 'Key highlights';
+const experienceStackLabel = "Stack";
+const experienceHighlightsLabel =
+    currentLanguage === "es" ? "Logros clave" : "Key highlights";
 const contactEndpoint =
-  (import.meta as ImportMeta & { env?: { PUBLIC_CONTACT_API_URL?: string } }).env?.PUBLIC_CONTACT_API_URL ?? '';
+    (import.meta as ImportMeta & { env?: { PUBLIC_CONTACT_API_URL?: string } })
+        .env?.PUBLIC_CONTACT_API_URL ?? "";
 const isDefaultLanguage = currentLanguage === defaultLanguage;
-const basePath = '/';
-const currentPath = isDefaultLanguage ? basePath : `${basePath}${currentLanguage}/`;
+const basePath = "/";
+const currentPath = isDefaultLanguage
+    ? basePath
+    : `${basePath}${currentLanguage}/`;
 const canonicalHref = new URL(currentPath, Astro.site).toString();
 const xDefaultHref = new URL(basePath, Astro.site).toString();
 const alternateLinks = languages.map(({ code, label }) => ({
-  hreflang: code,
-  href: new URL(code === defaultLanguage ? basePath : `${basePath}${code}/`, Astro.site).toString(),
-  label,
+    hreflang: code,
+    href: new URL(
+        code === defaultLanguage ? basePath : `${basePath}${code}/`,
+        Astro.site,
+    ).toString(),
+    label,
 }));
 const sameAs = profile.links.map((link) => link.href);
 const jsonLd = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: profile.name,
-    jobTitle: profile.title,
-    description: profile.summary,
-    url: canonicalHref,
-    image: data.seo.ogImage,
-    address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'CO',
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: profile.name,
+        jobTitle: profile.title,
+        description: profile.summary,
+        url: canonicalHref,
+        image: data.seo.ogImage,
+        address: {
+            "@type": "PostalAddress",
+            addressCountry: "CO",
+        },
+        sameAs,
     },
-    sameAs,
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: labels.projectsTitle,
-    itemListElement: projects.map((project, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
-        '@type': 'CreativeWork',
-        name: project.seo.headline,
-        description: project.seo.description,
-        url: project.link,
-        keywords: project.tags.join(', '),
-      },
-    })),
-  },
-];
-
----
-<BaseLayout
-  lang={currentLanguage}
-  title={data.seo.pageTitle}
-  description={data.seo.pageDescription}
-  canonicalHref={canonicalHref}
-  alternateLinks={alternateLinks}
-  xDefaultHref={xDefaultHref}
-  ogImage={data.seo.ogImage}
-  jsonLd={jsonLd}
-  languages={languages}
-  currentLanguage={currentLanguage}
-  defaultLanguage={defaultLanguage}
-  name={headerName}
->
-  <div class="flex flex-col gap-6">
-    <div class="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-      <div class="card relative overflow-hidden p-8">
-        <div class="absolute left-0 top-0 h-1 w-32 rounded-full ribbon" />
-        <div class="flex flex-wrap items-center justify-between gap-3 text-muted">
-          <span class="text-sm">{profile.location}</span>
-          <span class="text-sm">{labels.available}</span>
-        </div>
-        <div class="mt-6 flex flex-col gap-6">
-          <div class="grid gap-6 lg:grid-cols-[auto_1fr] lg:items-center">
-            <div class="flex items-center justify-center">
-              <div class="h-58 w-58 rounded-2xl bg-surface/70 ring-1 ring-inset ring-stroke/20" >
-                <img
-                  class="h-full w-full rounded-2xl object-cover"
-                  src="/profile.jpeg"
-                  alt={profile.name}
-                  width="112"
-                  height="112"
-                />
-              </div>
-            </div>
-            <div class="space-y-3">
-              <p class="text-sm uppercase tracking-[0.25em] text-muted">{labels.portfolio}</p>
-              <h1 class="text-3xl font-bold leading-tight text-primary sm:text-4xl">
-                {profile.name}
-              </h1>
-              <p class="text-lg font-semibold text-secondary">{profile.title}</p>
-              <p class="max-w-2xl text-base leading-relaxed text-secondary/90">{profile.summary}</p>
-            </div>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            {profile.links.map((link: { label: string; href: string }) => (
-              <a
-                class="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-semibold text-primary ring-1 ring-inset ring-stroke/20 transition hover:-translate-y-0.5 hover:bg-surface-strong hover:text-primary"
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div class="card flex flex-col gap-4 p-8">
-        <div>
-          <p class="text-xs uppercase tracking-[0.25em] text-muted">{labels.coreSkillsKicker}</p>
-          <h2 class="mt-2 text-xl font-semibold text-primary">{labels.coreSkillsTitle}</h2>
-          <p class="mt-3 text-sm leading-relaxed text-secondary">{labels.coreSkillsDescription}</p>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          {skills.expertise.map((skill: string) => <Tag label={skill} />)}
-        </div>
-        <div class="rounded-2xl bg-surface/60 p-4 ring-1 ring-inset ring-stroke/20">
-          <p class="text-xs uppercase tracking-[0.3em] text-accent">{labels.recentFocusLabel}</p>
-          <p class="mt-2 text-sm text-secondary">{labels.recentFocusItems}</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
-      <div class="card p-8">
-        <Section title={labels.projectsTitle} kicker={labels.projectsKicker}>
-          <div class="space-y-6">
-            {projects.map((project: ResumeData['projects'][number]) => (
-              <a
-                class="group block rounded-2xl bg-surface/60 p-4 ring-1 ring-inset ring-stroke/20 transition hover:-translate-y-1 hover:bg-surface-strong/80 hover:ring-accent/30"
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div class="flex items-start justify-between gap-3">
-                  <div class="min-w-0 flex-1">
-                    <div class="flex flex-wrap items-center gap-2">
-                      <h3 class="text-base font-semibold text-primary group-hover:text-primary">{project.name}</h3>
-                      {project.wip ? (
-                        <span class="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">
-                          {labels.projectWipLabel}
-                        </span>
-                      ) : null}
-                    </div>
-                    <p class="mt-1 text-sm leading-relaxed text-secondary/90">{project.description}</p>
-                  </div>
-                  <svg
-                    class="mt-1 h-5 w-5 text-accent group-hover:text-secondary"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 17 17 7" />
-                    <path d="M7 7h10v10" />
-                  </svg>
-                </div>
-                <div class="mt-3 flex flex-wrap gap-2">
-                  {project.tags.map((tag: string) => <Tag label={tag} />)}
-                </div>
-              </a>
-            ))}
-          </div>
-        </Section>
-      </div>
-
-      <div class="flex flex-col gap-6">
-        <div class="card p-8">
-          <Section title={labels.experienceTitle} kicker={labels.experienceKicker}>
-            {primaryExperience ? (
-              <div class="space-y-4 text-sm text-secondary">
-                <div>
-                  <p class="text-xs uppercase tracking-[0.24em] text-muted">{primaryExperience.period}</p>
-                  <h3 class="text-lg font-semibold text-primary">{primaryExperience.role}</h3>
-                  <p class="text-sm text-secondary/80">{primaryExperience.company} · {primaryExperience.location}</p>
-                </div>
-                <div>
-                  <p class="text-xs uppercase tracking-[0.25em] text-accent">{experienceStackLabel}</p>
-                  <div class="mt-2 flex flex-wrap gap-2">
-                    {primaryExperience.stack.map((tech: string) => <Tag label={tech} />)}
-                  </div>
-                </div>
-                <div>
-                  <p class="text-xs uppercase tracking-[0.25em] text-accent">{experienceHighlightsLabel}</p>
-                  <ul class="mt-2 space-y-2 text-sm leading-relaxed text-secondary">
-                    {primaryExperience.achievements.map((note: string) => (
-                      <li class="flex gap-2">
-                        <span class="mt-1 h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
-                        <span>{note}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ) : (
-              <div class="text-sm text-muted">No experience entries available.</div>
-            )}
-          </Section>
-        </div>
-
-        <div class="card p-8">
-          <Section title={labels.skillsTitle} kicker={labels.skillsKicker}>
-            <div class="space-y-4 text-sm text-secondary">
-              <div>
-                <p class="text-xs uppercase tracking-[0.25em] text-accent">{labels.expertiseLabel}</p>
-                <div class="mt-2 flex flex-wrap gap-2">
-                  {skills.expertise.map((item: string) => <Tag label={item} />)}
-                </div>
-              </div>
-              <div>
-                <p class="text-xs uppercase tracking-[0.25em] text-accent">{labels.toolingLabel}</p>
-                <div class="mt-2 flex flex-wrap gap-2">
-                  {skills.tooling.map((item: string) => <Tag label={item} />)}
-                </div>
-              </div>
-              <div>
-                <p class="text-xs uppercase tracking-[0.25em] text-accent">{labels.languagesLabel}</p>
-                <div class="mt-2 flex flex-wrap gap-2">
-                  {skills.languages.map((item: string) => <Tag label={item} />)}
-                </div>
-              </div>
-            </div>
-          </Section>
-        </div>
-
-        <div class="card p-8">
-          <Section title={labels.educationTitle} kicker={labels.educationKicker}>
-            <div class="space-y-4">
-              {education.map((item: ResumeData['education'][number]) => (
-                <div class="rounded-xl bg-surface/60 p-4 ring-1 ring-inset ring-stroke/20">
-                  <p class="text-sm uppercase tracking-[0.2em] text-muted">{item.period}</p>
-                  <h3 class="text-base font-semibold text-primary">{item.school}</h3>
-                  <p class="text-sm text-secondary">{item.program}</p>
-                </div>
-              ))}
-            </div>
-          </Section>
-        </div>
-
-        <div class="card p-8">
-          <Section title={labels.interestsTitle} kicker={labels.interestsKicker}>
-            <div class="flex flex-wrap gap-2">
-              {interests.map((item: string) => <Tag label={item} />)}
-            </div>
-          </Section>
-        </div>
-
-        <div class="card p-8">
-          <Section title={labels.contactTitle} kicker={labels.contactKicker}>
-            <div class="space-y-4 text-sm text-secondary">
-              <p class="text-sm leading-relaxed text-secondary/90">{labels.contactDescription}</p>
-              <form
-                class="space-y-3"
-                data-contact-form
-                data-endpoint={contactEndpoint}
-                data-required-message={labels.contactValidationRequired}
-                data-email-message={labels.contactValidationEmail}
-                data-success-message={labels.contactSuccessMessage}
-                data-error-message={labels.contactErrorMessage}
-                data-disabled-message={labels.contactDisabledMessage}
-                data-submit-label={labels.contactSubmitLabel}
-                data-submitting-label={labels.contactSubmittingLabel}
-              >
-                <div class="grid gap-3 sm:grid-cols-2">
-                  <label class="flex flex-col gap-2">
-                    <span class="text-xs uppercase tracking-[0.2em] text-accent">{labels.contactNameLabel}</span>
-                    <input
-                      class="rounded-xl border border-stroke/20 bg-surface/60 px-3 py-2 text-sm text-primary outline-none ring-0 transition focus:border-accent"
-                      type="text"
-                      name="name"
-                      autocomplete="name"
-                      required
-                    />
-                  </label>
-                  <label class="flex flex-col gap-2">
-                    <span class="text-xs uppercase tracking-[0.2em] text-accent">{labels.contactEmailLabel}</span>
-                    <input
-                      class="rounded-xl border border-stroke/20 bg-surface/60 px-3 py-2 text-sm text-primary outline-none ring-0 transition focus:border-accent"
-                      type="email"
-                      name="email"
-                      autocomplete="email"
-                      required
-                    />
-                  </label>
-                </div>
-                <label class="flex flex-col gap-2">
-                  <span class="text-xs uppercase tracking-[0.2em] text-accent">{labels.contactMessageLabel}</span>
-                  <textarea
-                    class="min-h-28 rounded-xl border border-stroke/20 bg-surface/60 px-3 py-2 text-sm text-primary outline-none ring-0 transition focus:border-accent"
-                    name="message"
-                    required
-                  ></textarea>
-                </label>
-                <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
-                  <label for={`company-${currentLanguage}`}>Company</label>
-                  <input id={`company-${currentLanguage}`} name="company" type="text" tabindex="-1" autocomplete="off" />
-                </div>
-                <div class="flex items-center gap-3">
-                  <button
-                    class="inline-flex items-center justify-center rounded-full bg-accent px-5 py-2 text-sm font-semibold text-accent-contrast transition hover:-translate-y-0.5 hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60"
-                    type="submit"
-                    data-submit-button
-                    disabled={!contactEndpoint}
-                  >
-                    {labels.contactSubmitLabel}
-                  </button>
-                  <p class="text-sm text-secondary/90" data-contact-status aria-live="polite">
-                    {!contactEndpoint ? labels.contactDisabledMessage : ''}
-                  </p>
-                </div>
-              </form>
-            </div>
-          </Section>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script is:inline>
-    const form = document.querySelector('[data-contact-form]');
-
-    if (form instanceof HTMLFormElement) {
-      const endpoint = form.dataset.endpoint ?? '';
-      const requiredMessage = form.dataset.requiredMessage ?? 'Please complete all required fields.';
-      const emailMessage = form.dataset.emailMessage ?? 'Please enter a valid email address.';
-      const successMessage = form.dataset.successMessage ?? 'Message sent successfully.';
-      const errorMessage = form.dataset.errorMessage ?? 'Could not send message.';
-      const disabledMessage = form.dataset.disabledMessage ?? 'Contact form unavailable.';
-      const submitLabel = form.dataset.submitLabel ?? 'Send message';
-      const submittingLabel = form.dataset.submittingLabel ?? 'Sending...';
-
-      const status = form.querySelector('[data-contact-status]');
-      const submitButton = form.querySelector('[data-submit-button]');
-
-      const setStatus = (message) => {
-        if (status instanceof HTMLElement) {
-          status.textContent = message;
-        }
-      };
-
-      if (!endpoint) {
-        setStatus(disabledMessage);
-      }
-
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        if (!(submitButton instanceof HTMLButtonElement)) return;
-
-        if (!endpoint) {
-          setStatus(disabledMessage);
-          return;
-        }
-
-        const formData = new FormData(form);
-        const name = String(formData.get('name') ?? '').trim();
-        const email = String(formData.get('email') ?? '').trim();
-        const message = String(formData.get('message') ?? '').trim();
-        const company = String(formData.get('company') ?? '').trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!name || !email || !message) {
-          setStatus(requiredMessage);
-          return;
-        }
-
-        if (!emailRegex.test(email)) {
-          setStatus(emailMessage);
-          return;
-        }
-
-        submitButton.disabled = true;
-        submitButton.textContent = submittingLabel;
-        setStatus('');
-
-        try {
-          const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: labels.projectsTitle,
+        itemListElement: projects.map((project, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            item: {
+                "@type": "CreativeWork",
+                name: project.seo.headline,
+                description: project.seo.description,
+                ...(project.link ? { url: project.link } : {}),
+                keywords: project.tags.join(", "),
             },
-            body: JSON.stringify({
-              name,
-              email,
-              message,
-              company,
-            }),
-          });
+        })),
+    },
+];
+---
 
-          if (!response.ok) {
-            throw new Error('Request failed');
-          }
+<BaseLayout
+    lang={currentLanguage}
+    title={data.seo.pageTitle}
+    description={data.seo.pageDescription}
+    canonicalHref={canonicalHref}
+    alternateLinks={alternateLinks}
+    xDefaultHref={xDefaultHref}
+    ogImage={data.seo.ogImage}
+    jsonLd={jsonLd}
+    languages={languages}
+    currentLanguage={currentLanguage}
+    defaultLanguage={defaultLanguage}
+    name={headerName}
+>
+    <section class="flex flex-col items-center justify-center gap-6 py-12 sm:py-16 lg:min-h-[70vh] lg:flex-row lg:py-20">
+        <img
+            class="object-cover rounded-2xl w-48 h-48 lg:w-72 lg:h-72"
+            src="/profile.jpeg"
+            alt={profile.name}
+            width="200"
+            height="200"
+        />
+        <div class="space-y-6 max-w-prose">
+            <h1
+                class="text-3xl font-bold leading-tight text-primary sm:text-4xl"
+            >
+                {profile.name}
+            </h1>
+            <p class="text-lg font-semibold text-secondary">
+                {profile.title}
+            </p>
+            <p class="text-sm text-muted">{profile.location}</p>
+            <p class="max-w-2xl text-base leading-relaxed text-secondary/90">
+                {profile.summary}
+            </p>
+            <div class="flex flex-wrap gap-3">
+                {
+                    profile.links.map(
+                        (link: { label: string; href: string; icon?: string }) => (
+                            <a
+                                class="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-semibold text-primary ring-1 ring-inset ring-stroke/20 transition hover:-translate-y-0.5 hover:bg-surface-strong hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                                href={link.href}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                {link.icon ? (
+                                    <ProfileIcon name={link.icon} />
+                                ) : null}
+                                {link.label}
+                            </a>
+                        ),
+                    )
+                }
+            </div>
+        </div>
+    </section>
 
-          form.reset();
-          setStatus(successMessage);
-        } catch {
-          setStatus(errorMessage);
-        } finally {
-          submitButton.disabled = false;
-          submitButton.textContent = submitLabel;
+    <div class="space-y-6">
+        <div class="card p-8">
+            <Section title={labels.projectsTitle}>
+                <div class="space-y-8">
+                    {projectGroups.map(({ group, title }) => (
+                        <section aria-labelledby={`${group}-projects-title`}>
+                            <h3 id={`${group}-projects-title`} class="mb-4 text-lg font-semibold text-primary">
+                                {title}
+                            </h3>
+                            <div class="grid gap-6 md:grid-cols-2">
+                                {projects.filter((project) => project.group === group).map((project) => (
+                                    <ProjectCard project={project} wipLabel={labels.projectWipLabel} />
+                                ))}
+                            </div>
+                        </section>
+                    ))}
+                </div>
+            </Section>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+            <div class="card p-8">
+                <Section title={labels.experienceTitle}>
+                    {
+                        primaryExperience ? (
+                            <div class="space-y-4 text-sm text-secondary">
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.24em] text-muted">
+                                        {primaryExperience.period}
+                                    </p>
+                                    <h3 class="text-lg font-semibold text-primary">
+                                        {primaryExperience.role}
+                                    </h3>
+                                    <p class="text-sm text-secondary/80">
+                                        {primaryExperience.company} ·{" "}
+                                        {primaryExperience.location}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.25em] text-accent">
+                                        {experienceStackLabel}
+                                    </p>
+                                    <div class="mt-2 flex flex-wrap gap-2">
+                                        {primaryExperience.stack.map(
+                                            (tech: string) => (
+                                                <Tag label={tech} />
+                                            ),
+                                        )}
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-[0.25em] text-accent">
+                                        {experienceHighlightsLabel}
+                                    </p>
+                                    <ul class="mt-2 space-y-2 text-sm leading-relaxed text-secondary">
+                                        {primaryExperience.achievements.map(
+                                            (note: string) => (
+                                                <li class="flex gap-2">
+                                                    <span
+                                                        class="mt-1 h-2 w-2 rounded-full bg-accent"
+                                                        aria-hidden="true"
+                                                    />
+                                                    <span>{note}</span>
+                                                </li>
+                                            ),
+                                        )}
+                                    </ul>
+                                </div>
+                            </div>
+                        ) : (
+                            <div class="text-sm text-muted">
+                                No experience entries available.
+                            </div>
+                        )
+                    }
+                </Section>
+            </div>
+
+            <div class="card p-8">
+                <Section title={labels.skillsTitle}>
+                    <div class="space-y-4 text-sm text-secondary">
+                        <div>
+                            <p
+                                class="text-xs uppercase tracking-[0.25em] text-accent"
+                            >
+                                {labels.expertiseLabel}
+                            </p>
+                            <div class="mt-2 flex flex-wrap gap-2">
+                                {
+                                    skills.expertise.map((item: string) => (
+                                        <Tag label={item} />
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        <div>
+                            <p
+                                class="text-xs uppercase tracking-[0.25em] text-accent"
+                            >
+                                {labels.toolingLabel}
+                            </p>
+                            <div class="mt-2 flex flex-wrap gap-2">
+                                {
+                                    skills.tooling.map((item: string) => (
+                                        <Tag label={item} />
+                                    ))
+                                }
+                            </div>
+                        </div>
+                        <div>
+                            <p
+                                class="text-xs uppercase tracking-[0.25em] text-accent"
+                            >
+                                {labels.languagesLabel}
+                            </p>
+                            <div class="mt-2 flex flex-wrap gap-2">
+                                {
+                                    skills.languages.map((item: string) => (
+                                        <Tag label={item} />
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </Section>
+            </div>
+
+            <div class="card p-8">
+                <Section title={labels.educationTitle}>
+                    <div class="space-y-4">
+                        {
+                            education.map(
+                                (item: ResumeData["education"][number]) => (
+                                    <div class="rounded-xl bg-surface/60 p-4 ring-1 ring-inset ring-stroke/20">
+                                        <p class="text-sm uppercase tracking-[0.2em] text-muted">
+                                            {item.period}
+                                        </p>
+                                        <h3 class="text-base font-semibold text-primary">
+                                            {item.school}
+                                        </h3>
+                                        <p class="text-sm text-secondary">
+                                            {item.program}
+                                        </p>
+                                    </div>
+                                ),
+                            )
+                        }
+                    </div>
+                </Section>
+            </div>
+
+            <div class="card p-8">
+                <Section title={labels.interestsTitle}>
+                    <div class="flex flex-wrap gap-2">
+                        {interests.map((item: string) => <Tag label={item} />)}
+                    </div>
+                </Section>
+            </div>
+
+            <div class="card p-8 lg:col-span-2">
+                <Section title={labels.contactTitle}>
+                    <div class="space-y-4 text-sm text-secondary">
+                        <p class="text-sm leading-relaxed text-secondary/90">
+                            {labels.contactDescription}
+                        </p>
+                        <form
+                            class="space-y-3"
+                            data-contact-form
+                            data-endpoint={contactEndpoint}
+                            data-required-message={labels.contactValidationRequired}
+                            data-email-message={labels.contactValidationEmail}
+                            data-success-message={labels.contactSuccessMessage}
+                            data-error-message={labels.contactErrorMessage}
+                            data-disabled-message={labels.contactDisabledMessage}
+                            data-submit-label={labels.contactSubmitLabel}
+                            data-submitting-label={labels.contactSubmittingLabel}
+                        >
+                            <div class="grid gap-3 sm:grid-cols-2">
+                                <label class="flex flex-col gap-2">
+                                    <span
+                                        class="text-xs uppercase tracking-[0.2em] text-accent"
+                                        >{labels.contactNameLabel}</span
+                                    >
+                                    <input
+                                        class="rounded-xl border border-stroke/20 bg-surface/60 px-3 py-2 text-sm text-primary outline-none ring-0 transition focus:border-accent"
+                                        type="text"
+                                        name="name"
+                                        autocomplete="name"
+                                        required
+                                    />
+                                </label>
+                                <label class="flex flex-col gap-2">
+                                    <span
+                                        class="text-xs uppercase tracking-[0.2em] text-accent"
+                                        >{labels.contactEmailLabel}</span
+                                    >
+                                    <input
+                                        class="rounded-xl border border-stroke/20 bg-surface/60 px-3 py-2 text-sm text-primary outline-none ring-0 transition focus:border-accent"
+                                        type="email"
+                                        name="email"
+                                        autocomplete="email"
+                                        required
+                                    />
+                                </label>
+                            </div>
+                            <label class="flex flex-col gap-2">
+                                <span
+                                    class="text-xs uppercase tracking-[0.2em] text-accent"
+                                    >{labels.contactMessageLabel}</span
+                                >
+                                <textarea
+                                    class="min-h-28 rounded-xl border border-stroke/20 bg-surface/60 px-3 py-2 text-sm text-primary outline-none ring-0 transition focus:border-accent"
+                                    name="message"
+                                    required></textarea>
+                            </label>
+                            <div
+                                class="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+                                aria-hidden="true"
+                            >
+                                <label for={`company-${currentLanguage}`}
+                                    >Company</label
+                                >
+                                <input
+                                    id={`company-${currentLanguage}`}
+                                    name="company"
+                                    type="text"
+                                    tabindex="-1"
+                                    autocomplete="off"
+                                />
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button
+                                    class="inline-flex items-center justify-center rounded-full bg-accent px-5 py-2 text-sm font-semibold text-accent-contrast transition hover:-translate-y-0.5 hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60"
+                                    type="submit"
+                                    data-submit-button
+                                    disabled={!contactEndpoint}
+                                >
+                                    {labels.contactSubmitLabel}
+                                </button>
+                                <p
+                                    class="text-sm text-secondary/90"
+                                    data-contact-status
+                                    aria-live="polite"
+                                >
+                                    {
+                                        !contactEndpoint
+                                            ? labels.contactDisabledMessage
+                                            : ""
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </Section>
+            </div>
+        </div>
+    </div>
+
+    <script is:inline>
+        const form = document.querySelector("[data-contact-form]");
+
+        if (form instanceof HTMLFormElement) {
+            const endpoint = form.dataset.endpoint ?? "";
+            const requiredMessage =
+                form.dataset.requiredMessage ??
+                "Please complete all required fields.";
+            const emailMessage =
+                form.dataset.emailMessage ??
+                "Please enter a valid email address.";
+            const successMessage =
+                form.dataset.successMessage ?? "Message sent successfully.";
+            const errorMessage =
+                form.dataset.errorMessage ?? "Could not send message.";
+            const disabledMessage =
+                form.dataset.disabledMessage ?? "Contact form unavailable.";
+            const submitLabel = form.dataset.submitLabel ?? "Send message";
+            const submittingLabel =
+                form.dataset.submittingLabel ?? "Sending...";
+
+            const status = form.querySelector("[data-contact-status]");
+            const submitButton = form.querySelector("[data-submit-button]");
+
+            const setStatus = (message) => {
+                if (status instanceof HTMLElement) {
+                    status.textContent = message;
+                }
+            };
+
+            if (!endpoint) {
+                setStatus(disabledMessage);
+            }
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                if (!(submitButton instanceof HTMLButtonElement)) return;
+
+                if (!endpoint) {
+                    setStatus(disabledMessage);
+                    return;
+                }
+
+                const formData = new FormData(form);
+                const name = String(formData.get("name") ?? "").trim();
+                const email = String(formData.get("email") ?? "").trim();
+                const message = String(formData.get("message") ?? "").trim();
+                const company = String(formData.get("company") ?? "").trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (!name || !email || !message) {
+                    setStatus(requiredMessage);
+                    return;
+                }
+
+                if (!emailRegex.test(email)) {
+                    setStatus(emailMessage);
+                    return;
+                }
+
+                submitButton.disabled = true;
+                submitButton.textContent = submittingLabel;
+                setStatus("");
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            name,
+                            email,
+                            message,
+                            company,
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Request failed");
+                    }
+
+                    form.reset();
+                    setStatus(successMessage);
+                } catch {
+                    setStatus(errorMessage);
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = submitLabel;
+                }
+            });
         }
-      });
-    }
-  </script>
+    </script>
 </BaseLayout>

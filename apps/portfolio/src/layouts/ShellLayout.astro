@@ -79,8 +79,8 @@ const siteName = "Luis Sarmiento";
                 />
             )
         }
-        {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
-        <script is:inline>
+        {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+        <script is:inline define:vars={{ gtmId }}>
             ((w, d, s, l, i) => {
                 w[l] = w[l] || [];
                 w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });

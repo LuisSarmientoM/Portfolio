@@ -1,13 +1,11 @@
 ---
 export interface Props {
   title: string;
-  kicker?: string;
 }
-const { title, kicker } = Astro.props;
+const { title } = Astro.props;
 ---
 <section class="scroll-mt-28 space-y-4">
   <div class="flex items-baseline gap-3">
-    {kicker && <span class="text-xs uppercase tracking-[0.3em] text-muted">{kicker}</span>}
     <h2 class="text-lg font-semibold text-primary">{title}</h2>
   </div>
   <div class="space-y-4 text-secondary"><slot /></div>

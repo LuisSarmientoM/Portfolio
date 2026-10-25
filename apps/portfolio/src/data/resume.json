@@ -11,7 +11,6 @@
                 "ogImage": "https://lsarmiento.dev/og/portfolio-home.svg"
             },
             "labels": {
-                "available": "Available for remote roles",
                 "portfolio": "Portfolio",
                 "coreSkillsKicker": "Core skills",
                 "coreSkillsTitle": "Building robust web apps",
@@ -21,7 +20,9 @@
                 "experienceTitle": "Experience",
                 "experienceKicker": "Timeline",
                 "projectsTitle": "Projects",
-                "projectsKicker": "Selected",
+                "commercialProjectsTitle": "Corporate & commercial websites",
+                "systemsProjectsTitle": "Applications & digital experiences",
+                "otherProjectsTitle": "Other projects",
                 "projectWipLabel": "In progress",
                 "skillsTitle": "Skills & Tools",
                 "skillsKicker": "Stacks",
@@ -49,17 +50,19 @@
             "profile": {
                 "name": "Luis Felipe Sarmiento Muñoz",
                 "title": "Senior JavaScript Developer",
-                "location": "Remote / Colombia",
-                "summary": "JavaScript/TypeScript developer with experience building applications using Angular 10+ and NestJS. Passionate about clean architecture, performance, and staying current with modern web practices.",
+                "location": "Medellín, Colombia",
+                "summary": "I build web applications with Angular and NestJS, custom WordPress sites, and integrations with business systems and payment platforms. My work combines frontend development, backend services, and workflow automation.",
                 "links": [
-                    { "label": "Email", "href": "mailto:hello@lsarmiento.dev" },
+                    { "label": "Email", "href": "mailto:hello@lsarmiento.dev", "icon": "email" },
                     {
                         "label": "GitHub",
-                        "href": "https://github.com/LuisSarmientoM"
+                        "href": "https://github.com/LuisSarmientoM",
+                        "icon": "github"
                     },
                     {
                         "label": "LinkedIn",
-                        "href": "https://www.linkedin.com/in/luissarmientomunoz/"
+                        "href": "https://www.linkedin.com/in/luissarmientomunoz/",
+                        "icon": "linkedin"
                     }
                 ]
             },
@@ -87,95 +90,95 @@
             ],
             "projects": [
                 {
-                    "name": "Portfolio",
-                    "description": "Personal portfolio built with Astro and Tailwind CSS, featuring multilingual content and a focused professional profile.",
-                    "link": "https://github.com/LuisSarmientoM/Portfolio",
-                    "tags": ["Astro", "Tailwind CSS", "i18n"],
-                    "seo": {
-                        "headline": "Multilingual Astro portfolio project",
-                        "description": "Personal portfolio and resume experience built with Astro, Tailwind CSS and bilingual content architecture."
-                    }
-                },
-
-                {
-                    "name": "FLIMM",
-                    "description": "Web platform for the official program of Feria del Libro Montes de María 2026, featuring day-based schedules, filters by type and venue, and search for activities and participants.",
-                    "link": "https://flimm.lsarmiento.dev/",
-                    "tags": [
-                        "Astro",
-                        "Tailwind CSS",
-                        "Interactive agenda",
-                        "Filters",
-                        "Search"
-                    ],
-                    "seo": {
-                        "headline": "Web platform for a cultural fair event agenda",
-                        "description": "Official program website for FLIMM 2026, featuring date navigation, dynamic filters, and an optimized experience for browsing cultural activities."
-                    }
-                },
-                {
-                    "name": "Ranking Transforma",
-                    "description": "Survey and organizational analytics platform designed to collect strategic data, generate in-depth company-level insights, and build comparative rankings from the collected responses.",
-                    "link": null,
-                    "tags": [
-                        "Surveys",
-                        "Analytics",
-                        "Rankings",
-                        "Dashboards",
-                        "Business assessment"
-                    ],
-                    "seo": {
-                        "headline": "Survey and business ranking platform",
-                        "description": "Platform for managing business surveys, processing in-depth results, and generating comparative rankings with an analytics-driven decision-making approach."
-                    }
-                },
-                {
-                    "name": "Japonesa de Repuestos",
-                    "description": "Platform in development for Japonesa de Repuestos, designed with full SAP connectivity and unified B2C and B2B operational flows.",
-                    "link": null,
-                    "tags": [
-                        "SAP",
-                        "B2B",
-                        "B2C",
-                        "Enterprise integration",
-                        "E-commerce"
-                    ],
-                    "wip": true,
-                    "seo": {
-                        "headline": "SAP-connected platform for B2B and B2C operations",
-                        "description": "In-progress solution for spare parts management with full SAP integration, built to centralize business and operational processes across B2C and B2B channels."
-                    }
-                },
-                {
-                    "name": "Tuatara Commercial Email Automation",
-                    "description": "Intelligent automation built to process incoming messages from Tuatara’s contact form, filter non-commercial inquiries, score opportunities, route them between Tuatara and Petrel based on profile and budget, and generate personalized conversion-oriented responses.",
-                    "link": null,
-                    "tags": [
-                        "n8n",
-                        "Automation",
-                        "Lead scoring",
-                        "AI",
-                        "Email workflows"
-                    ],
-                    "seo": {
-                        "headline": "Intelligent email automation and lead scoring workflow",
-                        "description": "Automated workflow for qualifying and prioritizing commercial leads, segmenting opportunities, and generating personalized AI-assisted responses."
-                    }
-                },
-                {
-                    "name": "Tuatara",
-                    "description": "Corporate WordPress website for a boutique digital transformation agency, focused on marketing, design, software development, and AI-driven services for companies.",
-                    "link": "https://tuatara.co/",
+                    "name": "Autodistribución",
+                    "description": "WordPress website for 3M automotive solutions in Peru, with ACF blocks, an installer locator, and product visualizers.",
+                    "link": "https://autodistribucion.pe/",
                     "tags": [
                         "WordPress",
-                        "Corporate website",
-                        "Digital marketing",
-                        "Development",
-                        "AI"
+                        "ACF",
+                        "PHP",
+                        "JavaScript"
                     ],
+                    "group": "commercial",
                     "seo": {
-                        "headline": "WordPress website for a digital transformation agency",
-                        "description": "Corporate website built on WordPress for Tuatara, focused on marketing, design, software, and digital transformation services for businesses."
+                        "headline": "WordPress website for 3M automotive solutions",
+                        "description": "WordPress website for 3M automotive solutions in Peru, with ACF blocks, an installer locator, and product visualizers."
+                    }
+                },
+                {
+                    "name": "Arkos",
+                    "description": "E-commerce for architectural solutions, with a materials catalog covering facades, cladding, roofing, flooring, and outdoor spaces.",
+                    "link": "https://arkos.com.co/",
+                    "tags": [
+                        "WordPress",
+                        "E-commerce",
+                        "Architecture"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "E-commerce for architectural solutions",
+                        "description": "E-commerce for architectural solutions, with a materials catalog covering facades, cladding, roofing, flooring, and outdoor spaces."
+                    }
+                },
+                {
+                    "name": "Wespe",
+                    "description": "WordPress accommodation platform integrating Stays.net, Mercado Pago payments, and reservation confirmation emails in Spanish and English.",
+                    "link": "https://wespe.co/",
+                    "tags": [
+                        "WordPress",
+                        "PHP",
+                        "Stays.net",
+                        "Mercado Pago"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "Booking platform with Stays.net and Mercado Pago",
+                        "description": "WordPress accommodation platform integrating Stays.net, Mercado Pago payments, and reservation confirmation emails in Spanish and English."
+                    }
+                },
+                {
+                    "name": "Godoy Littler",
+                    "description": "WordPress website for a labor law firm, with ACF blocks, bilingual content, and a contact form in an accessible modal.",
+                    "link": "https://godoylittler.com/",
+                    "tags": [
+                        "WordPress",
+                        "ACF",
+                        "WPML"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "Bilingual legal website with accessible contact",
+                        "description": "WordPress website for a labor law firm, with ACF blocks, bilingual content, and a contact form in an accessible modal."
+                    }
+                },
+                {
+                    "name": "Biofix",
+                    "description": "Niche e-commerce for carbon credits, with conservation projects, certifications, and sustainability content.",
+                    "link": "https://biofix.co/",
+                    "tags": [
+                        "WordPress",
+                        "E-commerce",
+                        "Sustainability"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "Niche e-commerce for carbon credits",
+                        "description": "Niche e-commerce for carbon credits, with conservation projects, certifications, and sustainability content."
+                    }
+                },
+                {
+                    "name": "Grupo Gaviria",
+                    "description": "E-commerce for Funeraria Gaviria, with funeral services, commemorative options, and contact channels for families.",
+                    "link": "https://gaviriafuneraria.com/",
+                    "tags": [
+                        "WordPress",
+                        "E-commerce",
+                        "Services"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "Funeral services e-commerce for Grupo Gaviria",
+                        "description": "E-commerce for Funeraria Gaviria, with funeral services, commemorative options, and contact channels for families."
                     }
                 },
                 {
@@ -192,18 +195,215 @@
                     "seo": {
                         "headline": "WordPress website for a construction product catalog",
                         "description": "WordPress-based web platform for Rooftec, focused on roofing systems, waterproofing, facades, insulation solutions, and commercial lead capture."
+                    },
+                    "group": "commercial"
+                },
+                {
+                    "name": "Tuatara",
+                    "description": "Corporate WordPress website for a boutique digital transformation agency, focused on marketing, design, software development, and AI-driven services for companies.",
+                    "link": "https://tuatara.co/",
+                    "tags": [
+                        "WordPress",
+                        "Corporate website",
+                        "Digital marketing",
+                        "Development",
+                        "AI"
+                    ],
+                    "seo": {
+                        "headline": "WordPress website for a digital transformation agency",
+                        "description": "Corporate website built on WordPress for Tuatara, focused on marketing, design, software, and digital transformation services for businesses."
+                    },
+                    "group": "commercial"
+                },
+                {
+                    "name": "GreenTech Painting",
+                    "description": "Website for a residential and commercial painting company in London, Ontario, with service pages, testimonials, and content about environmentally conscious paints.",
+                    "link": "https://greentechpainting.com/",
+                    "tags": [
+                        "WordPress",
+                        "Services",
+                        "Content"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "Painting services website in Canada",
+                        "description": "Website for a residential and commercial painting company in London, Ontario, with service pages, testimonials, and content about environmentally conscious paints."
                     }
+                },
+                {
+                    "name": "1U Glove",
+                    "description": "I handled the complete development of a web platform to manage U-Glove advertising spaces for advertising on glove dispensers, with map-based search by location and dates and workflows for advertisers and managers.",
+                    "link": null,
+                    "tags": [
+                        "Web application",
+                        "Maps",
+                        "Campaign management"
+                    ],
+                    "group": "systems",
+                    "seo": {
+                        "headline": "Web platform for advertising on glove dispensers",
+                        "description": "Complete development of 1U Glove to manage U-Glove advertising spaces, with map-based search by location and dates and workflows for advertisers and managers."
+                    }
+                },
+                {
+                    "name": "Japonesa de Repuestos",
+                    "description": "B2B and B2C commerce platform in development, with a WordPress frontend and NestJS middleware connected to SAP for catalog, orders, and purchase history.",
+                    "link": null,
+                    "tags": [
+                        "WordPress",
+                        "NestJS",
+                        "SAP",
+                        "PostgreSQL",
+                        "B2B / B2C"
+                    ],
+                    "wip": true,
+                    "seo": {
+                        "headline": "SAP-connected platform for B2B and B2C operations",
+                        "description": "B2B and B2C commerce platform in development, with a WordPress frontend and NestJS middleware connected to SAP for catalog, orders, and purchase history."
+                    },
+                    "group": "systems"
+                },
+                {
+                    "name": "Estéreo Picnic AR",
+                    "description": "I developed the code for the WebAR experience for Estéreo Picnic using MindAR, A-Frame and JavaScript, with image recognition and 3D visualization in the browser, without installing an app.",
+                    "link": "https://tuatara.co/portafolio/diseno/estereo-pinic/",
+                    "tags": [
+                        "WebAR",
+                        "MindAR",
+                        "A-Frame",
+                        "JavaScript"
+                    ],
+                    "group": "systems",
+                    "seo": {
+                        "headline": "WebAR programming for Estéreo Picnic",
+                        "description": "Code development for the Estéreo Picnic WebAR experience with MindAR, A-Frame and JavaScript, with image recognition and browser-based 3D visualization."
+                    }
+                },
+                {
+                    "name": "Ranking Transforma",
+                    "description": "Survey and organizational analytics platform designed to collect strategic data, generate in-depth company-level insights, and build comparative rankings from the collected responses.",
+                    "link": null,
+                    "tags": [
+                        "Surveys",
+                        "Analytics",
+                        "Rankings",
+                        "Dashboards",
+                        "Business assessment"
+                    ],
+                    "seo": {
+                        "headline": "Survey and business ranking platform",
+                        "description": "Platform for managing business surveys, processing in-depth results, and generating comparative rankings with an analytics-driven decision-making approach."
+                    },
+                    "group": "systems"
+                },
+                {
+                    "name": "Minimal POS",
+                    "description": "Point-of-sale system built with Angular and NestJS for sales, products, and kitchen tickets, with order tracking and operational reports.",
+                    "link": null,
+                    "tags": [
+                        "Angular",
+                        "NestJS",
+                        "TypeScript",
+                        "SQLite"
+                    ],
+                    "group": "systems",
+                    "seo": {
+                        "headline": "Point-of-sale and kitchen management system",
+                        "description": "Point-of-sale system built with Angular and NestJS for sales, products, and kitchen tickets, with order tracking and operational reports."
+                    }
+                },
+                {
+                    "name": "Tuatara Commercial Email Automation",
+                    "description": "Intelligent automation built to process incoming messages from Tuatara’s contact form, filter non-commercial inquiries, score opportunities, route them between Tuatara and Petrel based on profile and budget, and generate personalized conversion-oriented responses.",
+                    "link": null,
+                    "tags": [
+                        "n8n",
+                        "Automation",
+                        "Lead scoring",
+                        "AI",
+                        "Email workflows"
+                    ],
+                    "seo": {
+                        "headline": "Intelligent email automation and lead scoring workflow",
+                        "description": "Automated workflow for qualifying and prioritizing commercial leads, segmenting opportunities, and generating personalized AI-assisted responses."
+                    },
+                    "group": "systems"
+                },
+                {
+                    "name": "Eventfeed",
+                    "description": "An events discovery and agenda platform with filters and a map. I joined during the final stage, refined features and supported its first public launch.",
+                    "link": "https://eventfeed.me/",
+                    "tags": [
+                        "Events",
+                        "Feature refinement",
+                        "Launch support"
+                    ],
+                    "group": "systems",
+                    "seo": {
+                        "headline": "Feature refinement and first launch support for Eventfeed",
+                        "description": "Contribution to Eventfeed during its final stage, refining features and supporting its first public launch."
+                    }
+                },
+                {
+                    "name": "Centro de Estudios IJR",
+                    "description": "WordPress editorial development with a custom post type for magazine editions, ACF fields, reusable cards, and a public listing managed through a child theme.",
+                    "link": null,
+                    "tags": [
+                        "WordPress",
+                        "PHP",
+                        "ACF",
+                        "Custom Post Types"
+                    ],
+                    "group": "other",
+                    "seo": {
+                        "headline": "WordPress magazine editorial management",
+                        "description": "WordPress editorial development with a custom post type for magazine editions, ACF fields, reusable cards, and a public listing managed through a child theme."
+                    }
+                },
+                {
+                    "name": "FLIMM",
+                    "description": "Web platform for the official program of Feria del Libro Montes de María 2026, featuring day-based schedules, filters by type and venue, and search for activities and participants.",
+                    "link": "https://flimm.lsarmiento.dev/",
+                    "tags": [
+                        "Astro",
+                        "Tailwind CSS",
+                        "Interactive agenda",
+                        "Filters",
+                        "Search"
+                    ],
+                    "seo": {
+                        "headline": "Web platform for a cultural fair event agenda",
+                        "description": "Official program website for FLIMM 2026, featuring date navigation, dynamic filters, and an optimized experience for browsing cultural activities."
+                    },
+                    "group": "other"
+                },
+                {
+                    "name": "Portfolio",
+                    "description": "Personal portfolio built with Astro and Tailwind CSS, featuring multilingual content and a focused professional profile.",
+                    "link": "https://github.com/LuisSarmientoM/Portfolio",
+                    "tags": [
+                        "Astro",
+                        "Tailwind CSS",
+                        "i18n"
+                    ],
+                    "seo": {
+                        "headline": "Multilingual Astro portfolio project",
+                        "description": "Personal portfolio and resume experience built with Astro, Tailwind CSS and bilingual content architecture."
+                    },
+                    "group": "other"
                 }
             ],
             "skills": {
                 "expertise": [
                     "TypeScript",
                     "Angular",
+                    "NestJS",
+                    "WordPress",
                     "Tailwind CSS",
                     "Node.js",
                     "Accessibility"
                 ],
-                "tooling": ["Figma", "PostgreSQL"],
+                "tooling": ["Figma", "PostgreSQL", "SQLite", "n8n"],
                 "languages": ["English (B1)", "Spanish (Native)"]
             },
             "education": [
@@ -222,7 +422,6 @@
                 "ogImage": "https://lsarmiento.dev/og/portfolio-home.svg"
             },
             "labels": {
-                "available": "Disponible para roles remotos",
                 "portfolio": "Portafolio",
                 "coreSkillsKicker": "Habilidades clave",
                 "coreSkillsTitle": "Construyendo apps web robustas",
@@ -232,7 +431,9 @@
                 "experienceTitle": "Experiencia",
                 "experienceKicker": "Cronología",
                 "projectsTitle": "Proyectos",
-                "projectsKicker": "Destacados",
+                "commercialProjectsTitle": "Sitios corporativos y comerciales",
+                "systemsProjectsTitle": "Aplicaciones y experiencias digitales",
+                "otherProjectsTitle": "Otros proyectos",
                 "projectWipLabel": "En progreso",
                 "skillsTitle": "Habilidades y herramientas",
                 "skillsKicker": "Stacks",
@@ -245,7 +446,7 @@
                 "interestsKicker": "Personal",
                 "contactTitle": "Contacto",
                 "contactKicker": "Hablemos",
-                "contactDescription": "Comparte un mensaje rapido y te respondere pronto.",
+                "contactDescription": "Comparte un mensaje y te responderé pronto.",
                 "contactNameLabel": "Nombre",
                 "contactEmailLabel": "Correo",
                 "contactMessageLabel": "Mensaje",
@@ -253,24 +454,26 @@
                 "contactSubmittingLabel": "Enviando...",
                 "contactSuccessMessage": "Gracias. Tu mensaje fue enviado correctamente.",
                 "contactErrorMessage": "No pude enviar tu mensaje en este momento. Intenta de nuevo.",
-                "contactDisabledMessage": "El formulario de contacto no esta disponible temporalmente.",
+                "contactDisabledMessage": "El formulario de contacto no está disponible temporalmente.",
                 "contactValidationRequired": "Completa todos los campos obligatorios.",
-                "contactValidationEmail": "Ingresa un correo valido."
+                "contactValidationEmail": "Ingresa un correo válido."
             },
             "profile": {
                 "name": "Luis Felipe Sarmiento Muñoz",
                 "title": "Senior JavaScript Developer",
-                "location": "Remoto / Colombia",
-                "summary": "Desarrollador JavaScript/TypeScript con experiencia construyendo aplicaciones en Angular 10+ y NestJS. Apasionado por la arquitectura limpia, el rendimiento y las buenas prácticas modernas.",
+                "location": "Medellín, Colombia",
+                "summary": "Desarrollo aplicaciones web con Angular y NestJS, sitios WordPress a medida e integraciones con sistemas empresariales y plataformas de pago. Mi trabajo combina desarrollo frontend, servicios backend y automatización de procesos.",
                 "links": [
-                    { "label": "Email", "href": "mailto:hello@lsarmiento.dev" },
+                    { "label": "Email", "href": "mailto:hello@lsarmiento.dev", "icon": "email" },
                     {
                         "label": "GitHub",
-                        "href": "https://github.com/LuisSarmientoM"
+                        "href": "https://github.com/LuisSarmientoM",
+                        "icon": "github"
                     },
                     {
                         "label": "LinkedIn",
-                        "href": "https://www.linkedin.com/in/luissarmientomunoz/"
+                        "href": "https://www.linkedin.com/in/luissarmientomunoz/",
+                        "icon": "linkedin"
                     }
                 ]
             },
@@ -298,95 +501,95 @@
             ],
             "projects": [
                 {
-                    "name": "Portfolio",
-                    "description": "Portafolio personal construido con Astro y Tailwind CSS, con contenido multilenguaje y un perfil profesional enfocado.",
-                    "link": "https://github.com/LuisSarmientoM/Portfolio",
-                    "tags": ["Astro", "Tailwind CSS", "i18n"],
-                    "seo": {
-                        "headline": "Proyecto de portafolio multilenguaje en Astro",
-                        "description": "Portafolio personal y hoja de vida construidos con Astro, Tailwind CSS y una arquitectura de contenido bilingue."
-                    }
-                },
-
-                {
-                    "name": "FLIMM",
-                    "description": "Plataforma web para la programación oficial de la Feria del Libro Montes de María 2026, con agenda por días, filtros por tipo y lugar, y búsqueda de actividades y participantes.",
-                    "link": "https://flimm.lsarmiento.dev/",
-                    "tags": [
-                        "Astro",
-                        "Tailwind CSS",
-                        "Agenda interactiva",
-                        "Filtros",
-                        "Búsqueda"
-                    ],
-                    "seo": {
-                        "headline": "Plataforma web para feria cultural y agenda de eventos",
-                        "description": "Sitio oficial de programación para FLIMM 2026, con navegación por fechas, filtros dinámicos y experiencia optimizada para consultar actividades culturales."
-                    }
-                },
-                {
-                    "name": "Ranking Transforma",
-                    "description": "Plataforma de encuestas y analítica organizacional orientada a recopilar información estratégica, generar resultados profundos por empresa y construir rankings comparativos a partir de los datos recolectados.",
-                    "link": null,
-                    "tags": [
-                        "Encuestas",
-                        "Analítica",
-                        "Rankings",
-                        "Dashboards",
-                        "Evaluación empresarial"
-                    ],
-                    "seo": {
-                        "headline": "Plataforma de encuestas y rankings empresariales",
-                        "description": "Sistema para gestionar encuestas empresariales, procesar resultados profundos y construir rankings comparativos con enfoque analítico y de toma de decisiones."
-                    }
-                },
-                {
-                    "name": "Japonesa de Repuestos",
-                    "description": "Plataforma en desarrollo para Japonesa de Repuestos, diseñada con integración total a SAP y flujos unificados para operación B2C y B2B.",
-                    "link": null,
-                    "tags": [
-                        "SAP",
-                        "B2B",
-                        "B2C",
-                        "Integración empresarial",
-                        "E-commerce"
-                    ],
-                    "wip": true,
-                    "seo": {
-                        "headline": "Plataforma conectada a SAP para operación B2B y B2C",
-                        "description": "Solución en desarrollo para gestión de repuestos con integración completa a SAP, pensada para centralizar procesos comerciales y operativos en canales B2C y B2B."
-                    }
-                },
-                {
-                    "name": "Automatización Correos Comerciales Tuatara",
-                    "description": "Automatización inteligente para procesar los correos entrantes del formulario de contacto de Tuatara, filtrar mensajes no comerciales, calificar oportunidades, segmentarlas entre Tuatara y Petrel según perfil y presupuesto, y generar respuestas personalizadas orientadas a conversión.",
-                    "link": null,
-                    "tags": [
-                        "n8n",
-                        "Automatización",
-                        "Lead scoring",
-                        "IA",
-                        "Email workflows"
-                    ],
-                    "seo": {
-                        "headline": "Automatización inteligente de correos y lead scoring",
-                        "description": "Flujo automatizado para clasificar y priorizar leads comerciales, segmentar oportunidades y responder de forma personalizada con apoyo de IA."
-                    }
-                },
-                {
-                    "name": "Tuatara",
-                    "description": "Sitio corporativo en WordPress para una agencia boutique de transformación digital, con enfoque en marketing, diseño, desarrollo de software e iniciativas de IA para empresas.",
-                    "link": "https://tuatara.co/",
+                    "name": "Autodistribución",
+                    "description": "Sitio WordPress para soluciones automotrices 3M en Perú, con bloques ACF, localizador de instaladores y visualizadores de productos.",
+                    "link": "https://autodistribucion.pe/",
                     "tags": [
                         "WordPress",
-                        "Sitio corporativo",
-                        "Marketing digital",
-                        "Desarrollo",
-                        "IA"
+                        "ACF",
+                        "PHP",
+                        "JavaScript"
                     ],
+                    "group": "commercial",
                     "seo": {
-                        "headline": "Sitio WordPress para agencia de transformación digital",
-                        "description": "Web corporativa desarrollada en WordPress para Tuatara, enfocada en servicios de marketing, diseño, software y transformación digital para empresas."
+                        "headline": "Sitio WordPress para soluciones automotrices 3M",
+                        "description": "Sitio WordPress para soluciones automotrices 3M en Perú, con bloques ACF, localizador de instaladores y visualizadores de productos."
+                    }
+                },
+                {
+                    "name": "Arkos",
+                    "description": "E-commerce de soluciones arquitectónicas con catálogo de materiales para fachadas, revestimientos, cubiertas, pisos y espacios exteriores.",
+                    "link": "https://arkos.com.co/",
+                    "tags": [
+                        "WordPress",
+                        "E-commerce",
+                        "Arquitectura"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "E-commerce de soluciones arquitectónicas",
+                        "description": "E-commerce de soluciones arquitectónicas con catálogo de materiales para fachadas, revestimientos, cubiertas, pisos y espacios exteriores."
+                    }
+                },
+                {
+                    "name": "Wespe",
+                    "description": "Plataforma de alojamientos en WordPress con integración a Stays.net, pagos con Mercado Pago y correos de confirmación de reservas en español e inglés.",
+                    "link": "https://wespe.co/",
+                    "tags": [
+                        "WordPress",
+                        "PHP",
+                        "Stays.net",
+                        "Mercado Pago"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "Plataforma de reservas con Stays.net y Mercado Pago",
+                        "description": "Plataforma de alojamientos en WordPress con integración a Stays.net, pagos con Mercado Pago y correos de confirmación de reservas en español e inglés."
+                    }
+                },
+                {
+                    "name": "Godoy Littler",
+                    "description": "Sitio WordPress para una firma de derecho laboral, con bloques ACF, contenido bilingüe y un formulario de contacto en un modal accesible.",
+                    "link": "https://godoylittler.com/",
+                    "tags": [
+                        "WordPress",
+                        "ACF",
+                        "WPML"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "Sitio jurídico bilingüe con contacto accesible",
+                        "description": "Sitio WordPress para una firma de derecho laboral, con bloques ACF, contenido bilingüe y un formulario de contacto en un modal accesible."
+                    }
+                },
+                {
+                    "name": "Biofix",
+                    "description": "E-commerce de nicho de créditos de carbono, con proyectos de conservación, certificaciones y contenidos sobre sostenibilidad.",
+                    "link": "https://biofix.co/",
+                    "tags": [
+                        "WordPress",
+                        "E-commerce",
+                        "Sostenibilidad"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "E-commerce de nicho de créditos de carbono",
+                        "description": "E-commerce de nicho de créditos de carbono, con proyectos de conservación, certificaciones y contenidos sobre sostenibilidad."
+                    }
+                },
+                {
+                    "name": "Grupo Gaviria",
+                    "description": "E-commerce de Funeraria Gaviria, con servicios funerarios, opciones conmemorativas y canales de contacto para familias.",
+                    "link": "https://gaviriafuneraria.com/",
+                    "tags": [
+                        "WordPress",
+                        "E-commerce",
+                        "Servicios"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "E-commerce de servicios funerarios para Grupo Gaviria",
+                        "description": "E-commerce de Funeraria Gaviria, con servicios funerarios, opciones conmemorativas y canales de contacto para familias."
                     }
                 },
                 {
@@ -403,18 +606,215 @@
                     "seo": {
                         "headline": "Sitio WordPress para catálogo comercial de construcción",
                         "description": "Plataforma web desarrollada en WordPress para Rooftec, con foco en soluciones para techos, impermeabilización, fachadas, aislamientos y captación comercial."
+                    },
+                    "group": "commercial"
+                },
+                {
+                    "name": "Tuatara",
+                    "description": "Sitio corporativo en WordPress para una agencia boutique de transformación digital, con enfoque en marketing, diseño, desarrollo de software e iniciativas de IA para empresas.",
+                    "link": "https://tuatara.co/",
+                    "tags": [
+                        "WordPress",
+                        "Sitio corporativo",
+                        "Marketing digital",
+                        "Desarrollo",
+                        "IA"
+                    ],
+                    "seo": {
+                        "headline": "Sitio WordPress para agencia de transformación digital",
+                        "description": "Web corporativa desarrollada en WordPress para Tuatara, enfocada en servicios de marketing, diseño, software y transformación digital para empresas."
+                    },
+                    "group": "commercial"
+                },
+                {
+                    "name": "GreenTech Painting",
+                    "description": "Sitio web para una empresa de pintura residencial y comercial en London, Ontario, con páginas de servicios, testimonios y contenidos sobre pinturas de bajo impacto ambiental.",
+                    "link": "https://greentechpainting.com/",
+                    "tags": [
+                        "WordPress",
+                        "Servicios",
+                        "Contenido"
+                    ],
+                    "group": "commercial",
+                    "seo": {
+                        "headline": "Sitio web de servicios de pintura en Canadá",
+                        "description": "Sitio web para una empresa de pintura residencial y comercial en London, Ontario, con páginas de servicios, testimonios y contenidos sobre pinturas de bajo impacto ambiental."
                     }
+                },
+                {
+                    "name": "1U Glove",
+                    "description": "Realicé el desarrollo completo de una plataforma web para gestionar los espacios publicitarios de U-Glove para publicidad en dispensadores de guantes, con búsqueda por mapa, ubicación y fechas, y flujos para anunciantes y gestores.",
+                    "link": null,
+                    "tags": [
+                        "Aplicación web",
+                        "Mapas",
+                        "Gestión de campañas"
+                    ],
+                    "group": "systems",
+                    "seo": {
+                        "headline": "Plataforma web de publicidad en dispensadores de guantes",
+                        "description": "Desarrollo completo de 1U Glove para gestionar los espacios publicitarios de U-Glove, con búsqueda por mapa, ubicación y fechas, y flujos para anunciantes y gestores."
+                    }
+                },
+                {
+                    "name": "Japonesa de Repuestos",
+                    "description": "Plataforma de comercio B2B y B2C en desarrollo, con frontend WordPress y middleware NestJS conectado a SAP para catálogo, pedidos e historial de compras.",
+                    "link": null,
+                    "tags": [
+                        "WordPress",
+                        "NestJS",
+                        "SAP",
+                        "PostgreSQL",
+                        "B2B / B2C"
+                    ],
+                    "wip": true,
+                    "seo": {
+                        "headline": "Plataforma conectada a SAP para operación B2B y B2C",
+                        "description": "Plataforma de comercio B2B y B2C en desarrollo, con frontend WordPress y middleware NestJS conectado a SAP para catálogo, pedidos e historial de compras."
+                    },
+                    "group": "systems"
+                },
+                {
+                    "name": "Estéreo Picnic AR",
+                    "description": "Desarrollé el código de la experiencia WebAR de Estéreo Picnic con MindAR, A-Frame y JavaScript, con reconocimiento de imágenes y visualización 3D en el navegador, sin instalar una app.",
+                    "link": "https://tuatara.co/portafolio/diseno/estereo-pinic/",
+                    "tags": [
+                        "WebAR",
+                        "MindAR",
+                        "A-Frame",
+                        "JavaScript"
+                    ],
+                    "group": "systems",
+                    "seo": {
+                        "headline": "Programación WebAR para Estéreo Picnic",
+                        "description": "Desarrollo del código de la experiencia WebAR de Estéreo Picnic con MindAR, A-Frame y JavaScript, con reconocimiento de imágenes y visualización 3D en el navegador."
+                    }
+                },
+                {
+                    "name": "Ranking Transforma",
+                    "description": "Plataforma de encuestas y analítica organizacional orientada a recopilar información estratégica, generar resultados profundos por empresa y construir rankings comparativos a partir de los datos recolectados.",
+                    "link": null,
+                    "tags": [
+                        "Encuestas",
+                        "Analítica",
+                        "Rankings",
+                        "Dashboards",
+                        "Evaluación empresarial"
+                    ],
+                    "seo": {
+                        "headline": "Plataforma de encuestas y rankings empresariales",
+                        "description": "Sistema para gestionar encuestas empresariales, procesar resultados profundos y construir rankings comparativos con enfoque analítico y de toma de decisiones."
+                    },
+                    "group": "systems"
+                },
+                {
+                    "name": "Minimal POS",
+                    "description": "Sistema de punto de venta con Angular y NestJS para gestionar ventas, productos y comandas de cocina, con seguimiento de pedidos y reportes operativos.",
+                    "link": null,
+                    "tags": [
+                        "Angular",
+                        "NestJS",
+                        "TypeScript",
+                        "SQLite"
+                    ],
+                    "group": "systems",
+                    "seo": {
+                        "headline": "Sistema de punto de venta y gestión de cocina",
+                        "description": "Sistema de punto de venta con Angular y NestJS para gestionar ventas, productos y comandas de cocina, con seguimiento de pedidos y reportes operativos."
+                    }
+                },
+                {
+                    "name": "Automatización Correos Comerciales Tuatara",
+                    "description": "Automatización inteligente para procesar los correos entrantes del formulario de contacto de Tuatara, filtrar mensajes no comerciales, calificar oportunidades, segmentarlas entre Tuatara y Petrel según perfil y presupuesto, y generar respuestas personalizadas orientadas a conversión.",
+                    "link": null,
+                    "tags": [
+                        "n8n",
+                        "Automatización",
+                        "Lead scoring",
+                        "IA",
+                        "Email workflows"
+                    ],
+                    "seo": {
+                        "headline": "Automatización inteligente de correos y lead scoring",
+                        "description": "Flujo automatizado para clasificar y priorizar leads comerciales, segmentar oportunidades y responder de forma personalizada con apoyo de IA."
+                    },
+                    "group": "systems"
+                },
+                {
+                    "name": "Eventfeed",
+                    "description": "Plataforma de descubrimiento de eventos y agenda con filtros y mapa. Me incorporé en la etapa final, ajusté funcionalidades y brindé soporte para su primer lanzamiento público.",
+                    "link": "https://eventfeed.me/",
+                    "tags": [
+                        "Eventos",
+                        "Ajustes funcionales",
+                        "Soporte al lanzamiento"
+                    ],
+                    "group": "systems",
+                    "seo": {
+                        "headline": "Ajustes funcionales y soporte al primer lanzamiento de Eventfeed",
+                        "description": "Colaboración en Eventfeed durante su etapa final, con ajustes funcionales y soporte para su primer lanzamiento público."
+                    }
+                },
+                {
+                    "name": "Centro de Estudios IJR",
+                    "description": "Desarrollo editorial en WordPress con un tipo de contenido para ediciones de revista, campos ACF, tarjetas reutilizables y un listado público administrable desde el tema hijo.",
+                    "link": null,
+                    "tags": [
+                        "WordPress",
+                        "PHP",
+                        "ACF",
+                        "Custom Post Types"
+                    ],
+                    "group": "other",
+                    "seo": {
+                        "headline": "Gestión editorial de revistas en WordPress",
+                        "description": "Desarrollo editorial en WordPress con un tipo de contenido para ediciones de revista, campos ACF, tarjetas reutilizables y un listado público administrable desde el tema hijo."
+                    }
+                },
+                {
+                    "name": "FLIMM",
+                    "description": "Plataforma web para la programación oficial de la Feria del Libro Montes de María 2026, con agenda por días, filtros por tipo y lugar, y búsqueda de actividades y participantes.",
+                    "link": "https://flimm.lsarmiento.dev/",
+                    "tags": [
+                        "Astro",
+                        "Tailwind CSS",
+                        "Agenda interactiva",
+                        "Filtros",
+                        "Búsqueda"
+                    ],
+                    "seo": {
+                        "headline": "Plataforma web para feria cultural y agenda de eventos",
+                        "description": "Sitio oficial de programación para FLIMM 2026, con navegación por fechas, filtros dinámicos y experiencia optimizada para consultar actividades culturales."
+                    },
+                    "group": "other"
+                },
+                {
+                    "name": "Portfolio",
+                    "description": "Portafolio personal construido con Astro y Tailwind CSS, con contenido multilenguaje y un perfil profesional enfocado.",
+                    "link": "https://github.com/LuisSarmientoM/Portfolio",
+                    "tags": [
+                        "Astro",
+                        "Tailwind CSS",
+                        "i18n"
+                    ],
+                    "seo": {
+                        "headline": "Proyecto de portafolio multilenguaje en Astro",
+                        "description": "Portafolio personal y hoja de vida construidos con Astro, Tailwind CSS y una arquitectura de contenido bilingüe."
+                    },
+                    "group": "other"
                 }
             ],
             "skills": {
                 "expertise": [
                     "TypeScript",
                     "Angular",
+                    "NestJS",
+                    "WordPress",
                     "Tailwind CSS",
                     "Node.js",
                     "Accesibilidad"
                 ],
-                "tooling": ["Figma", "PostgreSQL"],
+                "tooling": ["Figma", "PostgreSQL", "SQLite", "n8n"],
                 "languages": ["Inglés (B1)", "Español (Nativo)"]
             },
             "education": [

@@ -1,0 +1,63 @@
+---
+import Tag from "./Tag.astro";
+
+interface Props {
+    project: {
+        name: string;
+        description: string;
+        link: string | null;
+        tags: string[];
+        wip?: boolean;
+    };
+    wipLabel: string;
+}
+
+const { project, wipLabel } = Astro.props;
+const Card = project.link ? "a" : "article";
+const linkAttributes = project.link
+    ? { href: project.link, target: "_blank", rel: "noreferrer" }
+    : {};
+---
+
+<Card
+    {...linkAttributes}
+    class:list={[
+        "block h-full rounded-2xl bg-surface/60 p-4 ring-1 ring-inset ring-stroke/20",
+        project.link && "group transition hover:-translate-y-1 hover:bg-surface-strong/80 hover:ring-accent/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent",
+    ]}
+>
+    <div class="flex items-start justify-between gap-3">
+        <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-2">
+                <h4 class="text-base font-semibold text-primary">{project.name}</h4>
+                {project.wip ? (
+                    <span class="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary">
+                        {wipLabel}
+                    </span>
+                ) : null}
+            </div>
+            <p class="mt-1 text-sm leading-relaxed text-secondary/90">
+                {project.description}
+            </p>
+        </div>
+        {project.link ? (
+            <svg
+                class="mt-1 h-5 w-5 shrink-0 text-accent group-hover:text-secondary"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
+            >
+                <path d="M7 17 17 7" />
+                <path d="M7 7h10v10" />
+            </svg>
+        ) : null}
+    </div>
+    <div class="mt-3 flex flex-wrap gap-2">
+        {project.tags.map((tag: string) => <Tag label={tag} />)}
+    </div>
+</Card>
